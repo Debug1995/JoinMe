@@ -18,8 +18,9 @@ class SqlController(object):
             cls.instance = super().__new__(cls)
         return cls.instance
  
-    def __init__(self, user, password):
+    def __init__(self, user, password, database):
         self.sql_connector = mysql.connector.connect(
             user = user,
-            password = password
+            password = password,
+            database = database,
         )
