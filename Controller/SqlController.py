@@ -1,4 +1,5 @@
 import threading
+import mysql.connector
 
 def synchronized(func):
     func.__lock__ = threading.Lock()
