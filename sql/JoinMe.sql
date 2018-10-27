@@ -26,12 +26,11 @@ CREATE TABLE `Event` (
   `EventID` int(11) NOT NULL,
   `Title` varchar(50) DEFAULT NULL,
   `Tags` varchar(50) DEFAULT NULL,
-  `EventData` varchar(50) DEFAULT NULL,
+  `EventDate` date DEFAULT NULL,
   `Description` varchar(300) DEFAULT NULL,
   `Image` varchar(100) DEFAULT NULL,
   `Location` varchar(50) DEFAULT NULL,
-  `Eventcol` varchar(45) DEFAULT NULL,
-  `ExpireTime` varchar(50) DEFAULT NULL,
+  `ExpireTime` date DEFAULT NULL,
   PRIMARY KEY (`EventID`),
   UNIQUE KEY `EventID_UNIQUE` (`EventID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -139,4 +138,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-26 15:48:14
+-- Dump completed on 2018-10-27 17:53:06
