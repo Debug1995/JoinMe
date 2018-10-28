@@ -1,4 +1,5 @@
 from SqlController import *
+import mysql
 import datetime
 class Events:
     def __init__(self, data):
@@ -31,13 +32,21 @@ class Events:
               "(%s, %s, %s, %s, %s, %s,%s)"
         val = (str(self.title), str(self.tags), str(self.event_date),
                str(self.description),str(self.image),str(self.location),str(self.expire_date))
-        self.mycursor.execute(sql, val)
-        self.mydb.commit()
-        self.mycursor.execute("SELECT @@identity")
-        for x in self.mycursor:
-            EventID = x[0]
-        return EventID
-
+        try:
+            self.mycursor.execute(sql, val)
+            self.mydb.commit()
+        except mysql.connector.errors.IntegrityError as err:
+            return err.msg
+        finally:
+            self.mydb.rollback()
+            return None
+        try:
+            self.mycursor.execute("SELECT @@identity")
+            for x in self.mycursor:
+                EventID = x[0]
+            return EventID
+        finally:
+            return None
 
     def edit(self, edit_data):
         edit_datalist = edit_data.strip().split('***')
@@ -56,8 +65,16 @@ class Events:
               "WHERE EventID = %s"
         val = (title, tags, event_date, description, image,
                location, expire_date, EventID)
-        self.mycursor.execute(sql, val)
-        self.mydb.commit()
+        try:
+            self.mycursor.execute(sql, val)
+            self.mydb.commit()
+            if self.mycursor.rowcount == 0:
+                return 'Record Not Found'
+            else:
+                return 'Success'
+        finally:
+            self.mydb.rollback()
+            return 'Connection Failure'
 
     def expire(self):
         today = datetime.date.today()
@@ -80,9 +97,9 @@ class Events:
 
 
 data = '35***this is title***tag13 tag2 tag3***this is description***this is image url***2018-08-27***this is location***7'
-editdata = '36***this is title***tag13 tag2 tag3***this is description***this is image url***2222-08-27***this is location***7'
+editdata = '36***this is title***tag13 tag2 tag3***this is description***this is image url***2232-08-27***this is location***7'
 userID = 14
-
-#event.expire()
+event = Events(data)
+event.edit(editdata)
 
 
