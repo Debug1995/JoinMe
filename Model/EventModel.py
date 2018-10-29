@@ -1,8 +1,9 @@
 from Controller.EventController import *
+from Constants.Constants import Tags
 
 
 class EventModel:
-    def __init__(self, eid, title, tags, description, image, hosts, attendees, event_date, location, register_period):
+    def __init__(self, eid, title, tags: [Tags], description, image, hosts: [str], event_date: [str], location, register_period):
         self.eid = eid
         self.title = title
         self.tags = tags

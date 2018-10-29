@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ConnectConstants:
     USER = "admin"
     PASSWORD = "joinme4156"
@@ -16,3 +17,15 @@ class UserFields(Enum):
     location = 6
     tags = 7
     description = 8
+
+
+class Tags(Enum):
+    sports = 1
+    social = 2
+    outdoors = 3
+    indoors = 4
+    sightseeing = 5
+    exhibitions = 6
+    entertaining = 7
+    charity = 8
+    business = 9

@@ -146,3 +146,6 @@ def host_event(user: UserModel, event: EventModel):
     finally:
         connector.rollback()
         return 'Connection Failure'
+
+def get_event(user: UserModel, event: EventModel):
+
