@@ -26,9 +26,15 @@ def searchUser():
 def update():
     return 
 
+def groupEmail():
+    return
+
+def inviteFriend():
+    return
+
 window = Tk()
 window.title('JoinMe')
-window.geometry('1000x600')
+window.geometry('1000x650')
 title = Label(window,text='JoinMe',)
 title.config(font='Helvetica -20 bold',fg='black')
 title.place(x=375,y=20,anchor="center")
@@ -138,6 +144,20 @@ userEmail_input.place(x=260,y=550)
 
 search_button = Button(window, text="Search User", command=searchUser)
 search_button.place(x=90,y=550)
+
+# ------------------------------------------- Email -------------------------------------------
+
+group_email_button = Button(window, text="Group Email", command=groupEmail)
+group_email_button.place(x=90,y=580)
+
+invite_friend_button = Button(window, text="Invite Friend", command=inviteFriend)
+invite_friend_button.place(x=180,y=580)
+
+User_Nickname = Label(window, text = 'User Nickname:')
+User_Nickname.place(x=270,y=580)
+nickname_input = Entry(window, relief = 'ridge', width = 10)
+nickname_input.place(x=380,y=580)
+
 
 # ------------------------------------------- Output -------------------------------------------
 
