@@ -100,13 +100,19 @@ def update_profile():
     return
 
 
-def search_user():
+def login():
     global current_user
-    email = user_email_input.get()
-    current_user = UserController.retrieve_user(UserFields.email.name, email)
-    print(str(current_user))
-    add_output("You logged in with email " + email + ". \n")
     current_user = None
+    email = user_email_input.get()
+    result = UserController.retrieve_user(UserFields.email.name, email)
+    if result == Errors.MISSING.name:
+        add_output("No user with such credential exists. \n")
+    elif result == Errors.FAILURE.name:
+        add_output("Failed to login. Please try again. \n")
+    else:
+        add_output("You logged in with email " + email + ". \n")
+        current_user = result
+    print(current_user)
     return
 
 
@@ -246,7 +252,7 @@ updateProfile_button.place(x=155, y=525)
 user_email_input = Entry(window, relief='ridge', width=30)
 user_email_input.place(x=200, y=555)
 
-search_button = Button(window, text="Login with Email", command=search_user)
+search_button = Button(window, text="Login with Email", command=login)
 search_button.place(x=90, y=550)
 
 logout_button = Button(window, text="Logout", command=log_out)
