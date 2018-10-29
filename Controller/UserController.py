@@ -39,26 +39,29 @@ def add_user(user: UserModel):
 
 @user_controller.route("/Controller")
 def edit_user(user: UserModel):
+    handled = False
     connector = SqlController().sql_connector
     cursor = connector.cursor()
 
     sql = "UPDATE user " \
           "SET realname = %s, nickname = %s, gender = %s, location = %s, " \
           "email = %s, tags = %s, selfdescription = %s " \
-          "WHERE email = %s"
+          "WHERE userid = %s"
 
     val = (user.name, user.nickname, user.gender, user.location, user.email,
-           user.tags, user.description, user.email)
+           user.tags, user.description, user.uid)
     try:
         cursor.execute(sql, val)
         connector.commit()
+        handled = True
         if cursor.rowcount == 0:
             return Errors.MISSING.name
         else:
-            return Errors.SUCCESS.name
+            return user.uid
     finally:
         connector.rollback()
-        return Errors.FAILURE.name
+        if not handled:
+            return Errors.FAILURE.name
 
 
 @user_controller.route("/Controller")

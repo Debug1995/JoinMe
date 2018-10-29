@@ -97,6 +97,35 @@ def register():
 
 def update_profile():
     global current_user
+    user_id = current_user.uid
+    current_user = read_user()
+    current_user.uid = user_id
+
+    result = UserController.edit_user(current_user)
+    print(result)
+    if result == Errors.DUPLICATE.name:
+        add_output("A user with the same credentials already exists! \n")
+        current_user = None
+    elif result == Errors.FAILURE.name:
+        return_failure()
+        current_user = None
+    else:
+        add_output("User registered JoinMe with email " + current_user.email + ". \n")
+        current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
+    print(current_user)
+    return
+    result = UserController.add_user(current_user)
+    print(result)
+    if result == Errors.DUPLICATE.name:
+        add_output("A user with the same credentials already exists! \n")
+        current_user = None
+    elif result == Errors.FAILURE.name:
+        return_failure()
+        current_user = None
+    else:
+        add_output("User registered JoinMe with email " + current_user.email + ". \n")
+        current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
+    print(current_user)
     return
 
 

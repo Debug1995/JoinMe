@@ -30,6 +30,7 @@ class Tags(Enum):
     charity = 8
     business = 9
 
+
 class Errors(Enum):
     SUCCESS = 1
     FAILURE = 2
