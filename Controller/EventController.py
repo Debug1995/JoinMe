@@ -1,25 +1,17 @@
 from Controller.SqlController import *
 from Model.EventModel import EventModel
 from Model.UserModel import UserModel
+from Constants.Constants import Errors
 import datetime
-
-
-def calculate_date(initial_date, register_period):
-    cur_date = [int(x) for x in initial_date.strip().split('-')]
-    d1 = datetime.date(cur_date[0], cur_date[1], cur_date[2])
-    d = d1 + datetime.timedelta(days=int(register_period))
-    year = str(d.year)
-    month = str(d.month).zfill(2)
-    date = str(d.day).zfill(2)
-    return year + '-' + month + '-' + date
 
 
 def post_event(user: UserModel, event: EventModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
+    handled = False
 
     sql = "INSERT INTO event " \
-          "(Title, Tags, eventdate, description, image, location, expiretime) " \
+          "(title, tags, eventdate, description, image, location, expiretime) " \
           "VALUES " \
           "(%s, %s, %s, %s, %s, %s,%s)"
     val = (event.title, event.tags, event.event_date,
@@ -28,7 +20,8 @@ def post_event(user: UserModel, event: EventModel):
         cursor.execute(sql, val)
         connector.commit()
     except mysql.connector.errors.IntegrityError as err:
-        return err.msg
+        print(err.msg)
+        handled = True
 
     cursor.execute("SELECT @@identity")
     for x in cursor:
@@ -43,10 +36,14 @@ def post_event(user: UserModel, event: EventModel):
         connector.commit()
         return event_id
     except mysql.connector.errors.IntegrityError as err:
-        return err.msg
+        print(err.msg)
+        handled = True
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        if not handled:
+            return Errors.FAILURE.name
+        else:
+            return Errors.DUPLICATE.name
 
 
 def edit_event(event: EventModel):
@@ -63,12 +60,12 @@ def edit_event(event: EventModel):
         cursor.execute(sql, val)
         connector.commit()
         if cursor.rowcount == 0:
-            return 'Record Not Found'
+            return Errors.MISSING.name
         else:
-            return 'Success'
+            return Errors.SUCCESS.name
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        return Errors.FAILURE.name
 
 
 def expire():
@@ -88,7 +85,7 @@ def expire():
         return cursor.rowcount
     finally:
         connector.rollback()
-        return "Connection Failure"
+        return Errors.FAILURE.name
 
 
 def remove_user(user: UserModel, event: EventModel):
@@ -103,12 +100,13 @@ def remove_user(user: UserModel, event: EventModel):
         return cursor.rowcount
     finally:
         connector.rollback()
-        return "Connection Failure"
+        return Errors.FAILURE.name
 
 
 def join_event(user: UserModel, event: EventModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
+    handled = False
 
     sql = "INSERT INTO joins (joinid, eventid)" \
           "VALUES(%s, %s)"
@@ -121,15 +119,20 @@ def join_event(user: UserModel, event: EventModel):
         user.join_events.append(event.eid)
         return user.uid, event.eid
     except mysql.connector.errors.IntegrityError as err:
-        return err.msg
+        print(err.msg)
+        handled = True
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        if not handled:
+            return Errors.FAILURE.name
+        else:
+            return Errors.DUPLICATE.name
 
 
 def host_event(user: UserModel, event: EventModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
+    handled = False
 
     sql = "INSERT INTO host (hostid, eventid)" \
           "VALUES(%s, %s)"
@@ -142,10 +145,61 @@ def host_event(user: UserModel, event: EventModel):
         user.host_events.append(event.eid)
         return user.uid, event.eid
     except mysql.connector.errors.IntegrityError as err:
-        return err.msg
+        print(err.msg)
+        handled = True
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        if not handled:
+            return Errors.FAILURE.name
+        else:
+            return Errors.DUPLICATE.name
 
-def get_event(user: UserModel, event: EventModel):
 
+def get_hosted_event(user: UserModel):
+    events = []
+    connector = SqlController().sql_connector
+    cursor = connector.cursor()
+    sql = "SELECT eventid " \
+          "FROM host "\
+          "WHERE hostid = %s"
+    val = [user.uid]
+
+    try:
+        cursor.execute(sql, val)
+        event_list = cursor.fetchone()
+        if not event_list:
+            return events
+        for result in event_list:
+            events.append(result[0])
+        return events
+    except mysql.connector.errors as err:
+        print(err.msg)
+        return Errors.FAILURE.name
+    finally:
+        connector.rollback()
+        return Errors.FAILURE.name
+
+
+def get_hosted_event(user: UserModel):
+    events = []
+    connector = SqlController().sql_connector
+    cursor = connector.cursor()
+    sql = "SELECT eventid " \
+          "FROM joins "\
+          "WHERE joinid = %s"
+    val = [user.uid]
+
+    try:
+        cursor.execute(sql, val)
+        event_list = cursor.fetchone()
+        if not event_list:
+            return events
+        for result in event_list:
+            events.append(result[0])
+        return events
+    except mysql.connector.errors as err:
+        print(err.msg)
+        return Errors.FAILURE.name
+    finally:
+        connector.rollback()
+        return Errors.FAILURE.name

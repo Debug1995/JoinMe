@@ -29,3 +29,9 @@ class Tags(Enum):
     entertaining = 7
     charity = 8
     business = 9
+
+class Errors(Enum):
+    SUCCESS = 1
+    FAILURE = 2
+    DUPLICATE = 3
+    MISSING = 4

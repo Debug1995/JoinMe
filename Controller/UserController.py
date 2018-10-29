@@ -2,6 +2,7 @@ import mysql.connector
 from flask import Blueprint
 from Model.UserModel import UserModel
 from Controller.SqlController import SqlController
+from Constants.Constants import Errors
 
 
 user_controller = Blueprint('user_controller', __name__)
@@ -11,6 +12,7 @@ user_controller = Blueprint('user_controller', __name__)
 def add_user(user: UserModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
+    handled = False
 
     sql = "INSERT INTO user " \
           "(realname, nickname, gender, location, email, tags, selfdescription) " \
@@ -21,12 +23,18 @@ def add_user(user: UserModel):
     try:
         cursor.execute(sql, val)
         connector.commit()
+        handled = True
         return 'Success'
     except mysql.connector.errors.IntegrityError as err:
-        return err.msg
+        print(err.msg)
+        if not handled:
+            handled = True
+            return Errors.DUPLICATE.name
+
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        if not handled:
+            return Errors.FAILURE.name
 
 
 @user_controller.route("/Controller")
@@ -45,16 +53,17 @@ def edit_user(user: UserModel):
         cursor.execute(sql, val)
         connector.commit()
         if cursor.rowcount == 0:
-            return 'Record Not Found'
+            return Errors.MISSING.name
         else:
-            return 'Success'
+            return Errors.SUCCESS.name
     finally:
         connector.rollback()
-        return 'Connection Failure'
+        return Errors.FAILURE.name
 
 
 @user_controller.route("/Controller")
 def retrieve_user(field: str, value: str):
+    handled = False
     connector = SqlController().sql_connector
     cursor = connector.cursor()
 
@@ -67,11 +76,13 @@ def retrieve_user(field: str, value: str):
         cursor.execute(sql, val)
         user_info = cursor.fetchone()
         if not user_info:
-            return 'Record Not Found'
+            return Errors.MISSING.name
+        handled = True
         return str(user_info)
     except mysql.connector.errors as err:
-        return err.msg
+        print(err.msg)
     finally:
-        connector.rollback()
-        return 'Connection Failure'
+        if not handled:
+            connector.rollback()
+            return Errors.FAILURE.name
 
