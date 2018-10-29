@@ -76,25 +76,17 @@ def retrieve_user(field: str, value: str):
         cursor.execute(sql, val)
         user_info = cursor.fetchone()
         if not user_info:
-<<<<<<< HEAD
             handled = True
             return Errors.MISSING.name
         else:
             handled = True
             return str(user_info)
-=======
-            return Errors.MISSING.name
-        handled = True
-        return str(user_info)
->>>>>>> cz2465
     except mysql.connector.errors as err:
         print(err.msg)
     finally:
         if not handled:
             connector.rollback()
             return Errors.FAILURE.name
-<<<<<<< HEAD
-=======
 
 def delete_user(user_nick_name: str, user_email: str):
 	handled = False
@@ -105,8 +97,6 @@ def delete_user(user_nick_name: str, user_email: str):
 		  "FROM user " \
 		  "WHERE nickname = %s AND email = %s" 
 	val = (user_nick_name, user_email)
->>>>>>> cz2465
-
 	try:
 		cursor.execute(sql, val)
 		connector.commit()
