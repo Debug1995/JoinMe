@@ -97,7 +97,6 @@ def register():
 
 def update_profile():
     global current_user
-    
     return
 
 
@@ -107,6 +106,7 @@ def search_user():
     current_user = UserController.retrieve_user(UserFields.email.name, email)
     print(str(current_user))
     add_output("You logged in with email " + email + ". \n")
+    current_user = None
     return
 
 
