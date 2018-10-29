@@ -53,7 +53,6 @@ def edit_user(user: UserModel):
         return 'Connection Failure'
 
 
-
 @user_controller.route("/Controller")
 def retrieve_user(field: str, value: str):
     connector = SqlController().sql_connector
