@@ -76,9 +76,11 @@ def retrieve_user(field: str, value: str):
         cursor.execute(sql, val)
         user_info = cursor.fetchone()
         if not user_info:
+            handled = True
             return Errors.MISSING.name
-        handled = True
-        return str(user_info)
+        else:
+            handled = True
+            return str(user_info)
     except mysql.connector.errors as err:
         print(err.msg)
     finally:
