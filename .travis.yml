@@ -2,7 +2,14 @@ language: python
 python:
   - "3.6"
 install:
-  - pip install flask
   - pip install mysql-connector
 script: 
   - python unit_test.py
+after_script:
+  - cd ./Logfile
+  - git init
+  - git config user.name "Debug1995"
+  - git config user.email "199511zc@gmail.com"
+  - git add unittest_log.txt
+  - git commit -m 'unittest log'
+  - git push --force --quiet "https://${GH_token}@${https://github.com/Debug1995/JoinMe}" master:master

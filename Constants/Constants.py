@@ -29,6 +29,7 @@ class Tags(Enum):
     entertaining = 7
     charity = 8
     business = 9
+    anything = 10
 
 
 class Errors(Enum):

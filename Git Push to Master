@@ -1,0 +1,11 @@
+$ git add *
+$ git commit -m 'removed flask'
+$ git checkout master
+$ git pull
+$ git checkout cy2468
+$ git push
+$ git checkout master
+$ git pull
+$ git merge cy2468
+$ git push
+$ git checkout cy2468
