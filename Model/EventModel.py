@@ -2,6 +2,7 @@ from Constants.Constants import Tags
 import datetime
 import time
 
+
 class EventModel:
     def __init__(self, eid, title, tags: Tags, description, image, hosts, attendees: [str], event_date,
                  location, register_period):
@@ -29,7 +30,7 @@ class EventModel:
         self.expire_date = self.calculate_date(self.event_date, self.register_period)
 
     def validPeriod(self, period):
-        period = period.strip()
+        period = str(period).strip()
         if not period or len(period):
             return False
         for char in period:
