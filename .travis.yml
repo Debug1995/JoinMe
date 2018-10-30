@@ -3,7 +3,7 @@ python:
   - "3.6"
 branches:
   only:
-  - master
+    - cz2465
 install:
   - pip install mysql-connector
 script: 
