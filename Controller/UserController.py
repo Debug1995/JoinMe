@@ -93,7 +93,7 @@ def delete_user(user_nick_name: str, user_email: str):
 	connector = SqlController().sql_connector
 	cursor = connector.cursor()
 
-	sql = "DELTE " \
+	sql = "DELETE " \
 		  "FROM user " \
 		  "WHERE nickname = %s AND email = %s" 
 	val = (user_nick_name, user_email)
@@ -101,7 +101,7 @@ def delete_user(user_nick_name: str, user_email: str):
 		cursor.execute(sql, val)
 		connector.commit()
 		handled = True
-		return("SUCCESS")
+		return "SUCCESS"
 	except mysql.connector.errors as err:
 		print(err.msg)
 	finally:
