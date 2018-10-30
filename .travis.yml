@@ -7,7 +7,8 @@ script:
   - python unit_test.py
 after_script:
   - cd Logfile
-  - git pull
-  - git add unittest_log.txt
-  - git commit -m 'unittest log'
-  - git push
+  - ls
+  # - git pull
+  # - git add unittest_log.txt
+  # - git commit -m 'unittest log'
+  # - git push
