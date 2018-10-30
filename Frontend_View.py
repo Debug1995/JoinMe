@@ -73,16 +73,45 @@ def post_event():
         current_event.hosts = current_user.uid
         current_user.host_events.append(current_event.eid)
         print('User #' + current_event.hosts + ' posted event #' + str(current_event.eid) + '. \n')
+        EventController.print_event(current_event)
     return
 
 
 def update_event():
     global current_event
     global current_user
-    event_id =
+    event_id = event_id_input.get()
+    current_event = read_event()
+    current_event.eid = event_id
+    host_id = None
+    temp_event = EventController.retrieve_event(event_id)
+    if temp_event == Errors.MISSING.name:
+        add_output('No such event. \n')
+        current_event = None
+        return
+    if type(temp_event) == type(current_event):
+        host_id = str(EventController.retrieve_event(event_id).hosts)
+    if current_user.uid != host_id:
+        add_output('You have to be the owner to update event #' + event_id + ' . \n')
+        current_event = None
+        return
 
+    result = EventController.edit_event(current_event)
 
-    return
+    if result == Errors.MISSING.name:
+        add_output('No such event exists. \n')
+        current_event = None
+        EventController.print_event(current_event)
+        return
+    elif result == Errors.SUCCESS.name:
+        add_output('Event #' + event_id + ' changed. \n')
+        current_event = EventController.retrieve_event(event_id)
+        EventController.print_event(current_event)
+    else:
+        add_output('Update failed, please try again. \n')
+        current_event = None
+        EventController.print_event(current_event)
+        return
 
 
 def remove_user():
@@ -249,7 +278,6 @@ event_id_input.place(x=320, y=240.5)
 
 update_button = Button(window, text="Join Event", command=joinEvent)
 update_button.place(x=420, y= 243.5)
-
 
 Event_user = Label(window, text='User ID:')
 Event_user.place(x=180, y=270)

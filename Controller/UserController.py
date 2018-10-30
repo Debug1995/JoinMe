@@ -103,7 +103,7 @@ def decode_string(user_info: str):
     field_list[7] = field_list[7][1:]
 
     decoded_user = UserModel(field_list[7], field_list[0], field_list[1], field_list[2], field_list[4], field_list[3],
-                             field_list[5], field_list[6], None, [])
+                             field_list[5], field_list[6], [], [])
     return decoded_user
 
 
@@ -132,6 +132,7 @@ def delete_user(user_nick_name: str, user_email: str):
 def print_user(user: UserModel):
     if not user:
         print('This user is empty. ')
+        print()
         return
     print('user id: ' + user.uid)
     print('real name: ' + user.name)
@@ -143,4 +144,50 @@ def print_user(user: UserModel):
     print('description: ' + user.description)
     print('hosted: ' + str(user.host_events))
     print('joined: ' + str(user.join_events))
+    print()
     return
+
+
+def get_host(event_id: str):
+    connector = SqlController().sql_connector
+    cursor = connector.cursor()
+    result = []
+
+    sql = 'SELECT HostID '\
+          'FROM Host ' \
+          'WHERE EventID = %s'
+    val = [event_id]
+
+    try:
+        cursor.execute(sql, val)
+        hosts = cursor.fetchall()
+        for host in hosts:
+            result.append(str(host[0]))
+        got = True
+        return result
+    finally:
+        if not got:
+            return None
+
+
+def get_join(event_id: str):
+    connector = SqlController().sql_connector
+    cursor = connector.cursor()
+    got = False
+    result = []
+
+    sql = 'SELECT HostID '\
+          'FROM JoinTable ' \
+          'WHERE EventID = %s'
+    val = [event_id]
+
+    try:
+        cursor.execute(sql, val)
+        joins = cursor.fetchall()
+        for attendee in joins:
+            result.append(str(attendee[0]))
+        got = True
+        return result
+    finally:
+        if not got:
+            return []
