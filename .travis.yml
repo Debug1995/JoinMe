@@ -10,7 +10,6 @@ script:
   - python unit_test.py
 after_success:
   - cd ./Logfile
-  - git init
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git add .
