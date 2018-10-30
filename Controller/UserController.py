@@ -25,7 +25,6 @@ def add_user(user: UserModel):
         if not handled:
             handled = True
             return Errors.DUPLICATE.name
-
     finally:
         connector.rollback()
         if not handled:
@@ -47,11 +46,17 @@ def edit_user(user: UserModel):
     try:
         cursor.execute(sql, val)
         connector.commit()
-        handled = True
         if cursor.rowcount == 0:
+            handled = True
             return Errors.MISSING.name
         else:
+            handled = True
             return user.uid
+    except mysql.connector.errors.IntegrityError as err:
+        print(err.msg)
+        if not handled:
+            handled = True
+            return Errors.DUPLICATE.name
     finally:
         connector.rollback()
         if not handled:
@@ -97,8 +102,8 @@ def decode_string(user_info: str):
     field_list[6] = field_list[6][2: -1]
     field_list[7] = field_list[7][1:]
 
-    decoded_user = UserModel(field_list[0], field_list[1], field_list[2], field_list[3], field_list[4], field_list[5],
-                             field_list[6], field_list[7], [], [])
+    decoded_user = UserModel(field_list[7], field_list[0], field_list[1], field_list[2], field_list[4], field_list[3],
+                             field_list[5], field_list[6], None, [])
     return decoded_user
 
 
@@ -122,3 +127,20 @@ def delete_user(user_nick_name: str, user_email: str):
         if not handled:
             connector.rollback()
             return Errors.FAILURE.name
+
+
+def print_user(user: UserModel):
+    if not user:
+        print('This user is empty. ')
+        return
+    print('user id: ' + user.uid)
+    print('real name: ' + user.name)
+    print('nickname: ' + user.nickname)
+    print('gender: ' + user.gender)
+    print('location: ' + user.location)
+    print('email: ' + user.email)
+    print('tags: ' + user.tags)
+    print('description: ' + user.description)
+    print('hosted: ' + str(user.host_events))
+    print('joined: ' + str(user.join_events))
+    return

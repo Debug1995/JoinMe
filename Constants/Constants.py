@@ -9,8 +9,8 @@ class ConnectConstants:
 
 
 class UserFields(Enum):
-    uid = 1
-    name = 2
+    userid = 1
+    realname = 2
     nickname = 3
     gender = 4
     email = 5
