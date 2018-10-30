@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import ttk
 import Controller.EventController as EventController
 import Controller.UserController as UserController
 from Model.EventModel import EventModel as EventModel
@@ -223,10 +222,59 @@ def log_out():
 
 
 def group_email():
+    global current_user
+    global current_event
+    if not current_user:
+        add_output('You have to log in first. \n')
+    event_id = event_id_input.get()
+    current_event = EventController.retrieve_event(event_id)
+    if current_event == Errors.MISSING.name:
+        add_output('No such event. \n')
+        current_event = None
+        return
+    elif current_event == Errors.FAILURE.name:
+        return_failure()
+        current_event = None
+        return
+    if current_user.uid != current_event.hosts:
+        add_output('You have to be the host to send a group email. \n')
+        current_event = None
+        return
+
+    message = email_message_input.get()
+    user_list = current_event.attendees
+    EventController.print_event(current_event)
+    for user_id in user_list:
+        sent = False
+        try:
+            temp_user = UserController.retrieve_user(UserFields.userid.name, user_id)
+            send_email(message, temp_user.email)
+            sent = True
+        finally:
+            if not sent:
+                add_output('Unable to send email to ' + temp_user.email + '. \n')
     return
 
 
-def invite_friend():
+def contact_friend():
+    global current_user
+    if not current_user:
+        add_output('You have to log in first. \n')
+    message = email_message_input.get()
+    nickname = email_nickname_input.get()
+    sent = False
+
+    try:
+        temp_user = UserController.retrieve_user(UserFields.nickname.name, nickname)
+        if temp_user == Errors.MISSING.name:
+            add_output('No user with nickname ' + nickname + '. Please check again. \n')
+        else:
+            send_email(message, temp_user.email)
+        sent = True
+    finally:
+        if not sent:
+            add_output('Unable to send email to ' + temp_user.email + '. \n')
+
     return
 
 
@@ -237,6 +285,11 @@ def add_output(line: str):
 
 def return_failure():
     add_output("Connection failed. Please try again. \n")
+
+
+#TODO: Replace with sending real email
+def send_email(message: str, address: str):
+    add_output('Message: ' + message + ' send to ' + address + '. \n')
 
 
 def join_event():
@@ -272,8 +325,8 @@ def join_event():
 
 
 def stringToEnum(tags_input):
-    check_set = set(['sports','social','outdoors','indoors','sightseeing',
-                    'exhibitions','entertaining','charity','business'])
+    check_set = set(['sports', 'social', 'outdoors', 'indoors', 'sightseeing',
+                     'exhibitions', 'entertaining', 'charity', 'business'])
     if tags_input not in check_set:
         tags_input = 'anything'
     return Tags[tags_input]
@@ -406,8 +459,8 @@ logout_button.place(x=490, y=557.5)
 
 # ------------------------------------------- Email -------------------------------------------
 
-invite_friend_button = Button(window, text="Invite Friend", command=invite_friend)
-invite_friend_button.place(x=90, y=587.5)
+contact_friend_button = Button(window, text="Contact Friend", command=contact_friend)
+contact_friend_button.place(x=90, y=587.5)
 
 Email_User_Nickname = Label(window, text='User Nickname:')
 Email_User_Nickname.place(x=180, y=587.5)

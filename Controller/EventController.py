@@ -200,6 +200,7 @@ def retrieve_event(event_id: str):
             return_event = decode_string_event(str(event_info))
             return_event.hosts = get_host(return_event.eid)
             return_event.attendees = get_join(return_event.eid)
+            print(return_event.attendees)
             return return_event
     except mysql.connector.errors as err:
         print(err.msg)
@@ -279,7 +280,7 @@ def get_join(event_id: str):
     got = False
     result = []
 
-    sql = 'SELECT HostID '\
+    sql = 'SELECT JoinID '\
           'FROM JoinTable ' \
           'WHERE EventID = %s'
     val = [event_id]

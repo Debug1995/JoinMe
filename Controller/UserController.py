@@ -179,9 +179,9 @@ def get_join(user_id: str):
     got = False
     result = []
 
-    sql = 'SELECT HostID '\
+    sql = 'SELECT EventID '\
           'FROM JoinTable ' \
-          'WHERE EventID = %s'
+          'WHERE JoinID = %s'
     val = [user_id]
 
     try:
