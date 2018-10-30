@@ -125,17 +125,26 @@ def remove_user():
         add_output('No such event. \n')
         current_event = None
         return
-    elif current_user.uid != Errors.FAILURE.name:
+    elif current_event == Errors.FAILURE.name:
         return_failure()
         current_event = None
         return
-    if current_user.id != current_event.hosts:
+    if current_user.uid != current_event.hosts:
         add_output('You have to be the host to remove attendees. \n')
         current_event = None
         return
 
-
-
+    user_id = user_id_input.get()
+    result = EventController.remove_user(user_id, current_event)
+    if result == Errors.MISSING.name:
+        add_output('User did not attend. \n')
+        current_event = None
+        return
+    elif result == Errors.FAILURE.name:
+        return_failure()
+        current_event = None
+        return
+    add_output('User #' + result[0] + ' removed from event #' + result[1] + '. \n')
     return
 
 
@@ -294,7 +303,6 @@ Event_Tags.place(x=90, y=90)
 
 tags_input = Entry(window, relief='ridge', width=50)
 tags_input.place(x=170, y=90)
-
 
 
 Event_image = Label(window, text='Image URL:')

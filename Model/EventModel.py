@@ -30,7 +30,7 @@ class EventModel:
         self.expire_date = self.calculate_date(self.event_date, self.register_period)
 
     def validPeriod(self, period):
-        period = period.strip()
+        period = str(period).strip()
         if not period or len(period):
             return False
         for char in period:
