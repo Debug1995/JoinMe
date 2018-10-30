@@ -12,7 +12,7 @@ class Test(unittest.TestCase):
     user_1 = UserModel(1, 'real_name_1', 'nickname_1', 'gender_1', 'email_1', 'location_1', 'tags_1', 'description_1', [], [])
     # test event model
     def test_post_event(self):
-        event_id_1 = EventController.post_event(self.user_1, self.event_1)
+        event_id_1 = EventController.add_event(self.user_1, self.event_1)
         self.assertIsNotNone(event_id_1)
         
 #     def test_edit_event(self):
@@ -31,14 +31,15 @@ class Test(unittest.TestCase):
         
     # test user model
     def test_add_user(self):
-        UserController.delete_user('nickname_1', 'email_1')
-        self.assertEqual(UserController.add_user(self.user_1), 'SUCCESS')
-        self.assertEqual(UserController.add_user(self.user_1), 'DUPLICATE')
-        UserController.delete_user('nickname_1', 'email_1')
+    	UserController.delete_user('nickname_1', 'email_1')
+    	self.assertEqual(UserController.add_user(self.user_1), 'SUCCESS')
+    	self.assertEqual(UserController.add_user(self.user_1), 'DUPLICATE')
+    	UserController.delete_user('nickname_1', 'email_1')
         
     def test_delete_user(self):
-        self.assertEqual(UserController.delete_user('nickname_1', 'email_1'), 'SUCCESS')
-        self.assertEqual(UserController.delete_user('fake_nickname_1', 'fake_email_1'), 'SUCCESS')
+    	UserController.add_user(self.user_1)
+    	self.assertEqual(UserController.delete_user('nickname_1', 'email_1'), 'SUCCESS')
+    	self.assertEqual(UserController.delete_user('fake_nickname_1', 'fake_email_1'), 'SUCCESS')
         
 #     def test_edit_user:
         
