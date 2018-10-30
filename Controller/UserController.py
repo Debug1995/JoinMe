@@ -81,7 +81,9 @@ def retrieve_user(field: str, value: str):
             return Errors.MISSING.name
         else:
             handled = True
-            return decode_string(str(user_info))
+            return_user = decode_string(str(user_info))
+            return_user.join_events = get_join(return_user.uid)
+            return_user.host_events = get_host(return_user.uid)
     except mysql.connector.errors as err:
         print(err.msg)
     finally:
@@ -148,15 +150,15 @@ def print_user(user: UserModel):
     return
 
 
-def get_host(event_id: str):
+def get_host(user_id: str):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     result = []
 
-    sql = 'SELECT HostID '\
+    sql = 'SELECT EventID '\
           'FROM Host ' \
-          'WHERE EventID = %s'
-    val = [event_id]
+          'WHERE HostID = %s'
+    val = [user_id]
 
     try:
         cursor.execute(sql, val)
@@ -170,7 +172,7 @@ def get_host(event_id: str):
             return None
 
 
-def get_join(event_id: str):
+def get_join(user_id: str):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     got = False
@@ -179,7 +181,7 @@ def get_join(event_id: str):
     sql = 'SELECT HostID '\
           'FROM JoinTable ' \
           'WHERE EventID = %s'
-    val = [event_id]
+    val = [user_id]
 
     try:
         cursor.execute(sql, val)
