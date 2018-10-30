@@ -1,12 +1,8 @@
 import threading
 import mysql.connector
-from flask import Blueprint
 from Constants import Constants
 
-sql_controller = Blueprint('sql_controller', __name__)
 
-
-@sql_controller.route("/Controller")
 def synchronized(func):
     func.__lock__ = threading.Lock()
  
@@ -17,7 +13,6 @@ def synchronized(func):
     return lock_func
 
 
-@sql_controller.route("/Controller")
 class SqlController(object):
     instance = None
  
