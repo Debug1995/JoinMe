@@ -15,7 +15,7 @@ after_success:
   - git config --global user.email "199511zc@gmail.com"
   - git add .
   - git commit -m 'unittest log'
-  - git push --force "https://Debug1995:${GH_token}@${GH_ref}" master:master
+  - git push --force "https://${GH_token}@${GH_ref}" master:master
 env:
   global:
     - GH_ref: https://github.com/Debug1995/JoinMe.git
