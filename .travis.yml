@@ -1,5 +1,5 @@
 language: python
 python:
   - "3.6"
-scipt: 
+script: 
   - python unit_test.py
