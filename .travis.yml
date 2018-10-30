@@ -6,8 +6,10 @@ install:
 script: 
   - python unit_test.py
 after_script:
-  - cd Logfile
-  - git pull
+  - cd ./Logfile
+  - git init
+  - git config user.name "Debug1995"
+  - git config user.email "199511zc@gmail.com"
   - git add unittest_log.txt
   - git commit -m 'unittest log'
-  - git push
+  - git push --force --quiet "https://${GH_token}@${https://github.com/Debug1995/JoinMe}" master:master
