@@ -18,4 +18,4 @@ after_success:
   - git push --force "https://${GH_token}@${GH_ref}" master:master
 env:
   global:
-    - GH_ref: https://github.com/Debug1995/JoinMe.git
+    - GH_ref: github.com/Debug1995/JoinMe.git
