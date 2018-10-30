@@ -280,8 +280,8 @@ def get_join(event_id: str):
 
     try:
         cursor.execute(sql, val)
-        host = cursor.fetchall()
-        for attendee in cursor:
+        join = cursor.fetchall()
+        for attendee in join:
             result.append(str(attendee[0]))
         got = True
         return result
