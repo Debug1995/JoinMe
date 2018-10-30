@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 import Controller.EventController as EventController
 import Controller.UserController as UserController
 from Model.EventModel import EventModel as EventModel
@@ -9,6 +10,7 @@ from Constants.Constants import UserFields
 current_event: UserModel = None
 current_user: UserModel = None
 
+# this is a change.
 
 def read_event():
     eid = 1
@@ -119,9 +121,8 @@ def update_profile():
     return
 
 
-def login():
+def search_user():
     global current_user
-    current_user = None
     email = user_email_input.get()
     result = UserController.retrieve_user(UserFields.email.name, email)
     if result == Errors.MISSING.name:
@@ -164,6 +165,8 @@ def add_output(line: str):
 def return_failure():
     add_output("Connection failed. Please try again. \n")
 
+def joinEvent():
+    return
 
 window = Tk()
 window.title('JoinMe')
@@ -186,6 +189,7 @@ description_input.place(x=170, y=60)
 
 Event_Tags = Label(window, text='Tags:')
 Event_Tags.place(x=90, y=90)
+
 tags_input = Entry(window, relief='ridge', width=50)
 tags_input.place(x=170, y=90)
 
@@ -210,19 +214,29 @@ period_input = Entry(window, relief='ridge', width=50)
 period_input.place(x=170, y=210)
 
 post_button = Button(window, text="Post Event", command=post_event)
-post_button.place(x=90, y=240)
+post_button.place(x=90, y=242.5)
 
 update_button = Button(window, text="Update Event", command=update_event)
-update_button.place(x=170, y=240)
+update_button.place(x=170, y=242.5)
+
+
+Event_id_join = Label(window, text='Event ID:')
+Event_id_join.place(x=260, y=242.5)
+
+userID_input = Entry(window, relief='ridge', width=10)
+userID_input.place(x=320, y=240.5)
+
+update_button = Button(window, text="Join Event", command=joinEvent)
+update_button.place(x=420, y= 243.5)
 
 
 Event_user = Label(window, text='User ID:')
-Event_user.place(x=180, y=265)
+Event_user.place(x=180, y=270)
 userID_input = Entry(window, relief='ridge', width=10)
 userID_input.place(x=240, y=270)
 
 remove_button = Button(window, text="Remove User", command=remove_user)
-remove_button.place(x=90, y=265)
+remove_button.place(x=90, y=270)
 
 label_user = Label(window,
                    text='------------------------------------------- User -------------------------------------------')
@@ -274,25 +288,29 @@ updateProfile_button.place(x=155, y=525)
 user_email_input = Entry(window, relief='ridge', width=30)
 user_email_input.place(x=200, y=555)
 
-search_button = Button(window, text="Login with Email", command=login)
-search_button.place(x=90, y=550)
+search_button = Button(window, text="Login with Email", command=search_user)
+search_button.place(x=90, y=557.5)
 
 logout_button = Button(window, text="Logout", command=log_out)
-logout_button.place(x=400, y=550)
+logout_button.place(x=490, y=557.5)
 
 # ------------------------------------------- Email -------------------------------------------
 
-group_email_button = Button(window, text="Group Email", command=group_email)
-group_email_button.place(x=90, y=580)
+
 
 invite_friend_button = Button(window, text="Invite Friend", command=invite_friend)
-invite_friend_button.place(x=180, y=580)
+invite_friend_button.place(x=90, y=587.5)
 
 Email_User_Nickname = Label(window, text='User Nickname:')
-Email_User_Nickname.place(x=270, y=585)
+Email_User_Nickname.place(x=180, y=587.5)
 email_nickname_input = Entry(window, relief='ridge', width=10)
-email_nickname_input.place(x=380, y=585)
+email_nickname_input.place(x=290, y=585)
 
+group_email_button = Button(window, text="Group Email", command=group_email)
+group_email_button.place(x=90, y=615)
+
+email_message_input = Entry(window, relief='ridge', width=50)
+email_message_input.place(x=170, y=610)
 
 # ------------------------------------------- Output -------------------------------------------
 
@@ -303,5 +321,4 @@ output_value = Label(window, textvariable=text)
 text.set(value="This is the first iteration demo for JoinMe. \n")
 output_value.pack()
 output_value.place(x=700, y=40)
-
 window.mainloop()

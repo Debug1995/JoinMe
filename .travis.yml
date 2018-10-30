@@ -1,4 +1,8 @@
 language: python
 python:
   - "3.6"
-scipt: true
+install:
+  - pip install flask
+  - pip install mysql-connector
+script: 
+  - python unit_test.py
