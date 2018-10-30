@@ -47,7 +47,7 @@ class Test(unittest.TestCase):
 #     def test_retrieve_user:
         
 if __name__ == '__main__':
-    log_file = 'Logfile/unittest_log.txt'
+    log_file = 'unittest_log.txt'
     f = open(log_file, 'a')
     runner = unittest.TextTestRunner(f)
     unittest.main(testRunner=runner)
