@@ -84,6 +84,7 @@ def retrieve_user(field: str, value: str):
             return_user = decode_string(str(user_info))
             return_user.join_events = get_join(return_user.uid)
             return_user.host_events = get_host(return_user.uid)
+            return return_user
     except mysql.connector.errors as err:
         print(err.msg)
     finally:
