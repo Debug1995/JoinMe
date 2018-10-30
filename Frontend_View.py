@@ -115,7 +115,27 @@ def update_event():
 
 
 def remove_user():
-    print('remove')
+    global current_user
+    global current_event
+    if not current_user:
+        add_output('You have to log in first. \n')
+    event_id = event_id_input.get()
+    current_event = EventController.retrieve_event(event_id)
+    if current_event == Errors.MISSING.name:
+        add_output('No such event. \n')
+        current_event = None
+        return
+    elif current_user.uid != Errors.FAILURE.name:
+        return_failure()
+        current_event = None
+        return
+    if current_user.id != current_event.hosts:
+        add_output('You have to be the host to remove attendees. \n')
+        current_event = None
+        return
+
+
+
     return
 
 

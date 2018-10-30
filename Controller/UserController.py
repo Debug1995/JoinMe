@@ -170,7 +170,7 @@ def get_host(user_id: str):
         return result
     finally:
         if not got:
-            return None
+            return []
 
 
 def get_join(user_id: str):
