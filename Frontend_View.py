@@ -6,8 +6,8 @@ from Model.UserModel import UserModel as UserModel
 from Constants.Constants import Errors
 from Constants.Constants import UserFields
 
-current_event = None
-current_user = None
+current_event: UserModel = None
+current_user: UserModel = None
 
 
 def read_event():
@@ -79,7 +79,6 @@ def remove_user():
 def register():
     global current_user
     current_user = read_user()
-
     result = UserController.add_user(current_user)
     print(result)
     if result == Errors.DUPLICATE.name:
@@ -97,34 +96,25 @@ def register():
 
 def update_profile():
     global current_user
-    user_id = current_user.uid
-    current_user = read_user()
-    current_user.uid = user_id
+    if not current_user:
+        add_output("You have to login first! \n")
+        return
+    current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
+    if current_user == Errors.MISSING.name:
+        add_output("No user with such credentials exists. \n")
+        return
+    elif current_user == Errors.FAILURE.name:
+        return_failure()
+        return
 
     result = UserController.edit_user(current_user)
-    print(result)
-    if result == Errors.DUPLICATE.name:
-        add_output("A user with the same credentials already exists! \n")
-        current_user = None
+    if result == Errors.MISSING.name:
+        add_output("No user with such credentials exists. \n")
     elif result == Errors.FAILURE.name:
         return_failure()
-        current_user = None
     else:
-        add_output("User registered JoinMe with email " + current_user.email + ". \n")
-        current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
-    print(current_user)
-    return
-    result = UserController.add_user(current_user)
-    print(result)
-    if result == Errors.DUPLICATE.name:
-        add_output("A user with the same credentials already exists! \n")
-        current_user = None
-    elif result == Errors.FAILURE.name:
-        return_failure()
-        current_user = None
-    else:
-        add_output("User registered JoinMe with email " + current_user.email + ". \n")
-        current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
+        add_output("User updated. Email now at: " + current_user.email + ". \n")
+        current_user = UserController.retrieve_user(UserFields.email.name, current_user.uid)
     print(current_user)
     return
 
@@ -136,11 +126,14 @@ def login():
     result = UserController.retrieve_user(UserFields.email.name, email)
     if result == Errors.MISSING.name:
         add_output("No user with such credential exists. \n")
+        print(current_user)
+        return
     elif result == Errors.FAILURE.name:
         add_output("Failed to login. Please try again. \n")
-    else:
-        add_output("You logged in with email " + email + ". \n")
-        current_user = result
+        print(current_user)
+        return
+    add_output("You logged in with email " + email + ". \n")
+    current_user = UserController.retrieve_user(UserFields.email.name, email)
     print(current_user)
     return
 

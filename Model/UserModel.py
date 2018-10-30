@@ -1,10 +1,6 @@
-from flask import Blueprint
 from Constants.Constants import Tags
 
-user_model = Blueprint('user_model', __name__)
 
-
-@user_model.route("/Model")
 class UserModel:
     def __init__(self, uid, name, nickname, gender, email, location, tags: [Tags], description,
                  host_events, join_events):

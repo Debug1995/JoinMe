@@ -1,14 +1,9 @@
 import mysql.connector
-from flask import Blueprint
 from Model.UserModel import UserModel
 from Controller.SqlController import SqlController
 from Constants.Constants import Errors
 
 
-user_controller = Blueprint('user_controller', __name__)
-
-
-@user_controller.route("/Controller")
 def add_user(user: UserModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
@@ -24,7 +19,7 @@ def add_user(user: UserModel):
         cursor.execute(sql, val)
         connector.commit()
         handled = True
-        return 'Success'
+        return Errors.SUCCESS.name
     except mysql.connector.errors.IntegrityError as err:
         print(err.msg)
         if not handled:
@@ -37,7 +32,6 @@ def add_user(user: UserModel):
             return Errors.FAILURE.name
 
 
-@user_controller.route("/Controller")
 def edit_user(user: UserModel):
     handled = False
     connector = SqlController().sql_connector
@@ -64,7 +58,6 @@ def edit_user(user: UserModel):
             return Errors.FAILURE.name
 
 
-@user_controller.route("/Controller")
 def retrieve_user(field: str, value: str):
     handled = False
     connector = SqlController().sql_connector
@@ -83,11 +76,30 @@ def retrieve_user(field: str, value: str):
             return Errors.MISSING.name
         else:
             handled = True
-            return str(user_info)
+            return decode_string(str(user_info))
     except mysql.connector.errors as err:
         print(err.msg)
     finally:
         if not handled:
             connector.rollback()
             return Errors.FAILURE.name
+
+
+def decode_string(user_info: str):
+    user_info = user_info[1: -1]
+    field_list = user_info.split(',')
+    field_list[0] = field_list[0][1: -1]
+    field_list[1] = field_list[1][2: -1]
+    field_list[2] = field_list[2][2: -1]
+    field_list[3] = field_list[3][2: -1]
+    field_list[4] = field_list[4][2: -1]
+    field_list[5] = field_list[5][2: -1]
+    field_list[6] = field_list[6][2: -1]
+    field_list[7] = field_list[7][1:]
+
+    decoded_user = UserModel(field_list[0], field_list[1], field_list[2], field_list[3], field_list[4], field_list[5],
+                             field_list[6], field_list[7], [], [])
+    return decoded_user
+
+
 
