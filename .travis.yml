@@ -2,7 +2,12 @@ language: python
 python:
   - "3.6"
 install:
-  - pip install flask
   - pip install mysql-connector
 script: 
   - python unit_test.py
+after_script:
+  - cd Logfile
+  - git pull
+  - git add unittest_log.txt
+  - git commit -m 'unittest log'
+  - git push
