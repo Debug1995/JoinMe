@@ -1,9 +1,9 @@
 language: python
 python:
   - "3.6"
-branches:
-  only:
-    - cz2465
+# branches:
+#   only:
+#     - cz2465
 install:
   - pip install mysql-connector
 script: 
