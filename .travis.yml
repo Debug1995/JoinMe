@@ -2,6 +2,6 @@ language: python
 python:
   - "3.6"
 install:
-  - pip flask
+  - pip install flask
 script: 
   - python unit_test.py
