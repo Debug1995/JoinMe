@@ -6,6 +6,8 @@ from Model.EventModel import EventModel as EventModel
 from Model.UserModel import UserModel as UserModel
 from Constants.Constants import Errors
 from Constants.Constants import UserFields
+from Constants.Constants import Tags
+
 
 current_event = None
 current_user = None
@@ -15,7 +17,7 @@ current_user = None
 def read_event():
     eid = 1
     event_title = str(title_input.get())
-    tags = str(tags_input.get())
+    tags = stringToEnum(str(tags_input.get()))
     description = str(description_input.get())
     image = str(image_input.get())
     hosts = []
@@ -23,8 +25,7 @@ def read_event():
     event_date = str(event_date_input.get())
     location = str(location_input.get())
     register_period = str(period_input.get())
-
-    new_event = EventModel(eid, event_title, tags, description, image, hosts, attendees, event_date,
+    new_event = EventModel(eid, event_title, tags.name, description, image, hosts, attendees, event_date,
                            location, register_period)
     return new_event
 
@@ -36,11 +37,10 @@ def read_user():
     gender = str(gender_input.get())
     email = str(email_input.get())
     location = str(user_location_input.get())
-    tags = user_tags_input.get()
+    tags = stringToEnum(str(user_tags_input.get()))
     description = user_description_input.get()
     host_events = []
     join_events = []
-
     new_event = UserModel(uid, real_name, nickname, gender, email, location, tags, description,
                           host_events, join_events)
     return new_event
@@ -102,6 +102,7 @@ def update_profile():
     return
 
 
+
 def search_user():
     global current_user
     email = user_email_input.get()
@@ -141,6 +142,16 @@ def return_failure():
 def joinEvent():
     return
 
+def stringToEnum(tags_input):
+    check_set = set(['sports','social','outdoors','indoors','sightseeing',
+                    'exhibitions','entertaining','charity','business'])
+    if tags_input not in check_set:
+        tags_input = 'anything'
+    return Tags[tags_input]
+
+
+
+
 window = Tk()
 window.title('JoinMe')
 window.geometry('1000x660')
@@ -165,6 +176,8 @@ Event_Tags.place(x=90, y=90)
 
 tags_input = Entry(window, relief='ridge', width=50)
 tags_input.place(x=170, y=90)
+
+
 
 Event_image = Label(window, text='Image URL:')
 Event_image.place(x=90, y=120)
@@ -199,8 +212,8 @@ Event_id_join.place(x=260, y=242.5)
 userID_input = Entry(window, relief='ridge', width=10)
 userID_input.place(x=320, y=240.5)
 
-update_button = Button(window, text="Join Event", command=joinEvent)
-update_button.place(x=420, y= 243.5)
+join_button = Button(window, text="Join Event", command=joinEvent)
+join_button.place(x=420, y= 243.5)
 
 
 Event_user = Label(window, text='User ID:')
