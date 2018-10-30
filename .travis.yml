@@ -5,11 +5,13 @@ install:
   - pip install mysql-connector
 script: 
   - python unit_test.py
-after_script:
+after_success:
   - cd ./Logfile
-  - git init
-  - git config user.name "Debug1995"
-  - git config user.email "199511zc@gmail.com"
-  - git add unittest_log.txt
+  - git config --global user.name "Debug1995"
+  - git config --global user.email "199511zc@gmail.com"
+  - git add .
   - git commit -m 'unittest log'
-  - git push --force --quiet "https://${GH_token}@${https://github.com/Debug1995/JoinMe}" master:master
+  - git push --force "https://${GH_token}@${GH_ref}" master:master
+env:
+  global:
+    - GH_ref: github.com/Debug1995/JoinMe.git
