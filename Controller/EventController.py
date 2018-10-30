@@ -102,8 +102,8 @@ def join_event(user: UserModel, event: EventModel):
     cursor = connector.cursor()
     handled = False
 
-    sql = "INSERT INTO joins (joinid, eventid)" \
-          "VALUES(%s, %s)"
+    sql = "INSERT INTO JoinTable (JoinID, EventID)" \
+          "VALUES (%s, %s)"
     val = (user.uid, event.eid)
 
     try:
@@ -118,8 +118,8 @@ def join_event(user: UserModel, event: EventModel):
         handled = True
         return Errors.DUPLICATE.name
     finally:
-        connector.rollback()
         if not handled:
+            connector.rollback()
             return Errors.FAILURE.name
 
 
