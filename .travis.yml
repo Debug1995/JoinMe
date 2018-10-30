@@ -13,7 +13,7 @@ script:
   - git pull
   - git add unittest_log.txt
   - git commit -m "unittest log"
-  - git push --force "https://${GH_token}@${GH_ref}"
+  - git push --force "https://${GH_token}@${GH_ref}" master:master
 # after_success:
 #   - cd ./Logfile
 #   - git config --global user.name "Debug1995"
