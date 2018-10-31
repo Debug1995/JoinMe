@@ -7,7 +7,6 @@ script:
   - ls
   - ls -l unittest_log.txt
   - python unit_test.py
-  - cd ./public
   - git branch
   - git init
   - ls -l unittest_log.txt
@@ -17,7 +16,7 @@ script:
   - git pull
   - git add .
   - git commit -m "unittest log"
-  - git push --force "https://${GH_token}@${GH_ref}" origin master:master
+  - git push --force "https://${GH_token}@$github.com/Debug1995/JoinMe.git" master:master
 # after_success:
 #   - cd ./Logfile
 #   - git config --global user.name "Debug1995"
