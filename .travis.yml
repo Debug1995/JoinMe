@@ -4,11 +4,11 @@ python:
 install:
   - pip install mysql-connector
 script: 
-  - git branch
-  - git init
   - ls
   - ls -l unittest_log.txt
   - python unit_test.py
+  - git branch
+  - git init
   - ls -l unittest_log.txt
   # - cd ./Logfile
   - git config --global user.name "Debug1995"
