@@ -25,7 +25,7 @@ after_success:
   # - git pull
   # - git add .
   # - git commit -m 'unittest_log'
-  - git push "https://${GH_token}@${GH_ref}" master:master
+  - git push "https://${GH_token}@${GH_ref}" travis_ci:travis_ci
 branches:
   only:
     - travis_ci
