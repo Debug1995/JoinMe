@@ -6,7 +6,9 @@ install:
 script: 
   - git branch
   - ls
+  - ls -l .\unittest_log.txt
   - python unit_test.py
+  - ls -l .\unittest_log.txt
   # - cd ./Logfile
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
