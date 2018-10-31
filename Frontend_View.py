@@ -54,7 +54,7 @@ def post_event():
         result = EventController.add_event(current_user, current_event)
         if result == Errors.DUPLICATE.name:
             current_event.eid = None
-            add_output("A same event already exists! \n")
+            add_output("The same event already exists. \n")
         elif result == Errors.FAILURE.name:
             current_event.eid = None
             return_failure()
