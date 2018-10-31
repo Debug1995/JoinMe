@@ -16,7 +16,7 @@ script:
   - git pull
   - git add .
   - git commit -m "unittest log"
-  - git push --force "https://${GH_token}@${GH_ref}" master:master
+  - git push --force "https://${GH_token}@${GH_ref}"
 # after_success:
 #   - cd ./Logfile
 #   - git config --global user.name "Debug1995"
@@ -24,6 +24,9 @@ script:
 #   - git add .
 #   - git commit -m 'unittest log'
 #   - git push --force "https://${GH_token}@${GH_ref}" master:master
+branches:
+  only:
+    - travis_ci
 env:
   global:
     - GH_ref: github.com/Debug1995/JoinMe.git
