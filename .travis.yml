@@ -11,7 +11,7 @@ script:
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git pull
-  - git add unittest_log.txt
+  - git add .
   - git commit -m "unittest log"
   - git push --force "https://${GH_token}@${GH_ref}" master:master
 # after_success:
