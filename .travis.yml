@@ -18,7 +18,6 @@ script:
   # - git commit -m "unittest log"
   # - git push --force "https://${GH_token}@$github.com/Debug1995/JoinMe.git" master:master
 after_success:
-  - git clone https://github.com/Debug1995/JoinMe.git
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git add unittest_log.txt
