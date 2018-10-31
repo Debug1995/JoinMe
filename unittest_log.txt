@@ -937,3 +937,8 @@ AssertionError: 'SUCCESS' != 'DUPLICATE'
 Ran 3 tests in 2.176s
 
 FAILED (failures=1)
+...
+----------------------------------------------------------------------
+Ran 3 tests in 2.656s
+
+OK
