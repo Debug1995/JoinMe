@@ -22,8 +22,8 @@ after_success:
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git add unittest_log.txt
-  - git commit -m 'unittest log'
-  - git push "https://${GH_token}@${GH_ref}" master
+  - git commit -m 'unittest_log'
+  - git push "https://${GH_token}@${GH_ref}" travis_ci:master
 branches:
   only:
     - travis_ci
