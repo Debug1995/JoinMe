@@ -3126,3 +3126,19 @@ AssertionError: 'DUPLICATE' != 'SUCCESS'
 Ran 3 tests in 1.924s
 
 FAILED (failures=1)
+.F.
+======================================================================
+FAIL: test_add_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 36, in test_add_user
+    self.assertEqual(UserController.add_user(self.user_1), 'DUPLICATE')
+AssertionError: 'SUCCESS' != 'DUPLICATE'
+- SUCCESS
++ DUPLICATE
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.342s
+
+FAILED (failures=1)
