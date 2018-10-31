@@ -4,26 +4,26 @@ python:
 install:
   - pip install mysql-connector
 script: 
-  - ls
-  - ls -l unittest_log.txt
+  # - ls
+  # - ls -l unittest_log.txt
   - python unit_test.py
-  - git branch
-  - git init
-  - ls -l unittest_log.txt
-  # - cd ./Logfile
+  # - git branch
+  # - git init
+  # - ls -l unittest_log.txt
+  # # - cd ./Logfile
+  # - git config --global user.name "Debug1995"
+  # - git config --global user.email "199511zc@gmail.com"
+  # - git pull
+  # - git add .
+  # - git commit -m "unittest log"
+  # - git push --force "https://${GH_token}@$github.com/Debug1995/JoinMe.git" master:master
+after_success:
+  - git clone https://github.com/Debug1995/JoinMe.git
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
-  - git pull
-  - git add .
-  - git commit -m "unittest log"
-  - git push --force "https://${GH_token}@$github.com/Debug1995/JoinMe.git" master:master
-# after_success:
-#   - cd ./Logfile
-#   - git config --global user.name "Debug1995"
-#   - git config --global user.email "199511zc@gmail.com"
-#   - git add .
-#   - git commit -m 'unittest log'
-#   - git push --force "https://${GH_token}@${GH_ref}" master:master
+  - git add unittest_log.txt
+  - git commit -m 'unittest log'
+  - git push "https://${GH_token}@${GH_ref}" master
 branches:
   only:
     - travis_ci
