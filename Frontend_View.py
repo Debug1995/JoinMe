@@ -49,7 +49,7 @@ def post_event():
     global current_user
     current_event = read_event()
     if not current_user:
-        add_output("You have to login first! \n")
+        add_output("You have to login first to post events. \n")
     else:
         result = EventController.add_event(current_user, current_event)
         if result == Errors.DUPLICATE.name:
