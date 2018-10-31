@@ -64,7 +64,7 @@ def post_event():
         result = EventController.host_event(current_user, current_event)
         if result == Errors.DUPLICATE.name:
             current_event.eid = None
-            add_output("You have already hosted this event! \n")
+            add_output("You have already hosted this event. \n")
         elif result == Errors.FAILURE.name:
             current_event.eid = None
             return_failure()
