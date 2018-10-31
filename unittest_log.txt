@@ -2997,3 +2997,19 @@ OK
 Ran 3 tests in 2.670s
 
 OK
+.F.
+======================================================================
+FAIL: test_add_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 36, in test_add_user
+    self.assertEqual(UserController.add_user(self.user_1), 'DUPLICATE')
+AssertionError: 'SUCCESS' != 'DUPLICATE'
+- SUCCESS
++ DUPLICATE
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 2.186s
+
+FAILED (failures=1)
