@@ -49,12 +49,12 @@ def post_event():
     global current_user
     current_event = read_event()
     if not current_user:
-        add_output("You have to login first! \n")
+        add_output("You have to login first to post events. \n")
     else:
         result = EventController.add_event(current_user, current_event)
         if result == Errors.DUPLICATE.name:
             current_event.eid = None
-            add_output("A same event already exists! \n")
+            add_output("The same event already exists. \n")
         elif result == Errors.FAILURE.name:
             current_event.eid = None
             return_failure()
@@ -64,7 +64,7 @@ def post_event():
         result = EventController.host_event(current_user, current_event)
         if result == Errors.DUPLICATE.name:
             current_event.eid = None
-            add_output("You have already hosted this event! \n")
+            add_output("You have already hosted this event. \n")
         elif result == Errors.FAILURE.name:
             current_event.eid = None
             return_failure()
