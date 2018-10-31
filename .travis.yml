@@ -5,6 +5,7 @@ install:
   - pip install mysql-connector
 script: 
   - git branch
+  - git init
   - ls
   - ls -l unittest_log.txt
   - python unit_test.py
