@@ -47,9 +47,15 @@ class Test(unittest.TestCase):
 #     def test_retrieve_user:
         
 if __name__ == '__main__':
+    print(1)
     log_file = 'unittest_log.txt'
     f = open(log_file, 'a')
+    suite = unittest.TestSuite()
+    tests = [Test("test_post_event"), Test("test_add_user"), Test("test_delete_user")]
+    suite.addTests(tests)
     runner = unittest.TextTestRunner(f)
-    unittest.main(testRunner=runner)
+    runner.run(suite)
+    # unittest.main(testRunner=runner)
     f.close()
+    print(2)
     # unittest.main()
