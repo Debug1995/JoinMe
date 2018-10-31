@@ -6,6 +6,7 @@ install:
 script: 
   # - ls
   # - ls -l unittest_log.txt
+  - git checkout master
   - python unit_test.py
   # - git branch
   # - git init
@@ -20,7 +21,7 @@ script:
 after_success:
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
-  - git checkout master
+  # - git checkout master
   - git pull
   - git add unittest_log.txt
   - git commit -m 'unittest_log'
