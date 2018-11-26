@@ -12,7 +12,7 @@ class Ui_RegisterDialog(object):
     def setupUi(self, RegisterDialog):
         RegisterDialog.setObjectName("RegisterDialog")
         RegisterDialog.resize(745, 453)
-        RegisterDialog.setStyleSheet("border-image: url(:/bg.png)")
+        RegisterDialog.setStyleSheet("border-image: url(./bg.png)")
         self.label_4 = QtWidgets.QLabel(RegisterDialog)
         self.label_4.setGeometry(QtCore.QRect(290, 192, 61, 20))
         font = QtGui.QFont()

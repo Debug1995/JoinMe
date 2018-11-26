@@ -12,7 +12,7 @@ class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
         MainDialog.setObjectName("MainDialog")
         MainDialog.resize(745, 453)
-        MainDialog.setStyleSheet("border-image: url(:/bg.png)")
+        MainDialog.setStyleSheet("border-image: url(./bg.png)")
         self.UserImage = QtWidgets.QGraphicsView(MainDialog)
         self.UserImage.setGeometry(QtCore.QRect(650, 10, 61, 61))
         font = QtGui.QFont()

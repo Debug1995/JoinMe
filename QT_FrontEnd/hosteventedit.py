@@ -12,7 +12,7 @@ class Ui_HostEventEdit(object):
     def setupUi(self, HostEventEdit):
         HostEventEdit.setObjectName("HostEventEdit")
         HostEventEdit.resize(765, 453)
-        HostEventEdit.setStyleSheet("border-image: url(:/bg.png)")
+        HostEventEdit.setStyleSheet("border-image: url(./bg.png)")
         self.AttendImage2 = QtWidgets.QGraphicsView(HostEventEdit)
         self.AttendImage2.setGeometry(QtCore.QRect(189, 277, 30, 30))
         font = QtGui.QFont()

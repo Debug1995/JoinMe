@@ -12,7 +12,7 @@ class Ui_UserProfileDisplay(object):
     def setupUi(self, UserProfileDisplay):
         UserProfileDisplay.setObjectName("UserProfileDisplay")
         UserProfileDisplay.resize(745, 453)
-        UserProfileDisplay.setStyleSheet("border-image: url(:/bg.png)")
+        UserProfileDisplay.setStyleSheet("border-image: url(./bg.png)")
         self.label_2 = QtWidgets.QLabel(UserProfileDisplay)
         self.label_2.setGeometry(QtCore.QRect(70, 170, 151, 51))
         font = QtGui.QFont()

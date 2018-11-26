@@ -12,7 +12,7 @@ class Ui_HostEventDisplayDialog(object):
     def setupUi(self, HostEventDisplayDialog):
         HostEventDisplayDialog.setObjectName("HostEventDisplayDialog")
         HostEventDisplayDialog.resize(745, 453)
-        HostEventDisplayDialog.setStyleSheet("border-image: url(:/bg.png)")
+        HostEventDisplayDialog.setStyleSheet("border-image: url(./bg.png)")
         self.AttendImage2 = QtWidgets.QGraphicsView(HostEventDisplayDialog)
         self.AttendImage2.setGeometry(QtCore.QRect(90, 300, 30, 30))
         font = QtGui.QFont()
