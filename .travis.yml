@@ -21,7 +21,7 @@ after_success:
   - git checkout travis_ci
   - git add . *.txt
   - git commit -m "unittest log"
-  - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:travis_ci
+  - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:master
 branches:
   only:
     - travis_ci
