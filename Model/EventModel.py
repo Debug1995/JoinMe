@@ -25,13 +25,15 @@ class EventModel:
         if self.validPeriod(register_period):
             self.register_period = register_period
         else:
+
             self.register_period = '1'
         #print(self.event_date, self.register_period)
         self.expire_date = self.calculate_date(self.event_date, self.register_period)
 
+
     def validPeriod(self, period):
         period = str(period).strip()
-        if not period or len(period):
+        if not period or len(period) == 0:
             return False
         for char in period:
             if not char.isdigit():
@@ -46,7 +48,6 @@ class EventModel:
         for char in check_string:
             if not char.isdigit():
                 return False
-        print(date)
         try:
             time.strptime(date, "%Y-%m-%d")
             return True
