@@ -82,7 +82,7 @@ class Test(unittest.TestCase):
         
 if __name__ == '__main__':
     print(1)
-    log_file = 'unittest_log.txt'
+    log_file = 'report/unittest_log.txt'
     f = open(log_file, 'a')
     suite = unittest.TestSuite()
     tests = [Test("test_add_event"), Test("test_retrieve_event"),
