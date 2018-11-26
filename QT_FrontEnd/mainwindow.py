@@ -57,7 +57,7 @@ class Ui_MainWindow(object):
         self.QuitButton.setObjectName("QuitButton")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralWidget)
         self.graphicsView.setGeometry(QtCore.QRect(320, 180, 21, 18))
-        self.graphicsView.setStyleSheet("border-image: url(:/POP_Gmail.png)")
+        self.graphicsView.setStyleSheet("border-image: url(./POP_Gmail.png)")
         self.graphicsView.setObjectName("graphicsView")
         MainWindow.setCentralWidget(self.centralWidget)
 
