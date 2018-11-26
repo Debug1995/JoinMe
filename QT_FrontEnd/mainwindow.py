@@ -13,7 +13,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(745, 453)
         MainWindow.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        MainWindow.setStyleSheet("border-image: url(./bg.png)")
+        MainWindow.setStyleSheet("border-image: url(:/bg.png)")
         MainWindow.setDocumentMode(False)
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.centralWidget = QtWidgets.QWidget(MainWindow)
