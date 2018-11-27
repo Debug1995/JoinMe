@@ -44,6 +44,10 @@ class Gmail:
         credentials = self.flow.step2_exchange(autho_code)
         self.refresh_code = credentials.refresh_token
         return credentials
+
+    def get_use_email(self, credentials):
+        email = credentials.id_token['email']
+        return email
     
     def build_service(self, credentials):
         http = httplib2.Http()
