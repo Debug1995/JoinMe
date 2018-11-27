@@ -32,20 +32,23 @@ class Gmail:
         'https://www.googleapis.com/auth/userinfo.email',
         'https://www.googleapis.com/auth/userinfo.profile'
     ]
+
+
     def __init__(self):
         self.flow = flow_from_clientsecrets(self.SECRET_LOCATION,
                                        scope=' '.join(self.SCOPES),
                                        redirect_uri='urn:ietf:wg:oauth:2.0:oob')
+
     def get_autho_uri(self):
         autho_uri = self.flow.step1_get_authorize_url()
         return autho_uri
-        
+
     def get_credentials(self, autho_code):
         credentials = self.flow.step2_exchange(autho_code)
         self.refresh_code = credentials.refresh_token
         return credentials
 
-    def get_use_email(self, credentials):
+    def get_user_email(self, credentials):
         email = credentials.id_token['email']
         return email
     

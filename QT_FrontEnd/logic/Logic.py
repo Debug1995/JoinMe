@@ -4,15 +4,11 @@ from QT_FrontEnd.maindialog import *
 from QT_FrontEnd.mainwindow import *
 from QT_FrontEnd.logic.SignInHandler import *
 from QT_FrontEnd.googletokendisplay import *
-<<<<<<< HEAD
-from QT_FrontEnd.logic.Connection import *
-=======
 from QT_FrontEnd.hosteventdisplaydialog import *
 from QT_FrontEnd.hosteventedit import *
 from QT_FrontEnd.eventdisplaydialog import *
 from QT_FrontEnd.registerdialog import *
 from QT_FrontEnd.userprofiledisplay import *
->>>>>>> jl4924
 
 user_priority = -1
 class SignInWindow(QMainWindow, Ui_MainWindow):
@@ -89,14 +85,23 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
 
     def login_button_clicked(self):
         token = self.TokenInput.text()
-        result = verify_login(token)
+        credential = verify_login(token)
 
-        if result == 'login error':
+        if credential == 'login error':
             show_dialog("Unable to connect to Google account, check your token. ")
             self.show()
         else:
-            lobby_window.show()
-            self.hide()
+            result = verify_registration(credential)
+            if result[0] == 'MISSING':
+                sign_up_window.show()
+                self.hide()
+            elif result[0] == 'OK':
+                lobby_window.show()
+                self.hide()
+            else:
+                show_dialog("Unable to connect to server, check your connections. ")
+                self.show()
+
 
     def back_button_clicked(self):
         sign_in_window.show()
@@ -236,9 +241,6 @@ if __name__ == '__main__':
     sign_up_window = SignUpWindow()
     lobby_window = LobbyWindow()
     token_window = TokenWindow()
-<<<<<<< HEAD
-    sign_up_window.show()
-=======
     host_event_display_window = HostEventDisplayWindow()
     host_event_edit_window = HostEventEditWindow()
     attend_event_display_window = AttendEventDisplayWindow()
@@ -246,5 +248,4 @@ if __name__ == '__main__':
     profile_view_attend_window = ProfileViewWindow()
     profile_view_host_window = ProfileViewWindow()
     sign_in_window.show()
->>>>>>> jl4924
     sys.exit(app.exec_())

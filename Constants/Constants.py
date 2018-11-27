@@ -18,6 +18,7 @@ class UserFields(Enum):
     location = 6
     tags = 7
     description = 8
+    googleid = 9
 
 
 class Tags(Enum):
