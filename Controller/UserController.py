@@ -14,7 +14,7 @@ def add_user(user: UserModel):
           "VALUES " \
           "(%s, %s, %s, %s, %s, %s,%s)"
     val = (user.name, user.nickname, user.gender,
-           user.location, user.email, user.tags.name, user.description)
+           user.location, user.email, user.tags, user.description)
     try:
         cursor.execute(sql, val)
         connector.commit()
