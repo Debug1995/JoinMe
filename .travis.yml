@@ -6,13 +6,18 @@ install:
   - pip install coverage
 script: 
   - python unit_test.py test
+  - coverage erase
+  - coverage run unit_test.py
 after_success:
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git checkout travis_ci
+  - coverage html -d ./report/branch_coverage_report
   - cd report
   - git add . *.txt
   - git commit -m "unittest log"
+  - git add branch_coverage_report
+  - git commit -m "branch coverage report in html"
   - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:master
 branches:
   only:
