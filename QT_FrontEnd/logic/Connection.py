@@ -1,11 +1,14 @@
-import socket
-from PyQt5 import QtCore, QtGui
-import string
-import random
+from socketIO_client import SocketIO, LoggingNamespace
 
 
-class Connection(QtCore.QObject):
-    remote_address = ("localhost", 1337)
+def get_user(email):
+    with SocketIO('localhost', 8080, LoggingNamespace) as socketIO:
+        socketIO.emit('login', {'email': email}, on_login_response)
+        socketIO.wait_for_callbacks()
 
-    def __init__(self, parent=None):
-        super(Connection, self).__init__(parent)
+
+def on_login_response(*args):
+    print('response:', args, len(args))
+
+
+get_user('email_1')

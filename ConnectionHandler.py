@@ -11,9 +11,6 @@ from Constants.Constants import Tags
 current_event: UserModel = None
 current_user: UserModel = None
 
-HOST = '127.0.0.1'
-PORT = 65432
-
 
 def read_event():
     eid = 0
@@ -200,22 +197,9 @@ def update_profile():
     return
 
 
-def login():
-    global current_user
-    email = user_email_input.get()
+def login(email):
     result = UserController.retrieve_user(UserFields.email.name, email)
-    if result == Errors.MISSING.name:
-        add_output("No user with such credential exists. \n")
-        UserController.print_user(current_user)
-        return
-    elif result == Errors.FAILURE.name:
-        add_output("Failed to login. Please try again. \n")
-        UserController.print_user(current_user)
-        return
-    add_output("You logged in with email " + email + ". \n")
-    current_user = UserController.retrieve_user(UserFields.email.name, email)
-    UserController.print_user(current_user)
-    return
+    return result
 
 
 def log_out():
@@ -333,16 +317,3 @@ def stringToEnum(tags_input):
     if tags_input not in check_set:
         tags_input = 'anything'
     return Tags[tags_input]
-
-
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)

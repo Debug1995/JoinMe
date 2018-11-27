@@ -35,7 +35,7 @@ def main():
         print("Final Results:")
         for file in results:
             result = results[file]
-            grade = "FAIL" if result < PYLINT_PASS_THRESHOLD else "pass"
+            grade = "FAIL" if result < PYLINT_PASS_THRESHOLD else "PASS"
             print(grade, file, result)
 
     if any([(result < PYLINT_PASS_THRESHOLD)
