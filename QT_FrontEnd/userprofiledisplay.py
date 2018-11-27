@@ -47,7 +47,7 @@ class Ui_UserProfileDisplay(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.UserImageOutput.setFont(font)
-        self.UserImageOutput.setStyleSheet("border-image: url(:/DefaultUser.png);\n"
+        self.UserImageOutput.setStyleSheet("border-image: url(./DefaultUser.png);\n"
 "\n"
 "")
         self.UserImageOutput.setObjectName("UserImageOutput")
@@ -210,7 +210,7 @@ class Ui_UserProfileDisplay(object):
         self.HostEvent3.setObjectName("HostEvent3")
         self.graphicsView = QtWidgets.QGraphicsView(UserProfileDisplay)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView.setStyleSheet("border-image: url(:/bg.png)\n"
+        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
 "")
         self.graphicsView.setObjectName("graphicsView")
