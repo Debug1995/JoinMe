@@ -60,9 +60,17 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
             show_dialog("Unable to connect to Google account, check your token. ")
             self.show()
         else:
-            verify_registration(credential)
-            lobby_window.show()
-            self.hide()
+            result = verify_registration(credential)
+            if result[0] == 'MISSING':
+                sign_up_window.show()
+                self.hide()
+            elif result[0] == 'OK':
+                lobby_window.show()
+                self.hide()
+            else:
+                show_dialog("Unable to connect to server, check your connections. ")
+                self.show()
+
 
 
 def show_dialog(message):
