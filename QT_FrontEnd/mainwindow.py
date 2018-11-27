@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.SignInButton = QtWidgets.QPushButton(self.centralWidget)
         self.SignInButton.setGeometry(QtCore.QRect(383, 177, 191, 50))
         font = QtGui.QFont()
-        font.setPointSize(19)
+        font.setPointSize(17)
         self.SignInButton.setFont(font)
         self.SignInButton.setStyleSheet("border-image: \\*url();")
         self.SignInButton.setObjectName("SignInButton")
