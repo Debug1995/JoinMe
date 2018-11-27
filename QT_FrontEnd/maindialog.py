@@ -18,7 +18,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.UserImage.setFont(font)
-        self.UserImage.setStyleSheet("border-image: url(:/DefaultUser.png);\n"
+        self.UserImage.setStyleSheet("border-image: url(./DefaultUser.png);\n"
 "")
         self.UserImage.setObjectName("UserImage")
         self.line = QtWidgets.QFrame(MainDialog)
@@ -733,7 +733,7 @@ class Ui_MainDialog(object):
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.graphicsView = QtWidgets.QGraphicsView(MainDialog)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 751, 461))
-        self.graphicsView.setStyleSheet("border-image: url(:/bg.png)\n"
+        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
 "")
         self.graphicsView.setObjectName("graphicsView")

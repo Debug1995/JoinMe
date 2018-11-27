@@ -14,7 +14,7 @@ def add_user(user: UserModel):
           "VALUES " \
           "(%s, %s, %s, %s, %s, %s,%s)"
     val = (user.name, user.nickname, user.gender,
-           user.location, user.email, user.tags, user.description)
+           user.location, user.email, user.tags.name, user.description)
     try:
         cursor.execute(sql, val)
         connector.commit()
@@ -27,8 +27,6 @@ def add_user(user: UserModel):
             return Errors.DUPLICATE.name
     finally:
         connector.rollback()
-        if not handled:
-            return Errors.FAILURE.name
 
 
 def edit_user(user: UserModel):

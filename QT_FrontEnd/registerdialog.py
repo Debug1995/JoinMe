@@ -207,7 +207,7 @@ class Ui_RegisterDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.graphicsView.setFont(font)
-        self.graphicsView.setStyleSheet("border-image: url(:/DefaultUser.png);\n"
+        self.graphicsView.setStyleSheet("border-image: url(./DefaultUser.png);\n"
 "")
         self.graphicsView.setObjectName("graphicsView")
         self.UploadImageButton = QtWidgets.QPushButton(RegisterDialog)
