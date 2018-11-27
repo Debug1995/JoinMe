@@ -1,3 +1,4 @@
+import socket
 import Controller.EventController as EventController
 import Controller.UserController as UserController
 from Model.EventModel import EventModel as EventModel
@@ -9,6 +10,9 @@ from Constants.Constants import Tags
 
 current_event: UserModel = None
 current_user: UserModel = None
+
+HOST = '127.0.0.1'
+PORT = 65432
 
 
 def read_event():
@@ -329,3 +333,16 @@ def stringToEnum(tags_input):
     if tags_input not in check_set:
         tags_input = 'anything'
     return Tags[tags_input]
+
+
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        print('Connected by', addr)
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            conn.sendall(data)
