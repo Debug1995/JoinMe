@@ -5,6 +5,7 @@ from QT_FrontEnd.mainwindow import *
 from QT_FrontEnd.registerdialog import *
 from QT_FrontEnd.logic.SignInHandler import *
 from QT_FrontEnd.googletokendisplay import *
+from QT_FrontEnd.logic.Connection import *
 
 
 class SignInWindow(QMainWindow, Ui_MainWindow):
@@ -32,6 +33,8 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
         self.SaveProfileButton.clicked.connect(self.save_profile_button_clicked)
 
     def save_profile_button_clicked(self):
+        nickname = self.NickNameInput.text()
+        send_request(nickname)
         sign_in_window.show()
         self.hide()
 
@@ -77,5 +80,5 @@ if __name__ == '__main__':
     sign_up_window = SignUpWindow()
     lobby_window = LobbyWindow()
     token_window = TokenWindow()
-    sign_in_window.show()
+    sign_up_window.show()
     sys.exit(app.exec_())

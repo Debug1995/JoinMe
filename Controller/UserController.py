@@ -76,6 +76,7 @@ def retrieve_user(field: str, value: str):
     try:
         cursor.execute(sql, val)
         user_info = cursor.fetchone()
+        print(user_info)
         if not user_info:
             handled = True
             return Errors.MISSING.name
@@ -85,8 +86,6 @@ def retrieve_user(field: str, value: str):
             return_user.join_events = get_join(return_user.uid)
             return_user.host_events = get_host(return_user.uid)
             return return_user
-    except mysql.connector.errors as err:
-        print(err.msg)
     finally:
         if not handled:
             connector.rollback()
@@ -104,9 +103,10 @@ def decode_string(user_info: str):
     field_list[5] = field_list[5][2: -1]
     field_list[6] = field_list[6][2: -1]
     field_list[7] = field_list[7][1:]
-
+    field_list[8] = field_list[8][1: -1]
+    field_list[9] = field_list[9][1: -1]
     decoded_user = UserModel(field_list[7], field_list[0], field_list[1], field_list[2], field_list[4], field_list[3],
-                             field_list[5], field_list[6], [], [])
+                             field_list[5], field_list[6], [], [], field_list[8], field_list[9])
     return decoded_user
 
 
@@ -147,6 +147,8 @@ def print_user(user: UserModel):
     print('description: ' + user.description)
     print('hosted: ' + str(user.host_events))
     print('joined: ' + str(user.join_events))
+    print('image: ' + str(user.image))
+    print('google id: ' + str(user.google_id))
     print()
     return
 

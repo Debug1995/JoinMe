@@ -238,7 +238,7 @@ class Ui_RegisterDialog(object):
         self.FirstNameInput.setObjectName("FirstNameInput")
         self.graphicsView_2 = QtWidgets.QGraphicsView(RegisterDialog)
         self.graphicsView_2.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView_2.setStyleSheet("border-image: url(:/bg.png)\n"
+        self.graphicsView_2.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
 "")
         self.graphicsView_2.setObjectName("graphicsView_2")
