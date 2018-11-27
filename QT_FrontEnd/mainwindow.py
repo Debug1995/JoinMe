@@ -42,11 +42,11 @@ class Ui_MainWindow(object):
         self.QuitButton.setObjectName("QuitButton")
         self.graphicsView = QtWidgets.QGraphicsView(self.centralWidget)
         self.graphicsView.setGeometry(QtCore.QRect(330, 185, 41, 31))
-        self.graphicsView.setStyleSheet("border-image: url(:/POP_Gmail.png)")
+        self.graphicsView.setStyleSheet("border-image: url(./POP_Gmail.png)")
         self.graphicsView.setObjectName("graphicsView")
         self.graphicsView_2 = QtWidgets.QGraphicsView(self.centralWidget)
         self.graphicsView_2.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView_2.setStyleSheet("border-image: url(:/bg.png)\n"
+        self.graphicsView_2.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
 "")
         self.graphicsView_2.setObjectName("graphicsView_2")

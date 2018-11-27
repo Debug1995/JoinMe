@@ -1,0 +1,347 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Coverage report</title>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.ba-throttle-debounce.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="coverage_html.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(coverage.index_ready);
+    </script>
+</head>
+<body class="indexfile">
+
+<div id="header">
+    <div class="content">
+        <h1>Coverage report:
+            <span class="pc_cov">57%</span>
+        </h1>
+
+        <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
+
+        <form id="filter_container">
+            <input id="filter" type="text" value="" placeholder="filter..." />
+        </form>
+    </div>
+</div>
+
+<div class="help_panel">
+    <img id="panel_icon" src="keybd_open.png" alt="Hide keyboard shortcuts" />
+    <p class="legend">Hot-keys on this page</p>
+    <div>
+    <p class="keyhelp">
+        <span class="key">n</span>
+        <span class="key">s</span>
+        <span class="key">m</span>
+        <span class="key">x</span>
+        
+        <span class="key">c</span> &nbsp; change column sorting
+    </p>
+    </div>
+</div>
+
+<div id="index">
+    <table class="index">
+        <thead>
+            
+            <tr class="tablehead" title="Click to sort">
+                <th class="name left headerSortDown shortkey_n">Module</th>
+                <th class="shortkey_s">statements</th>
+                <th class="shortkey_m">missing</th>
+                <th class="shortkey_x">excluded</th>
+                
+                <th class="right shortkey_c">coverage</th>
+            </tr>
+        </thead>
+        
+        <tfoot>
+            <tr class="total">
+                <td class="name left">Total</td>
+                <td>5412</td>
+                <td>2304</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3108 5412">57%</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            
+            <tr class="file">
+                <td class="name left"><a href="Constants_Constants_py.html">Constants/Constants.py</a></td>
+                <td>31</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="31 31">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Controller_EventController_py.html">Controller/EventController.py</a></td>
+                <td>220</td>
+                <td>132</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="88 220">40%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Controller_SqlController_py.html">Controller/SqlController.py</a></td>
+                <td>19</td>
+                <td>1</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="18 19">95%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Controller_UserController_py.html">Controller/UserController.py</a></td>
+                <td>144</td>
+                <td>46</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="98 144">68%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Model_EventModel_py.html">Model/EventModel.py</a></td>
+                <td>53</td>
+                <td>6</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="47 53">89%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Model_UserModel_py.html">Model/UserModel.py</a></td>
+                <td>26</td>
+                <td>10</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="16 26">62%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="Model___init___py.html">Model/__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="unit_test_py.html">unit_test.py</a></td>
+                <td>45</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="45 45">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql___init___py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/__init__.py</a></td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="0 0">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector___init___py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py</a></td>
+                <td>82</td>
+                <td>51</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="31 82">38%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_abstracts_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py</a></td>
+                <td>499</td>
+                <td>230</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="269 499">54%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_authentication_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/authentication.py</a></td>
+                <td>83</td>
+                <td>32</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="51 83">61%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_catch23_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/catch23.py</a></td>
+                <td>55</td>
+                <td>26</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="29 55">53%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_charsets_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/charsets.py</a></td>
+                <td>3</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="3 3">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_connection_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py</a></td>
+                <td>458</td>
+                <td>250</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="208 458">45%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_constants_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/constants.py</a></td>
+                <td>309</td>
+                <td>59</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="250 309">81%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_conversion_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/conversion.py</a></td>
+                <td>306</td>
+                <td>175</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="131 306">43%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_cursor_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/cursor.py</a></td>
+                <td>685</td>
+                <td>450</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="235 685">34%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_custom_types_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/custom_types.py</a></td>
+                <td>13</td>
+                <td>8</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="5 13">38%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_dbapi_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/dbapi.py</a></td>
+                <td>33</td>
+                <td>9</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="24 33">73%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_errorcode_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/errorcode.py</a></td>
+                <td>1127</td>
+                <td>0</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="1127 1127">100%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_errors_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/errors.py</a></td>
+                <td>110</td>
+                <td>39</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="71 110">65%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_locales___init___py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/locales/__init__.py</a></td>
+                <td>21</td>
+                <td>17</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="4 21">19%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_network_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py</a></td>
+                <td>321</td>
+                <td>217</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="104 321">32%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_optionfiles_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/optionfiles.py</a></td>
+                <td>182</td>
+                <td>163</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="19 182">10%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_protocol_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/protocol.py</a></td>
+                <td>430</td>
+                <td>296</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="134 430">31%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_utils_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/utils.py</a></td>
+                <td>150</td>
+                <td>86</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="64 150">43%</td>
+            </tr>
+            
+            <tr class="file">
+                <td class="name left"><a href="_home_travis_virtualenv_python3_6_3_lib_python3_6_site-packages_mysql_connector_version_py.html">/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/version.py</a></td>
+                <td>7</td>
+                <td>1</td>
+                <td>0</td>
+                
+                <td class="right" data-ratio="6 7">86%</td>
+            </tr>
+            
+        </tbody>
+    </table>
+
+    <p id="no_rows">
+        No items found using the specified filter.
+    </p>
+</div>
+
+<div id="footer">
+    <div class="content">
+        <p>
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.2</a>,
+            created at 2018-11-27 03:05
+        </p>
+    </div>
+</div>
+
+</body>
+</html>
