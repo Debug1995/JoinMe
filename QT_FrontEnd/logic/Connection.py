@@ -8,7 +8,7 @@ def get_user(email):
 
 
 def on_login_response(*args):
-    print('response:', args, len(args))
+    return args
 
 
 get_user('email_1')

@@ -77,9 +77,11 @@ def verify_login(token):
         if not returned:
             return 'login error'
 
-#service = gmail.build_service(credentials)
-# print(credentials)
 
+def verify_registration(credential):
+    print(str(credential))
+
+# service = gmail.build_service(credentials)
 #sender = '199511zc@gmail.com'
 #to = 'cy2468@columbia.edu'
 #subject = 'gmail api test'

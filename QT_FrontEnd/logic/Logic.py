@@ -54,12 +54,13 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
 
     def login_button_clicked(self):
         token = self.TokenInput.text()
-        result = verify_login(token)
+        credential = verify_login(token)
 
-        if result == 'login error':
+        if credential == 'login error':
             show_dialog("Unable to connect to Google account, check your token. ")
             self.show()
         else:
+            verify_registration(credential)
             lobby_window.show()
             self.hide()
 
@@ -80,5 +81,5 @@ if __name__ == '__main__':
     sign_up_window = SignUpWindow()
     lobby_window = LobbyWindow()
     token_window = TokenWindow()
-    sign_up_window.show()
+    sign_in_window.show()
     sys.exit(app.exec_())
