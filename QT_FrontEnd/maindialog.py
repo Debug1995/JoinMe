@@ -18,7 +18,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.UserImage.setFont(font)
-        self.UserImage.setStyleSheet("border-image: url(:/DefaultUser.png);\n"
+        self.UserImage.setStyleSheet("border-image: url(./DefaultUser.png);\n"
 "")
         self.UserImage.setObjectName("UserImage")
         self.line = QtWidgets.QFrame(MainDialog)
