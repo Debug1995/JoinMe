@@ -19,7 +19,7 @@ class Test(unittest.TestCase):
         self.assertIsNotNone(event_id_1)
         self.assertIsNotNone(EventController.add_event(self.user_1, invalid_event_1))
     
-    # def test_retrieve_event(self):
+    def test_retrieve_event(self):
     #     # UserController.delete_user('nickname_1', 'email_1')
     #     # UserController.add_user(self.user_1)
     #     # user_2 = UserController.retrieve_user('email', 'email_1')
