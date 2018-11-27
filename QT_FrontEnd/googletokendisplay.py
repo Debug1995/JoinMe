@@ -21,7 +21,7 @@ class Ui_GoogleTokenDisplay(object):
         self.LoginButton.setObjectName("LoginButton")
         self.graphicsView = QtWidgets.QGraphicsView(GoogleTokenDisplay)
         self.graphicsView.setGeometry(QtCore.QRect(160, 199, 41, 31))
-        self.graphicsView.setStyleSheet("border-image: url(:/POP_Gmail.png)")
+        self.graphicsView.setStyleSheet("border-image: url(./POP_Gmail.png)")
         self.graphicsView.setObjectName("graphicsView")
         self.JoinMeLabel_2 = QtWidgets.QLabel(GoogleTokenDisplay)
         self.JoinMeLabel_2.setGeometry(QtCore.QRect(311, 420, 141, 41))
@@ -41,7 +41,7 @@ class Ui_GoogleTokenDisplay(object):
         self.JoinMeLabel.setObjectName("JoinMeLabel")
         self.graphicsView_2 = QtWidgets.QGraphicsView(GoogleTokenDisplay)
         self.graphicsView_2.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView_2.setStyleSheet("border-image: url(:/bg.png)\n"
+        self.graphicsView_2.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
 "")
         self.graphicsView_2.setObjectName("graphicsView_2")

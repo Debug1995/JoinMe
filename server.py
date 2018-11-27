@@ -1,4 +1,4 @@
-from tkinter import *
+import socket
 import Controller.EventController as EventController
 import Controller.UserController as UserController
 from Model.EventModel import EventModel as EventModel
@@ -10,6 +10,9 @@ from Constants.Constants import Tags
 
 current_event: UserModel = None
 current_user: UserModel = None
+
+HOST = '127.0.0.1'
+PORT = 65432
 
 
 def read_event():
@@ -332,154 +335,14 @@ def stringToEnum(tags_input):
     return Tags[tags_input]
 
 
-window = Tk()
-window.title('JoinMe')
-window.geometry('1000x660')
-title = Label(window, text='JoinMe',)
-title.config(font='Helvetica -20 bold', fg='black')
-title.place(x=375, y=20, anchor="center")
-
-# ------------------------------------------- Event -------------------------------------------
-
-Event_title = Label(window, text='Title:')
-Event_title.place(x=90, y=30)
-title_input = Entry(window, relief='ridge', width=50)
-title_input.place(x=170, y=30)
-
-Event_Description = Label(window, text='Description:')
-Event_Description.place(x=90, y=60)
-description_input = Entry(window, relief='ridge', width=50)
-description_input.place(x=170, y=60)
-
-Event_Tags = Label(window, text='Tags:')
-Event_Tags.place(x=90, y=90)
-
-tags_input = Entry(window, relief='ridge', width=50)
-tags_input.place(x=170, y=90)
-
-
-Event_image = Label(window, text='Image URL:')
-Event_image.place(x=90, y=120)
-image_input = Entry(window, relief='ridge', width=50)
-image_input.place(x=170, y=120)
-
-Event_event_date = Label(window, text='Event Date:')
-Event_event_date.place(x=90, y=150)
-event_date_input = Entry(window, relief='ridge', width=50)
-event_date_input.place(x=170, y=150)
-
-Event_location = Label(window, text='Location:')
-Event_location.place(x=90, y=180)
-location_input = Entry(window, relief='ridge', width=50)
-location_input.place(x=170, y=180)
-
-Event_period = Label(window, text='Time Period:')
-Event_period.place(x=90, y=210)
-period_input = Entry(window, relief='ridge', width=50)
-period_input.place(x=170, y=210)
-
-post_button = Button(window, text="Post Event", command=post_event)
-post_button.place(x=90, y=242.5)
-
-update_button = Button(window, text="Update Event", command=update_event)
-update_button.place(x=170, y=242.5)
-
-Event_id_join = Label(window, text='Event ID:')
-Event_id_join.place(x=260, y=242.5)
-
-event_id_input = Entry(window, relief='ridge', width=10)
-event_id_input.place(x=320, y=240.5)
-
-join_button = Button(window, text="Join Event", command=join_event)
-join_button.place(x=420, y= 243.5)
-
-Event_user = Label(window, text='User ID:')
-Event_user.place(x=180, y=270)
-user_id_input = Entry(window, relief='ridge', width=10)
-user_id_input.place(x=240, y=270)
-
-remove_button = Button(window, text="Remove User", command=remove_user)
-remove_button.place(x=90, y=270)
-
-label_user = Label(window,
-                   text='------------------------------------------- User -------------------------------------------')
-label_user.place(x=55, y=295)
-
-# ------------------------------------------- User -------------------------------------------
-
-User_Realname = Label(window, text='Real Name:')
-User_Realname.place(x=90, y=315)
-realname_input = Entry(window, relief='ridge', width=50)
-realname_input.place(x=170, y=315)
-
-User_Nickname = Label(window, text='Nickname:')
-User_Nickname.place(x=90, y=345)
-nickname_input = Entry(window, relief='ridge', width=50)
-nickname_input.place(x=170, y=345)
-
-User_Gender = Label(window, text='Gender:')
-User_Gender.place(x=90, y=375)
-gender_input = Entry(window, relief='ridge', width=50)
-gender_input.place(x=170, y=375)
-
-User_Location = Label(window, text='Location:')
-User_Location.place(x=90, y=405)
-user_location_input = Entry(window, relief='ridge', width=50)
-user_location_input.place(x=170, y=405)
-
-User_Email = Label(window, text='Email:')
-User_Email.place(x=90, y=435)
-email_input = Entry(window, relief='ridge', width=50)
-email_input.place(x=170, y=435)
-
-User_UserTags = Label(window, text='Tags:')
-User_UserTags.place(x=90, y=465)
-user_tags_input = Entry(window, relief='ridge', width=50)
-user_tags_input.place(x=170, y=465)
-
-User_Description = Label(window, text='Description:')
-User_Description.place(x=90, y=495)
-user_description_input = Entry(window, relief='ridge', width=50)
-user_description_input.place(x=170, y=495)
-
-register_button = Button(window, text="Register", command=register)
-register_button.place(x=90, y=525)
-
-updateProfile_button = Button(window, text="Update Profile", command=update_profile)
-updateProfile_button.place(x=155, y=525)
-
-user_email_input = Entry(window, relief='ridge', width=30)
-user_email_input.place(x=200, y=555)
-
-search_button = Button(window, text="Login with Email", command=login)
-search_button.place(x=90, y=557.5)
-
-logout_button = Button(window, text="Logout", command=log_out)
-logout_button.place(x=490, y=557.5)
-
-# ------------------------------------------- Email -------------------------------------------
-
-contact_friend_button = Button(window, text="Contact Friend", command=contact_friend)
-contact_friend_button.place(x=90, y=587.5)
-
-Email_User_Nickname = Label(window, text='User Nickname:')
-Email_User_Nickname.place(x=180, y=587.5)
-email_nickname_input = Entry(window, relief='ridge', width=10)
-email_nickname_input.place(x=290, y=585)
-
-group_email_button = Button(window, text="Group Email", command=group_email)
-group_email_button.place(x=90, y=615)
-
-email_message_input = Entry(window, relief='ridge', width=50)
-email_message_input.place(x=170, y=610)
-
-# ------------------------------------------- Output -------------------------------------------
-
-output = Label(window, text='Output')
-output.place(x=800, y=20)
-text = StringVar(output)
-output_value = Label(window, textvariable=text)
-text.set(value="This is the first iteration demo for JoinMe. \n")
-output_value.pack()
-output_value.place(x=700, y=40)
-window.mainloop()
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+    s.bind((HOST, PORT))
+    s.listen()
+    conn, addr = s.accept()
+    with conn:
+        print('Connected by', addr)
+        while True:
+            data = conn.recv(1024)
+            if not data:
+                break
+            conn.sendall(data)

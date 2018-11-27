@@ -65,7 +65,18 @@ def initiate_login():
     gmail = Gmail()
     webbrowser.open(gmail.get_autho_uri(), new=2)
 
-#credentials = gmail.get_credentials('4/iQDv65cotGFKZew9KgEJfAJVGkqSxIqf2xDfMqqvBVVf5TsXugD9PO0')
+
+def verify_login(token):
+    returned = False
+    try:
+        gmail = Gmail()
+        credentials = gmail.get_credentials(token)
+        returned = True
+        return credentials
+    finally:
+        if not returned:
+            return 'login error'
+
 #service = gmail.build_service(credentials)
 # print(credentials)
 
