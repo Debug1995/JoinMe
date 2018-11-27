@@ -108,18 +108,18 @@ class Test(unittest.TestCase):
         UserController.delete_user('nickname_1', 'email_1')
         
 if __name__ == '__main__':
-    # print(1)
-    # log_file = 'report/unittest_log.txt'
-    # f = open(log_file, 'a')
-    # suite = unittest.TestSuite()
-    # tests = [Test("test_add_event"), Test("test_retrieve_event"), Test("test_edit_event"), 
-    #          Test("test_add_user"), Test("test_delete_user"), 
-    #          Test("test_edit_user_1"), Test("test_edit_user_2"), 
-    #          Test("test_retrieve_user")]
-    # suite.addTests(tests)
-    # runner = unittest.TextTestRunner(f)
-    # runner.run(suite)
-    # f.close()
-    # print(2)
+    print(1)
+    log_file = 'report/unittest_log.txt'
+    f = open(log_file, 'a')
+    suite = unittest.TestSuite()
+    tests = [Test("test_add_event"), Test("test_retrieve_event"), Test("test_edit_event"), 
+             Test("test_add_user"), Test("test_delete_user"), 
+             Test("test_edit_user_1"), Test("test_edit_user_2"), 
+             Test("test_retrieve_user")]
+    suite.addTests(tests)
+    runner = unittest.TextTestRunner(f)
+    runner.run(suite)
+    f.close()
+    print(2)
     # unittest.main(testRunner=runner)
-    unittest.main()
+    # unittest.main()
