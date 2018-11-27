@@ -242,16 +242,16 @@ class Ui_RegisterDialog(object):
 "\n"
 "")
         self.graphicsView_2.setObjectName("graphicsView_2")
-        self.Description = QtWidgets.QTextEdit(RegisterDialog)
-        self.Description.setGeometry(QtCore.QRect(380, 302, 301, 141))
+        self.DescriptionInput = QtWidgets.QTextEdit(RegisterDialog)
+        self.DescriptionInput.setGeometry(QtCore.QRect(380, 302, 301, 141))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.Description.setFont(font)
-        self.Description.setAutoFillBackground(False)
-        self.Description.setStyleSheet("border-image: \\*url();\n"
+        self.DescriptionInput.setFont(font)
+        self.DescriptionInput.setAutoFillBackground(False)
+        self.DescriptionInput.setStyleSheet("border-image: \\*url();\n"
 "border-radius: 5px;\n"
 "")
-        self.Description.setObjectName("Description")
+        self.DescriptionInput.setObjectName("DescriptionInput")
         self.graphicsView_2.raise_()
         self.label_4.raise_()
         self.EmailAddInput.raise_()
@@ -277,7 +277,7 @@ class Ui_RegisterDialog(object):
         self.UploadImageButton.raise_()
         self.SaveProfileButton.raise_()
         self.FirstNameInput.raise_()
-        self.Description.raise_()
+        self.DescriptionInput.raise_()
 
         self.retranslateUi(RegisterDialog)
         QtCore.QMetaObject.connectSlotsByName(RegisterDialog)
@@ -321,5 +321,5 @@ class Ui_RegisterDialog(object):
         self.label_13.setText(_translate("RegisterDialog", "Description"))
         self.UploadImageButton.setText(_translate("RegisterDialog", "Upload Image"))
         self.SaveProfileButton.setText(_translate("RegisterDialog", "Save"))
-        self.Description.setWhatsThis(_translate("RegisterDialog", "ddd"))
+        self.DescriptionInput.setWhatsThis(_translate("RegisterDialog", "ddd"))
 
