@@ -3,25 +3,22 @@ python:
   - "3.6"
 install:
   - pip install mysql-connector
+  - pip install coverage
 script: 
-  # - ls -l unittest_log.txt
   - python unit_test.py test
-  # - ls -l unittest_log.txt
-  # - python unit_test.py test
-  # - ls -l unittest_log.txt
-  # - git config --global user.name "Debug1995"
-  # - git config --global user.email "199511zc@gmail.com"
-  # - git checkout travis_ci
-  # - git add . *.txt
-  # - git commit -m "unittest log"
-  # - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:travis_ci
+  - coverage erase
+  - coverage run unit_test.py
 after_success:
   - git config --global user.name "Debug1995"
   - git config --global user.email "199511zc@gmail.com"
   - git checkout travis_ci
+  - coverage html -d ./report/branch_coverage_report
+  - cd report
   - git add . *.txt
   - git commit -m "unittest log"
-  - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:travis_ci
+  - git add branch_coverage_report
+  - git commit -m "branch coverage report in html"
+  - git push --force --quiet "https://${GH_token}@${GH_ref}" travis_ci:master
 branches:
   only:
     - travis_ci
