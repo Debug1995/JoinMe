@@ -3,11 +3,12 @@ from QT_FrontEnd.logic.Connection import *
 import webbrowser
 
 
-SECRET_LOCATION = './secret.json'
+SECRET_LOCATION = '../../Login/secret.json'
 SCOPES = [
     'https://www.googleapis.com/auth/gmail.send',
     'https://www.googleapis.com/auth/userinfo.email',
-    'https://www.googleapis.com/auth/userinfo.profile'
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/drive'
 ]
 
 

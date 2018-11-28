@@ -26,18 +26,19 @@ from email.mime.text import MIMEText
 #     gmail.send_message(service, '199511zc@gmail.com', message)
 
 class Gmail:
-    SECRET_LOCATION = 'secret.json'
+    SECRET_LOCATION = './secret.json'
     SCOPES = [
         'https://www.googleapis.com/auth/gmail.send',
         'https://www.googleapis.com/auth/userinfo.email',
-        'https://www.googleapis.com/auth/userinfo.profile'
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/drive'
     ]
 
 
     def __init__(self):
         self.flow = flow_from_clientsecrets(self.SECRET_LOCATION,
-                                       scope=' '.join(self.SCOPES),
-                                       redirect_uri='urn:ietf:wg:oauth:2.0:oob')
+                                            scope=' '.join(self.SCOPES),
+                                            redirect_uri='urn:ietf:wg:oauth:2.0:oob')
 
     def get_autho_uri(self):
         autho_uri = self.flow.step1_get_authorize_url()

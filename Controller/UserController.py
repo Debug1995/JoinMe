@@ -10,18 +10,17 @@ def add_user(user: UserModel):
     handled = False
 
     sql = "INSERT INTO user " \
-          "(realname, nickname, gender, location, email, tags, selfdescription) " \
+          "(realname, nickname, gender, location, email, tags, selfdescription, googleid, image) " \
           "VALUES " \
-          "(%s, %s, %s, %s, %s, %s,%s)"
+          "(%s, %s, %s, %s, %s, %s, %s, %s, %s)"
     val = (user.name, user.nickname, user.gender,
-           user.location, user.email, user.tags, user.description)
+           user.location, user.email, user.tags, user.description, user.google_id, user.image)
     try:
         cursor.execute(sql, val)
         connector.commit()
         handled = True
         return Errors.SUCCESS.name
     except mysql.connector.errors.IntegrityError as err:
-        print(err.msg)
         if not handled:
             handled = True
             return Errors.DUPLICATE.name
@@ -74,7 +73,6 @@ def retrieve_user(field: str, value: str):
     try:
         cursor.execute(sql, val)
         user_info = cursor.fetchone()
-        print(user_info)
         if not user_info:
             handled = True
             return Errors.MISSING.name
@@ -91,6 +89,7 @@ def retrieve_user(field: str, value: str):
 
 
 def decode_string(user_info: str):
+    print(user_info)
     user_info = user_info[1: -1]
     field_list = user_info.split(',')
     field_list[0] = field_list[0][1: -1]
@@ -141,7 +140,7 @@ def print_user(user: UserModel):
     print('gender: ' + user.gender)
     print('location: ' + user.location)
     print('email: ' + user.email)
-    print('tags: ' + user.tags)
+    print('tags: ' + user.tags.name)
     print('description: ' + user.description)
     print('hosted: ' + str(user.host_events))
     print('joined: ' + str(user.join_events))
