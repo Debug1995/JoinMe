@@ -147,21 +147,29 @@ def remove_user():
     return
 
 
-def register():
-    global current_user
-    current_user = read_user()
-    result = UserController.add_user(current_user)
+def register(data):
+    user = UserModel(0, data['name'], data['nickname'], data['gender'], data['email'], data['location'],
+                     stringToEnum(data['tags']).name, data['description'], [], [], data['image'], data['google_id'])
+    result = UserController.add_user(user)
     if result == Errors.DUPLICATE.name:
-        add_output("A user with the same credentials already exists! \n")
-        current_user = None
+        return result, None
     elif result == Errors.FAILURE.name:
-        return_failure()
-        current_user = None
+        return result, None
     else:
-        add_output("User registered JoinMe with email " + current_user.email + ". \n")
-        current_user = UserController.retrieve_user(UserFields.email.name, current_user.email)
-    UserController.print_user(current_user)
-    return
+        user = UserController.retrieve_user(UserFields.googleid.name, data['google_id'])
+        data = {
+            'id': user.uid,
+            'name': user.name,
+            'nickname': user.nickname,
+            'email': user.email,
+            'location': user.location,
+            'description': user.description,
+            'gender': user.gender,
+            'image': user.image,
+            'tags': user.tags,
+            'google_id': user.google_id
+        }
+        return 'OK', data
 
 
 def update_profile():
@@ -198,7 +206,7 @@ def update_profile():
 
 
 def login(email):
-    result = UserController.retrieve_user(UserFields.email.name, email)
+    result = UserController.retrieve_user(UserFields.googleid.name, email)
     return result
 
 
@@ -265,16 +273,11 @@ def contact_friend():
     return
 
 
-def add_output(line: str):
-    global text
-    text.set(text.get() + line)
-
-
 def return_failure():
     add_output("Connection failed. Please try again. \n")
 
 
-#TODO: Replace with sending real email
+# TODO: Replace with sending real email
 def send_email(message: str, address: str):
     add_output('Message: ' + message + ' send to ' + address + '. \n')
 
