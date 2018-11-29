@@ -112,7 +112,7 @@ if __name__ == '__main__':
     log_file = 'report/unittest_log.txt'
     f = open(log_file, 'a')
     suite = unittest.TestSuite()
-    tests = [Test("test_add_event"), Test("test_retrieve_event"), Test("test_edit_event"), 
+    tests = [Test("test_add_event"), 
              Test("test_add_user"), Test("test_delete_user"), 
              Test("test_edit_user_1"), Test("test_edit_user_2"), 
              Test("test_retrieve_user")]
@@ -122,4 +122,4 @@ if __name__ == '__main__':
     f.close()
     print(2)
     # unittest.main(testRunner=runner)
-    # unittest.main()
+    # unittest.main(), Test("test_retrieve_event"), Test("test_edit_event")
