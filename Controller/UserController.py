@@ -1,4 +1,5 @@
 import mysql.connector
+import ast
 from Model.UserModel import UserModel
 from Controller.SqlController import SqlController
 from Constants.Constants import Errors
@@ -35,11 +36,11 @@ def edit_user(user: UserModel):
 
     sql = "UPDATE user " \
           "SET realname = %s, nickname = %s, gender = %s, location = %s, " \
-          "email = %s, tags = %s, selfdescription = %s " \
-          "WHERE userid = %s"
+          "email = %s, tags = %s, selfdescription = %s, image = %s" \
+          "WHERE googleid = %s"
 
     val = (user.name, user.nickname, user.gender, user.location, user.email,
-           user.tags, user.description, user.uid)
+           user.tags, user.description, user.image, user.google_id)
     try:
         cursor.execute(sql, val)
         connector.commit()
@@ -89,21 +90,21 @@ def retrieve_user(field: str, value: str):
 
 
 def decode_string(user_info: str):
-    print(user_info)
     user_info = user_info[1: -1]
-    field_list = user_info.split(',')
-    field_list[0] = field_list[0][1: -1]
-    field_list[1] = field_list[1][2: -1]
-    field_list[2] = field_list[2][2: -1]
-    field_list[3] = field_list[3][2: -1]
-    field_list[4] = field_list[4][2: -1]
-    field_list[5] = field_list[5][2: -1]
-    field_list[6] = field_list[6][2: -1]
-    field_list[7] = field_list[7][1:]
-    field_list[8] = field_list[8][1: -1]
-    field_list[9] = field_list[9][1: -1]
-    decoded_user = UserModel(field_list[7], field_list[0], field_list[1], field_list[2], field_list[4], field_list[3],
-                             field_list[5], field_list[6], [], [], field_list[8], field_list[9])
+    user_info = '[' + user_info + ']'
+    user_info = ast.literal_eval(user_info)
+    print(user_info)
+    name = user_info[0]
+    nickname = user_info[1]
+    gender = user_info[2]
+    location = user_info[3]
+    email = user_info[4]
+    tags = user_info[5]
+    description = user_info[6]
+    uid = user_info[7]
+    image = user_info[8]
+    google_id = user_info[9]
+    decoded_user = UserModel(uid, name, nickname, gender, email, location, tags, description, [], [], image, google_id)
     return decoded_user
 
 
@@ -134,13 +135,13 @@ def print_user(user: UserModel):
         print('This user is empty. ')
         print()
         return
-    print('user id: ' + user.uid)
+    print('user id: ' + str(user.uid))
     print('real name: ' + user.name)
     print('nickname: ' + user.nickname)
     print('gender: ' + user.gender)
     print('location: ' + user.location)
     print('email: ' + user.email)
-    print('tags: ' + user.tags.name)
+    print('tags: ' + user.tags)
     print('description: ' + user.description)
     print('hosted: ' + str(user.host_events))
     print('joined: ' + str(user.join_events))

@@ -5,17 +5,17 @@ from Constants.Constants import Errors
 import datetime
 
 
-def add_event(user: UserModel, event: EventModel):
+def add_event(event: EventModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     handled = False
 
     sql = "INSERT INTO event " \
-          "(title, tags, eventdate, description, image, location, expiretime) " \
+          "(title, tags, eventdate, description, image, location, expiretime, city) " \
           "VALUES " \
-          "(%s, %s, %s, %s, %s, %s,%s)"
+          "(%s, %s, %s, %s, %s, %s, %s, %s)"
     val = (event.title, event.tags, event.event_date,
-           event.description, event.image, event.location, event.expire_date)
+           event.description, event.image, event.location, event.expire_date, event.address)
     try:
         cursor.execute(sql, val)
         connector.commit()
@@ -42,10 +42,10 @@ def edit_event(event: EventModel):
 
     sql = "UPDATE event " \
           "SET title = %s, tags = %s, eventdate = %s, description = %s, " \
-          "image = %s, location = %s, expiretime = %s " \
+          "image = %s, location = %s, expiretime = %s, city = %s" \
           "WHERE eventid = %s"
     val = (event.title, event.tags, event.event_date, event.description, event.image,
-           event.location, event.expire_date, event.eid)
+           event.location, event.expire_date, event.address, event.eid)
 
     try:
         cursor.execute(sql, val)
@@ -103,22 +103,20 @@ def remove_user(user_id: str, event: EventModel):
             return Errors.FAILURE.name
 
 
-def join_event(user: UserModel, event: EventModel):
+def join_event(data):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     handled = False
 
     sql = "INSERT INTO JoinTable (JoinID, EventID)" \
           "VALUES (%s, %s)"
-    val = (user.uid, event.eid)
+    val = (data['uid'], data['eid'])
 
     try:
         cursor.execute(sql, val)
         connector.commit()
-        event.attendees.append(user.uid)
-        user.join_events.append(event.eid)
         handled = True
-        return user.uid, event.eid
+        return 'OK'
     except mysql.connector.errors.IntegrityError as err:
         print(err.msg)
         handled = True
@@ -129,20 +127,20 @@ def join_event(user: UserModel, event: EventModel):
             return Errors.FAILURE.name
 
 
-def host_event(user: UserModel, event: EventModel):
+def host_event(uid, event: EventModel):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     handled = False
 
     sql = "INSERT INTO Host (hostid, eventid)" \
           "VALUES(%s, %s)"
-    val = (user.uid, event.eid)
+    val = (uid, event.eid)
 
     try:
         cursor.execute(sql, val)
         connector.commit()
         handled = True
-        return event.eid, user.uid
+        return event.eid, uid
     except mysql.connector.errors.IntegrityError as err:
         if not handled:
             print(err.msg)
@@ -202,8 +200,6 @@ def retrieve_event(event_id: str):
             return_event.attendees = get_join(return_event.eid)
             print(return_event.attendees)
             return return_event
-    except mysql.connector.errors as err:
-        print(err.msg)
     finally:
         if not handled:
             connector.rollback()
@@ -212,26 +208,23 @@ def retrieve_event(event_id: str):
 
 def decode_string_event(event_info: str):
     event_info = event_info[1: -1]
-    field_list = event_info.split(',')
+    event_info = '[' + event_info + ']'
+    field_list = eval(event_info)
+    print(field_list)
     eid = field_list[0]
-    event_title = field_list[1][2: -1]
-    tags = field_list[2][2: -1]
-    event_date = decode_date(field_list[3] + ',' + field_list[4] + ',' + field_list[5])
-    description = field_list[6][2: -1]
-    image = field_list[7][2: -1]
-    location = field_list[8][2: -1]
-    expire_date = decode_date(field_list[9] + ',' + field_list[10] + ',' + field_list[11])
+    event_title = field_list[1]
+    tags = field_list[2]
+    event_date = str(field_list[3])
+    description = field_list[4]
+    image = field_list[5]
+    location = field_list[6]
+    expire_date = str(field_list[7])
+    address = field_list[8]
 
     decoded_event = EventModel(eid, event_title, tags, description, image, None,
-                               [], event_date, location, 0)
+                               [], event_date, location, address, 0)
     decoded_event.expire_date = expire_date
     return decoded_event
-
-
-def decode_date(date_time: str):
-    date_time = date_time[15: -1]
-    date_list = date_time.split(',')
-    return date_list[0] + '-' + date_list[1][1:] + '-' + date_list[2][1:]
 
 
 def print_event(event: EventModel):
@@ -295,3 +288,23 @@ def get_join(event_id: str):
     finally:
         if not got:
             return []
+
+
+def get_default_list(data):
+    connector = SqlController().sql_connector
+    cursor = connector.cursor()
+    handled = False
+
+    sql = 'SELECT eventid, title, location ' \
+          'FROM event ' \
+          'WHERE expiretime > %s AND location = %s'
+    val = (datetime.datetime.today().strftime('%Y-%m-%d'), data)
+    try:
+        cursor.execute(sql, val)
+        list = cursor.fetchall()
+        handled = True
+        return Errors.SUCCESS.name, list
+    finally:
+        if not handled:
+            connector.rollback()
+            return Errors.FAILURE.name, None
