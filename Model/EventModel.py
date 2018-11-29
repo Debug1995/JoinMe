@@ -4,8 +4,8 @@ import time
 
 
 class EventModel:
-    def __init__(self, eid, title, tags: Tags, description, image, hosts, attendees: [str], event_date,
-                 location, register_period):
+    def __init__(self, eid, title, tags, description, image, hosts, attendees: [str], event_date,
+                 location, address, register_period):
         self.eid = eid
         self.title = title
         self.tags = tags
@@ -13,6 +13,7 @@ class EventModel:
         self.image = image
         self.hosts = hosts
         self.attendees = attendees
+        self.address = address
         if self.validCheckDate(event_date):
             self.event_date = event_date
         else:
@@ -29,7 +30,6 @@ class EventModel:
             self.register_period = '1'
         #print(self.event_date, self.register_period)
         self.expire_date = self.calculate_date(self.event_date, self.register_period)
-
 
     def validPeriod(self, period):
         period = str(period).strip()

@@ -1,116 +1,64 @@
-import socket
 import Controller.EventController as EventController
 import Controller.UserController as UserController
 from Model.EventModel import EventModel as EventModel
 from Model.UserModel import UserModel as UserModel
 from Constants.Constants import Errors
 from Constants.Constants import UserFields
-from Constants.Constants import Tags
 
 
-current_event: UserModel = None
-current_user: UserModel = None
+def post_event(data):
+    event = EventModel(0, data['title'], data['tags'], data['description'], data['image'], data['hosts'], [],
+                       data['event_date'], data['state'], data['address'], data['register_period'])
+    EventController.print_event(event)
+    result = EventController.add_event(event)
+    if result == Errors.DUPLICATE.name:
+        event.eid = None
+        return Errors.DUPLICATE.name, None
+    elif result == Errors.FAILURE.name:
+        event.eid = None
+        return Errors.FAILURE.name, None
+    print('Event #' + str(result) + ' has been posted. \n')
+    event.eid = result
+
+    result = EventController.host_event(event.hosts, event)
+    if result == Errors.DUPLICATE.name:
+        current_event.eid = None
+        print("You have already hosted this event. \n")
+        return Errors.DUPLICATE.name
+    elif result == Errors.FAILURE.name:
+        current_event.eid = None
+        return Errors.FAILURE.name
+
+    EventController.print_event(event)
+    data = {
+        'eid': event.eid,
+        'title': event.title,
+        'tags': event.tags,
+        'description': event.description,
+        'hosts': event.hosts,
+        'event_date': event.event_date,
+        'state': event.location,
+        'address': event.address,
+        'image': event.image,
+        'register_period': event.register_period,
+        'expire_date': event.expire_date
+    }
+    return 'OK', data
 
 
-def read_event():
-    eid = 0
-    event_title = str(title_input.get())
-    tags = stringToEnum(str(tags_input.get()))
-    description = str(description_input.get())
-    image = str(image_input.get())
-    hosts = None
-    attendees = []
-    event_date = str(event_date_input.get())
-    location = str(location_input.get())
-    register_period = str(period_input.get())
-    new_event = EventModel(eid, event_title, tags.name, description, image, hosts, attendees, event_date,
-                           location, register_period)
-    return new_event
+def update_event(data):
+    event = EventModel(data['id'], data['title'], data['tags'], data['description'], data['image'], data['hosts'], [],
+                       data['event_date'], data['state'], data['address'], data['register_period'])
+    EventController.print_event(event)
 
-
-def read_user():
-    uid = 0
-    real_name = str(realname_input.get())
-    nickname = str(nickname_input.get())
-    gender = str(gender_input.get())
-    email = str(email_input.get())
-    location = str(user_location_input.get())
-    tags = stringToEnum(str(user_tags_input.get()))
-    description = user_description_input.get()
-    host_events = []
-    join_events = []
-    new_event = UserModel(uid, real_name, nickname, gender, email, location, tags, description,
-                          host_events, join_events)
-    return new_event
-
-
-def post_event():
-    global current_event
-    global current_user
-    current_event = read_event()
-    if not current_user:
-        add_output("You have to login first to post events. \n")
-    else:
-        result = EventController.add_event(current_user, current_event)
-        if result == Errors.DUPLICATE.name:
-            current_event.eid = None
-            add_output("The same event already exists. \n")
-        elif result == Errors.FAILURE.name:
-            current_event.eid = None
-            return_failure()
-        add_output('Event #' + str(result) + ' has been posted. \n')
-        current_event.eid = result
-
-        result = EventController.host_event(current_user, current_event)
-        if result == Errors.DUPLICATE.name:
-            current_event.eid = None
-            add_output("You have already hosted this event. \n")
-        elif result == Errors.FAILURE.name:
-            current_event.eid = None
-            return_failure()
-        add_output("You are the host of event " + str(current_event.eid) + " now. \n")
-        current_event.hosts = current_user.uid
-        current_user.host_events.append(current_event.eid)
-        print('User #' + current_event.hosts + ' posted event #' + str(current_event.eid) + '. \n')
-        EventController.print_event(current_event)
-    return
-
-
-def update_event():
-    global current_event
-    global current_user
-    event_id = event_id_input.get()
-    current_event = read_event()
-    current_event.eid = event_id
-    host_id = None
-    temp_event = EventController.retrieve_event(event_id)
-    if temp_event == Errors.MISSING.name:
-        add_output('No such event. \n')
-        current_event = None
-        return
-    if type(temp_event) == type(current_event):
-        host_id = str(EventController.retrieve_event(event_id).hosts)
-    if current_user.uid != host_id:
-        add_output('You have to be the owner to update event #' + event_id + ' . \n')
-        current_event = None
-        return
-
-    result = EventController.edit_event(current_event)
+    result = EventController.edit_event(event)
 
     if result == Errors.MISSING.name:
-        add_output('No such event exists. \n')
-        current_event = None
-        EventController.print_event(current_event)
-        return
+        return Errors.MISSING.name
     elif result == Errors.SUCCESS.name:
-        add_output('Event #' + event_id + ' changed. \n')
-        current_event = EventController.retrieve_event(event_id)
-        EventController.print_event(current_event)
+        return Errors.SUCCESS.name
     else:
-        add_output('Update failed, please try again. \n')
-        current_event = None
-        EventController.print_event(current_event)
-        return
+        return Errors.FAILURE.name
 
 
 def remove_user():
@@ -149,7 +97,7 @@ def remove_user():
 
 def register(data):
     user = UserModel(0, data['name'], data['nickname'], data['gender'], data['email'], data['location'],
-                     stringToEnum(data['tags']).name, data['description'], [], [], data['image'], data['google_id'])
+                     stringToEnum(data['tags']), data['description'], [], [], data['image'], data['google_id'])
     result = UserController.add_user(user)
     if result == Errors.DUPLICATE.name:
         return result, None
@@ -172,48 +120,34 @@ def register(data):
         return 'OK', data
 
 
-def update_profile():
-    global current_user
-    if not current_user:
-        add_output("You have to login first! \n")
-        return
-    temp = UserController.retrieve_user(UserFields.email.name, current_user.email)
-    if temp == Errors.MISSING.name:
-        add_output("No user with such credentials exists. \n")
-        return
-    elif temp == Errors.FAILURE.name:
-        return_failure()
-        return
-    user_id = current_user.uid
-    current_user = read_user()
-    current_user.uid = user_id
-
-    result = UserController.edit_user(current_user)
+def update_profile(data):
+    user = UserModel(0, data['name'], data['nickname'], data['gender'], data['email'], data['location'],
+                     stringToEnum(data['tags']), data['description'], [], [], data['image'], data['google_id'])
+    result = UserController.edit_user(user)
     if result == Errors.MISSING.name:
-        add_output("No user with such credentials exists. \n")
-        current_user = temp
+        return result, None
     elif result == Errors.FAILURE.name:
-        return_failure()
-        current_user = temp
-    elif result == Errors.DUPLICATE.name:
-        add_output("A user with the same credentials already exists! \n")
-        current_user = temp
+        return result, None
     else:
-        add_output("User updated. Email now at: " + current_user.email + ". \n")
-        current_user = UserController.retrieve_user(UserFields.userid.name, result)
-    UserController.print_user(current_user)
-    return
+        user = UserController.retrieve_user(UserFields.googleid.name, data['google_id'])
+        data = {
+            'id': user.uid,
+            'name': user.name,
+            'nickname': user.nickname,
+            'email': user.email,
+            'location': user.location,
+            'description': user.description,
+            'gender': user.gender,
+            'image': user.image,
+            'tags': user.tags,
+            'google_id': user.google_id
+        }
+        return 'OK', data
 
 
 def login(email):
     result = UserController.retrieve_user(UserFields.googleid.name, email)
     return result
-
-
-def log_out():
-    global current_user
-    current_user = None
-    text.set(value="This is the first iteration demo for JoinMe. \n")
 
 
 def group_email():
@@ -273,13 +207,13 @@ def contact_friend():
     return
 
 
-def return_failure():
-    add_output("Connection failed. Please try again. \n")
-
-
 # TODO: Replace with sending real email
 def send_email(message: str, address: str):
     add_output('Message: ' + message + ' send to ' + address + '. \n')
+
+
+def get_default(data):
+    return EventController.get_default_list(data)
 
 
 def join_event():
@@ -319,4 +253,4 @@ def stringToEnum(tags_input):
                      'exhibitions', 'entertaining', 'charity', 'business'])
     if tags_input not in check_set:
         tags_input = 'anything'
-    return Tags[tags_input]
+    return tags_input

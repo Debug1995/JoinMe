@@ -1,8 +1,5 @@
-from Constants.Constants import Tags
-
-
 class UserModel:
-    def __init__(self, uid, name, nickname, gender, email, location, tags: Tags, description,
+    def __init__(self, uid, name, nickname, gender, email, location, tags, description,
                  host_events, join_events, image, google_id):
         self.uid = uid
         self.name = name
@@ -23,7 +20,7 @@ class UserModel:
     def host(self, eid):
         self.host_events.append(eid)
 
-    def update(self, uid, name, nickname, gender, email, location, tags: Tags, description, image):
+    def update(self, uid, name, nickname, gender, email, location, tags, description, image):
         self.uid = uid
         self.name = name
         self.nickname = nickname
