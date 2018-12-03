@@ -1,8 +1,0 @@
-===============================================
-Final Results:
-PASS Controller/UserController.py 5.72
-PASS Login/GoogleDrive.py 5.72
-PASS QT_FrontEnd/logic/Logic.py 5.72
-PASS QT_FrontEnd/logic/SignInHandler.py 5.72
-[master 139f825] test
- 4 files changed, 8 insertions(+), 10 deletions(-)
