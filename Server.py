@@ -2,8 +2,8 @@ from flask import Flask
 import socketio
 import eventlet
 import ConnectionHandler
-from Controller.UserController import *
-from Controller.EventController import *
+from Controller.UserController import retrieve_user
+from Controller.EventController import join_event, retrieve_event
 
 sio = socketio.Server()
 app = Flask(__name__)

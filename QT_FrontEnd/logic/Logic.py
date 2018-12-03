@@ -1,21 +1,17 @@
 import sys
 import urllib.request
-import datetime
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QPixmap
 from QT_FrontEnd.maindialog import *
 from QT_FrontEnd.mainwindow import *
-from QT_FrontEnd.logic.SignInHandler import *
 from QT_FrontEnd.googletokendisplay import *
 from QT_FrontEnd.hosteventdisplaydialog import *
 from QT_FrontEnd.hosteventedit import *
 from QT_FrontEnd.eventdisplaydialog import *
 from QT_FrontEnd.registerdialog import *
 from QT_FrontEnd.userprofiledisplay import *
-from Model.UserModel import *
 from Model.EventModel import *
 from Controller.UserController import *
-from Login.GmailController import *
 from Login.GmapController import *
 from Login.GoogleDrive import *
 
@@ -387,7 +383,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     self.hide()
                 else:
                     current_event = previous_event
-                    show_dialog('Unable to update, try again later. ')
+                    show_dialog('Unable to update, please try again later. ')
 
 
 class PostEventWindow(QMainWindow, Ui_HostEventEdit):
