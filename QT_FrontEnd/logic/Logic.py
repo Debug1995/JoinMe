@@ -435,7 +435,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
             show_dialog('Please enter a valid address. ')
         else:
             end_date = calculate_date(start_date, self.PeriodTimeInput.text())
-            if datetime.datetime.strptime(end_date, "%Y-%m-%d") <=  datetime.datetime.strptime(TODAY, "%Y-%m-%d"):
+            if datetime.datetime.strptime(end_date, "%Y-%m-%d") <= datetime.datetime.strptime(TODAY, "%Y-%m-%d"):
                 show_dialog('Please make sure that the event ends after today. ')
 
             else:
