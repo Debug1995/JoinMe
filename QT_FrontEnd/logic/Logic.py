@@ -580,9 +580,9 @@ def load_image(url):
         loaded = False
         try:
             request = urllib.request.Request(url, headers={'User-Agent':
-                                                               'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) '
-                                                               'AppleWebKit/537.36 (KHTML, like Gecko) '
-                                                               'Chrome/50.0.2661.102 Safari/537.36'})
+                                                            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) '
+                                                            'AppleWebKit/537.36 (KHTML, like Gecko) '
+                                                            'Chrome/50.0.2661.102 Safari/537.36'})
             data = urllib.request.urlopen(request).read()
             pixmap = QPixmap()
             pixmap.loadFromData(data)

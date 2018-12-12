@@ -1,22 +1,21 @@
 from flask import Flask
+<<<<<<< HEAD:Server.py
 import socketio
 import eventlet
 import ConnectionHandler
 from Controller.UserController import retrieve_user
 from Controller.EventController import join_event, retrieve_event
+=======
+import ControllerHandler
+from Controller.UserController import *
+from Controller.EventController import *
+>>>>>>> cy2468:ControllerWrapper.py
 
-sio = socketio.Server()
 app = Flask(__name__)
 
 
-@sio.on('connect')
-def connect(sid, environ):
-    print('connect ', sid)
-
-
-@sio.on('login')
-def login(sid, data):
-    response = ConnectionHandler.login(data['email'])
+def login(data):
+    response = ControllerHandler.login(data['email'])
     if response == 'FAILURE':
         return 'FAILURE', None
     elif response == 'MISSING':
@@ -40,41 +39,33 @@ def login(sid, data):
         return 'OK', data
 
 
-@sio.on('sign_up')
-def sign_up(sid, data):
-    response = ConnectionHandler.register(data)
+def sign_up(data):
+    response = ControllerHandler.register(data)
     return response
 
 
-@sio.on('edit_user')
-def edit_user(sid, data):
+def edit_user(data):
+    response = ControllerHandler.update_profile(data)
+    return response
+
+
+def post_event(data):
+    response = ControllerHandler.post_event(data)
+    return response
+
+
+def edit_event(data):
     print(data)
-    response = ConnectionHandler.update_profile(data)
+    response = ControllerHandler.update_event(data)
     return response
 
 
-@sio.on('post_event')
-def post_event(sid, data):
-    print(data)
-    response = ConnectionHandler.post_event(data)
+def get_default(data):
+    response = ControllerHandler.get_default(data)
     return response
 
 
-@sio.on('edit_event')
-def edit_event(sid, data):
-    print(data)
-    response = ConnectionHandler.update_event(data)
-    return response
-
-
-@sio.on('get_default')
-def get_default(sid, data):
-    response = ConnectionHandler.get_default(data)
-    return response
-
-
-@sio.on('request_user')
-def request_user(sid, data):
+def request_user(data):
     print(data)
     user = retrieve_user('userid', data)
     if user == 'FAILURE':
@@ -96,8 +87,7 @@ def request_user(sid, data):
     return 'OK', response
 
 
-@sio.on('request_event')
-def request_event(sid, data):
+def request_event(data):
     print(data)
     event = retrieve_event(data)
     if event == 'FAILURE':
@@ -118,12 +108,6 @@ def request_event(sid, data):
     return 'OK', response
 
 
-@sio.on('attend_event')
-def attend_event(sid, data):
+def attend_event(data):
     result = join_event(data)
     return result
-
-
-if __name__ == '__main__':
-    app = socketio.WSGIApp(sio, app)
-    eventlet.wsgi.server(eventlet.listen(('localhost', 8080)), app)
