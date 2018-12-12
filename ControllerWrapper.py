@@ -1,9 +1,6 @@
-from flask import Flask
 import ControllerHandler
 from Controller.UserController import *
 from Controller.EventController import *
-
-app = Flask(__name__)
 
 
 def login(data):

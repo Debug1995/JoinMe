@@ -1,25 +1,22 @@
 import sys
 import urllib.request
-import datetime
+from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QPixmap
-from QT_FrontEnd.maindialog import *
-from QT_FrontEnd.mainwindow import *
-from QT_FrontEnd.logic.SignInHandler import *
-from QT_FrontEnd.googletokendisplay import *
-from QT_FrontEnd.hosteventdisplaydialog import *
-from QT_FrontEnd.hosteventedit import *
-from QT_FrontEnd.eventdisplaydialog import *
-from QT_FrontEnd.registerdialog import *
-from QT_FrontEnd.userprofiledisplay import *
-from Model.UserModel import *
-from Model.EventModel import *
+from QT_FrontEnd.maindialog import Ui_MainDialog
+from QT_FrontEnd.mainwindow import Ui_MainWindow
+from QT_FrontEnd.googletokendisplay import Ui_GoogleTokenDisplay
+from QT_FrontEnd.hosteventdisplaydialog import Ui_HostEventDisplayDialog
+from QT_FrontEnd.hosteventedit import Ui_HostEventEdit
+from QT_FrontEnd.eventdisplaydialog import Ui_EventDisplayDialog
+from QT_FrontEnd.registerdialog import Ui_RegisterDialog
+from QT_FrontEnd.userprofiledisplay import Ui_UserProfileDisplay
+from Model.EventModel import EventModel
 from Controller.UserController import *
-from Login.GmailController import *
 from Login.GmapController import *
 from Login.GoogleDrive import *
 
-TODAY = datetime.datetime.today().strftime('%Y-%m-%d')
+TODAY = datetime.today().strftime('%Y-%m-%d')
 
 current_user: UserModel = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
 current_event: EventModel = EventModel('0', '', '', '', '', '', [], TODAY,
@@ -112,6 +109,47 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
                 self.hide()
 
 
+class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
+    def __init__(self, parent=None):
+        super(TokenWindow, self).__init__(parent)
+        self.setupUi(self)
+
+        self.LoginButton.clicked.connect(self.login_button_clicked)
+        self.BackButton.clicked.connect(self.back_button_clicked)
+
+    def login_button_clicked(self):
+        global google_credentials
+        token = self.TokenInput.text()
+        google_credentials = verify_login(token)
+
+        if google_credentials == 'login error':
+            show_dialog("Unable to connect to Google account, check your token. ")
+            google_credentials = None
+            self.show()
+        else:
+            global current_user
+            result = verify_registration(google_credentials)
+            gmail = Gmail()
+            google_id = gmail.get_user_email(google_credentials)
+            current_user.google_id = google_id
+
+            if result[0] == 'MISSING':
+                sign_up_window.show()
+                self.hide()
+            elif result[0] == 'OK':
+                current_user = response_to_user(result[1])
+                update_lobby_user()
+                lobby_window.show()
+                self.hide()
+            else:
+                show_dialog("Unable to connect to server, check your connections. ")
+                self.show()
+
+    def back_button_clicked(self):
+        sign_in_window.show()
+        self.hide()
+
+
 class LobbyWindow(QMainWindow, Ui_MainDialog):
     def __init__(self, parent=None):
         super(LobbyWindow, self).__init__(parent)
@@ -135,7 +173,8 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             attend_event_display_window.show()
             self.hide()
 
-    def search_button_clicked(self):
+    @staticmethod
+    def search_button_clicked():
         get_default_list(current_user.uid)
 
     def post_event_clicked(self):
@@ -181,47 +220,6 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             self.HostEvent3.setText(current_user.host_events[2])
 
 
-class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
-    def __init__(self, parent=None):
-        super(TokenWindow, self).__init__(parent)
-        self.setupUi(self)
-
-        self.LoginButton.clicked.connect(self.login_button_clicked)
-        self.BackButton.clicked.connect(self.back_button_clicked)
-
-    def login_button_clicked(self):
-        global google_credentials
-        token = self.TokenInput.text()
-        google_credentials = verify_login(token)
-
-        if google_credentials == 'login error':
-            show_dialog("Unable to connect to Google account, check your token. ")
-            google_credentials = None
-            self.show()
-        else:
-            global current_user
-            result = verify_registration(google_credentials)
-            gmail = Gmail()
-            google_id = gmail.get_user_email(google_credentials)
-            current_user.google_id = google_id
-
-            if result[0] == 'MISSING':
-                sign_up_window.show()
-                self.hide()
-            elif result[0] == 'OK':
-                current_user = response_to_user(result[1])
-                update_lobby_user()
-                lobby_window.show()
-                self.hide()
-            else:
-                show_dialog("Unable to connect to server, check your connections. ")
-                self.show()
-
-    def back_button_clicked(self):
-        sign_in_window.show()
-        self.hide()
-
-
 class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
     def __init__(self, parent=None):
         super(AttendEventDisplayWindow, self).__init__(parent)
@@ -244,7 +242,8 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         profile_view_attend_window.show()
         self.hide()
 
-    def attend_button_clicked(self):
+    @staticmethod
+    def attend_button_clicked():
         result = attend(current_user.uid, current_event.eid)
         if result[0] == 'DUPLICATE':
             show_dialog('You already attended this event. ')
@@ -352,7 +351,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
             show_dialog('Please enter a valid address. ')
         else:
             end_date = calculate_date(start_date, self.PeriodTimeInput.text())
-            if datetime.datetime.strptime(end_date, "%Y-%m-%d") <= datetime.datetime.strptime(TODAY, "%Y-%m-%d"):
+            if datetime.strptime(end_date, "%Y-%m-%d") <= datetime.strptime(TODAY, "%Y-%m-%d"):
                 show_dialog('Please make sure that the event ends after today. ')
 
             else:
@@ -439,7 +438,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
             show_dialog('Please enter a valid address. ')
         else:
             end_date = calculate_date(start_date, self.PeriodTimeInput.text())
-            if datetime.datetime.strptime(end_date, "%Y-%m-%d") <=  datetime.datetime.strptime(TODAY, "%Y-%m-%d"):
+            if datetime.strptime(end_date, "%Y-%m-%d") <= datetime.strptime(TODAY, "%Y-%m-%d"):
                 show_dialog('Please make sure that the event ends after today. ')
 
             else:
@@ -551,13 +550,12 @@ class ProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
         self.BackButton.clicked.connect(self.back_button_clicked)
 
     def back_button_clicked(self):
-        global user_priority
-        if user_priority == 0:
-            attend_event_display_window.show()
-            self.hide()
-        else:
-            host_event_display_window.show()
-            self.hide()
+        # if user_priority == 0:
+        attend_event_display_window.show()
+        self.hide()
+        # else:
+        #     host_event_display_window.show()
+        #     self.hide()
 
 
 def show_dialog(message):
@@ -570,8 +568,8 @@ def show_dialog(message):
 
 
 def string_to_enum(tags_input):
-    check_set = set(['sports', 'social', 'outdoors', 'indoors', 'sightseeing',
-                     'exhibitions', 'entertaining', 'charity', 'business'])
+    check_set = {'sports', 'social', 'outdoors', 'indoors', 'sightseeing',
+                 'exhibitions', 'entertaining', 'charity', 'business'}
     if tags_input not in check_set:
         tags_input = 'anything'
     return tags_input
@@ -584,9 +582,9 @@ def load_image(url):
         loaded = False
         try:
             request = urllib.request.Request(url, headers={'User-Agent':
-                                                            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) '
-                                                            'AppleWebKit/537.36 (KHTML, like Gecko) '
-                                                            'Chrome/50.0.2661.102 Safari/537.36'})
+                                                           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) '
+                                                           'AppleWebKit/537.36 (KHTML, like Gecko) '
+                                                           'Chrome/50.0.2661.102 Safari/537.36'})
             data = urllib.request.urlopen(request).read()
             pixmap = QPixmap()
             pixmap.loadFromData(data)
@@ -692,7 +690,7 @@ def valid_check_date(date):
         if not char.isdigit():
             return False
     try:
-        time.strptime(date, "%Y-%m-%d")
+        datetime.strptime(date, "%Y-%m-%d")
         return True
     except:
         return False
@@ -710,8 +708,8 @@ def valid_period(period):
 
 def calculate_date(initial_date, register_period):
     cur_date = [int(x) for x in initial_date.strip().split('-')]
-    d1 = datetime.date(cur_date[0], cur_date[1], cur_date[2])
-    d = d1 + datetime.timedelta(days=int(register_period))
+    d1 = datetime(cur_date[0], cur_date[1], cur_date[2])
+    d = d1 + timedelta(days=int(register_period))
     year = str(d.year)
     month = str(d.month).zfill(2)
     date = str(d.day-1).zfill(2)

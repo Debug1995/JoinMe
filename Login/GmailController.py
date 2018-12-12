@@ -1,6 +1,5 @@
 import httplib2
 import base64
-import json
 from oauth2client.client import flow_from_clientsecrets
 from apiclient.discovery import build
 from email.mime.text import MIMEText
@@ -25,6 +24,7 @@ from email.mime.text import MIMEText
 # 4. send the email
 #     gmail.send_message(service, '199511zc@gmail.com', message)
 
+
 class Gmail:
     SECRET_LOCATION = './secret.json'
     SCOPES = [
@@ -33,7 +33,6 @@ class Gmail:
         'https://www.googleapis.com/auth/userinfo.profile',
         'https://www.googleapis.com/auth/drive'
     ]
-
 
     def __init__(self):
         self.flow = flow_from_clientsecrets(self.SECRET_LOCATION,
