@@ -156,6 +156,57 @@ class Ui_MainDialog(object):
         self.PlaceComboBox.setEditable(False)
         self.PlaceComboBox.setObjectName("PlaceComboBox")
         self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+        self.PlaceComboBox.addItem("")
+
         self.KeywordInput = QtWidgets.QLineEdit(MainDialog)
         self.KeywordInput.setGeometry(QtCore.QRect(472, 44, 111, 21))
         font = QtGui.QFont()
@@ -784,7 +835,7 @@ class Ui_MainDialog(object):
         self.TimeComboBox.setItemText(3, _translate("MainDialog", "In One Week"))
         self.TimeComboBox.setItemText(4, _translate("MainDialog", "In One Month"))
         self.TimeComboBox.setItemText(5, _translate("MainDialog", "Any Time"))
-        self.CatagoryComboBox.setItemText(0, _translate("MainDialog", "Catagory"))
+        self.CatagoryComboBox.setItemText(0, _translate("MainDialog", "Category"))
         self.CatagoryComboBox.setItemText(1, _translate("MainDialog", "sports"))
         self.CatagoryComboBox.setItemText(2, _translate("MainDialog", "social"))
         self.CatagoryComboBox.setItemText(3, _translate("MainDialog", "outdoors"))
@@ -796,7 +847,22 @@ class Ui_MainDialog(object):
         self.CatagoryComboBox.setItemText(9, _translate("MainDialog", "business"))
         self.CatagoryComboBox.setItemText(10, _translate("MainDialog", "anything"))
         self.PlaceComboBox.setItemText(0, _translate("MainDialog", "Your Place"))
-        self.KeywordInput.setPlaceholderText(_translate("MainDialog", "Keyword."))
+
+        us_states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+                     'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
+                     'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa',
+                     'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
+                     'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+                     'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+                     'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
+                     'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+                     'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+                     'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+
+        for i, state in enumerate(us_states):
+            self.PlaceComboBox.setItemText(i+1, _translate("MainDialog", state))
+
+        self.KeywordInput.setPlaceholderText(_translate("MainDialog", "Keyword"))
         self.PostEventButton.setText(_translate("MainDialog", "Post Event"))
         self.AttendEvent1.setText(_translate("MainDialog", "Event Title1"))
         self.AttendEvent2.setText(_translate("MainDialog", "Event Title2"))
