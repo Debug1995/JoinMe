@@ -139,6 +139,9 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
             elif result[0] == 'OK':
                 current_user = response_to_user(result[1])
                 update_lobby_user()
+                lobby_window.event_list = get_default_list(current_user.uid)
+                lobby_window.refresh_host()
+                lobby_window.refresh_attend()
                 lobby_window.show()
                 self.hide()
             else:
@@ -166,6 +169,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.HostEventSeeMoreButton.clicked.connect(self.refresh_host)
         self.SearchButton.clicked.connect(self.search_button_clicked)
         self.ScrollAreaDate1.clicked.connect(self.scroll_clicked)
+        self.event_list = []
 
     def scroll_clicked(self):
         if self.ScrollAreaDate1.text() != 'Date':
@@ -173,9 +177,14 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             attend_event_display_window.show()
             self.hide()
 
-    @staticmethod
-    def search_button_clicked():
-        get_default_list(current_user.uid)
+    def search_button_clicked(self):
+        tag = self.TagsComboBox.currentText()
+        # state = self.PlaceComboBox.currentText()
+        # time = self.TimeComboBox.currentText()
+        # keyword = self.KeywordInput.text()
+        event_filter = tag,
+
+        get_list(event_filter)
 
     def post_event_clicked(self):
         post_event_window.show()
@@ -761,15 +770,12 @@ def get_default_list(uid):
     default_list = get_default(state)
     default_list = default_list[1]
     default_list = ast.literal_eval(str(default_list))
-    print(default_list)
-    print(len(default_list))
 
-    if len(default_list) > 0:
-        result = default_list[0]
-        print(result)
-        lobby_window.ScrollAreaDate1.setText(str(result[0]))
-        lobby_window.ScrollAreaEvent1.setText(result[1])
-        lobby_window.ScrollAreaAddress1.setText(result[2])
+    return default_list
+
+
+def get_list(event_filter):
+    return
 
 
 def attend(uid, eid):
