@@ -318,7 +318,7 @@ def get_events(data):
         query = query + clause + ' AND '
     query = query[: -5]
 
-    sql = 'SELECT eventid, title, location ' \
+    sql = 'SELECT eventid, title, location, expiretime, image ' \
           'FROM event ' \
           'WHERE ' + query
     try:

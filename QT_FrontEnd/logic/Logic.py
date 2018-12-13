@@ -1,5 +1,5 @@
 import sys
-import urllib.request
+import time
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QPixmap
@@ -14,16 +14,17 @@ from QT_FrontEnd.userprofiledisplay import Ui_UserProfileDisplay
 from Model.EventModel import EventModel
 from Controller.UserController import *
 from Login.GmapController import *
-from Login.GoogleDrive import *
 from Login.GmailController import *
 from QT_FrontEnd.logic import SignInHandler
 from QT_FrontEnd.logic import Connection
+from Images.AWSConnector import AWSConnector
 
 TODAY = datetime.today().strftime('%Y-%m-%d')
 
+AWS_CONNECTOR = AWSConnector()
+
 current_user: UserModel = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
-current_event: EventModel = EventModel('0', '', '', '', '', '', [], TODAY,
-                                       '', '', '')
+current_event: EventModel = EventModel('0', '', '', '', '', '', [], TODAY, '', '', '')
 google_credentials = None
 
 
@@ -64,11 +65,13 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
             global current_user
             file_path = file_name[0]
             file_title = current_user.google_id + '_profile.jpg'
-            drive_service = set_up_drive(google_credentials)
-            link = upload_image(drive_service, file_path, file_title)
-            current_user.image = link
-            pixmap = load_image(link)
-            self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(), self.profile_picture.height()))
+            upload_result = upload_image(file_path, file_title)
+            if upload_result:
+                current_user.image = file_title
+                pixmap = load_image(current_user.image, 0)
+                if pixmap != Errors.FAILURE.name:
+                    self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(),
+                                                                 self.profile_picture.height()))
 
     def save_profile_button_clicked(self):
         global current_user
@@ -207,7 +210,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             'time': time,
             'keyword': keyword
         }
-
+        print(lobby_window.event_list)
         get_list(event_filter)
 
     def post_event_clicked(self):
@@ -233,7 +236,6 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def refresh_attend(self):
         global current_user
         current_user = get_user(current_user.uid)
-        print(current_user.join_events)
         if len(current_user.join_events) > 0:
             self.AttendEvent1.setText(current_user.join_events[0])
         if len(current_user.join_events) > 1:
@@ -244,7 +246,6 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def refresh_host(self):
         global current_user
         current_user = get_user(current_user.uid)
-        print(current_user.host_events)
         if len(current_user.host_events) > 0:
             self.HostEvent1.setText(current_user.host_events[0])
         if len(current_user.host_events) > 1:
@@ -354,13 +355,13 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
             self.show()
         if file_name[0] != '':
             global current_user
-            file_path = file_name[0]
-            file_title = current_user.google_id + '_event.jpg'
-            drive_service = set_up_drive(google_credentials)
-            link = upload_image(drive_service, file_path, file_title)
-            current_event.image = link
-            pixmap = load_image(link)
-            self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
+            # file_path = file_name[0]
+            # file_title = current_user.google_id + '_event.jpg'
+            # drive_service = set_up_drive(google_credentials)
+            # link = upload_image(drive_service, file_path, file_title)
+            # current_event.image = link
+            # pixmap = load_image(link)
+            # self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
 
     def save_button_clicked(self):
         address = self.AddressInput.text()
@@ -440,13 +441,13 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
             self.show()
         if file_name[0] != '':
             global current_user
-            file_path = file_name[0]
-            file_title = current_user.google_id + '_event.jpg'
-            drive_service = set_up_drive(google_credentials)
-            link = upload_image(drive_service, file_path, file_title)
-            current_event.image = link
-            pixmap = load_image(link)
-            self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
+            # file_path = file_name[0]
+            # file_title = current_user.google_id + '_event.jpg'
+            # drive_service = set_up_drive(google_credentials)
+            # link = upload_image(drive_service, file_path, file_title)
+            # current_event.image = link
+            # pixmap = load_image(link)
+            # self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
 
     def save_button_clicked(self):
         global current_event
@@ -522,13 +523,13 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
             self.show()
         if file_name[0] != '':
             global current_user
-            file_path = file_name[0]
-            file_title = current_user.google_id + '_profile.jpg'
-            drive_service = set_up_drive(google_credentials)
-            link = upload_image(drive_service, file_path, file_title)
-            current_user.image = link
-            pixmap = load_image(link)
-            self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(), self.profile_picture.height()))
+            # file_path = file_name[0]
+            # file_title = current_user.google_id + '_profile.jpg'
+            # drive_service = set_up_drive(google_credentials)
+            # link = upload_image(drive_service, file_path, file_title)
+            # current_user.image = link
+            # pixmap = load_image(link)
+            # self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(), self.profile_picture.height()))
 
     def save_button_clicked(self):
         global current_user
@@ -607,24 +608,32 @@ def string_to_enum(tags_input):
     return tags_input
 
 
-def load_image(url):
-    if url == '':
+def upload_image(file_path, file_key):
+    result = AWS_CONNECTOR.upload_image(file_path, file_key)
+    if result:
+        return True
+    else:
+        show_dialog('Error uploading image, please try again. ')
+        return False
+
+
+def load_image(file_title, file_type=0):
+    if file_title == '':
         return
     else:
         loaded = False
         try:
-            request = urllib.request.Request(url, headers={'User-Agent':
-                                                           'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) '
-                                                           'AppleWebKit/537.36 (KHTML, like Gecko) '
-                                                           'Chrome/50.0.2661.102 Safari/537.36'})
-            data = urllib.request.urlopen(request).read()
-            pixmap = QPixmap()
-            pixmap.loadFromData(data)
+            if file_type == 0:
+                link = AWS_CONNECTOR.download_image(file_title, 0)
+            else:
+                link = AWS_CONNECTOR.download_image(file_title, 1)
             loaded = True
+            f = open(link, "r")
+            pixmap = QPixmap(link)
             return pixmap
         finally:
             if not loaded:
-                return 'FAILURE'
+                return Errors.FAILURE.name
 
 
 def response_to_user(response):
@@ -788,9 +797,17 @@ def get_event(eid):
 def get_default_list(uid):
     user = get_user(uid)
     state = user.location
-    event_filter = {}
+    tag = user.tags
+    event_filter = {
+        'state': state,
+        'tag': tag,
+        'time': None,
+        'keyword': None
+    }
+    default_list = get_list(event_filter)
+    print(default_list)
 
-    return
+    return default_list
 
 
 def get_list(event_filter):
@@ -801,7 +818,6 @@ def get_list(event_filter):
         result = []
     else:
         result = result[1]
-    print(result)
     return result
 
 
@@ -811,7 +827,12 @@ def attend(uid, eid):
     return result
 
 
+def except_hook(cls, exception, traceback):
+    sys.__excepthook__(cls, exception, traceback)
+
+
 if __name__ == '__main__':
+    sys.excepthook = except_hook
     app = QApplication(sys.argv)
     sign_in_window = SignInWindow()
     sign_up_window = SignUpWindow()
