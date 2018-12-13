@@ -325,7 +325,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaAddress1.setFont(font)
         self.ScrollAreaAddress1.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaAddress1.setObjectName("ScrollAreaAddress1")
-        self.ScrollAreaImage1 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage1 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage1.setGeometry(QtCore.QRect(20, 20, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -333,7 +333,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage1.setStyleSheet("background-color: \\*rgba(43, 230, 255,50);\n"
 "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage1.setObjectName("ScrollAreaImage1")
-        self.ScrollAreaImage2 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage2 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage2.setGeometry(QtCore.QRect(20, 91, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -365,7 +365,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaAddress2.setFont(font)
         self.ScrollAreaAddress2.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaAddress2.setObjectName("ScrollAreaAddress2")
-        self.ScrollAreaImage3 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage3 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage3.setGeometry(QtCore.QRect(20, 161, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -411,7 +411,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate6.setFont(font)
         self.ScrollAreaDate6.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaDate6.setObjectName("ScrollAreaDate6")
-        self.ScrollAreaImage4 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage4 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage4.setGeometry(QtCore.QRect(20, 231, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -429,7 +429,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent5.setFlat(True)
         self.ScrollAreaEvent5.setObjectName("ScrollAreaEvent5")
-        self.ScrollAreaImage5 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage5 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage5.setGeometry(QtCore.QRect(20, 302, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -478,7 +478,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent4.setFlat(True)
         self.ScrollAreaEvent4.setObjectName("ScrollAreaEvent4")
-        self.ScrollAreaImage6 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage6 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage6.setGeometry(QtCore.QRect(20, 372, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -507,7 +507,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate9.setFont(font)
         self.ScrollAreaDate9.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaDate9.setObjectName("ScrollAreaDate9")
-        self.ScrollAreaImage7 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage7 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage7.setGeometry(QtCore.QRect(20, 443, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -525,7 +525,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent8.setFlat(True)
         self.ScrollAreaEvent8.setObjectName("ScrollAreaEvent8")
-        self.ScrollAreaImage8 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage8 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage8.setGeometry(QtCore.QRect(20, 514, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -574,7 +574,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent7.setFlat(True)
         self.ScrollAreaEvent7.setObjectName("ScrollAreaEvent7")
-        self.ScrollAreaImage9 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage9 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage9.setGeometry(QtCore.QRect(20, 584, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -603,7 +603,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate12.setFont(font)
         self.ScrollAreaDate12.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaDate12.setObjectName("ScrollAreaDate12")
-        self.ScrollAreaImage10 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage10 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage10.setGeometry(QtCore.QRect(20, 657, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -621,7 +621,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent11.setFlat(True)
         self.ScrollAreaEvent11.setObjectName("ScrollAreaEvent11")
-        self.ScrollAreaImage11 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage11 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage11.setGeometry(QtCore.QRect(20, 728, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -670,7 +670,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent10.setFlat(True)
         self.ScrollAreaEvent10.setObjectName("ScrollAreaEvent10")
-        self.ScrollAreaImage12 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage12 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage12.setGeometry(QtCore.QRect(20, 798, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -685,7 +685,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaAddress10.setFont(font)
         self.ScrollAreaAddress10.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaAddress10.setObjectName("ScrollAreaAddress10")
-        self.ScrollAreaImage14 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage14 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage14.setGeometry(QtCore.QRect(20, 941, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -765,7 +765,7 @@ class Ui_MainDialog(object):
 "")
         self.ScrollAreaEvent15.setFlat(True)
         self.ScrollAreaEvent15.setObjectName("ScrollAreaEvent15")
-        self.ScrollAreaImage15 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage15 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage15.setGeometry(QtCore.QRect(20, 1011, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -773,7 +773,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage15.setStyleSheet("background-color: \\*rgba(43, 230, 255,50);\n"
 "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage15.setObjectName("ScrollAreaImage15")
-        self.ScrollAreaImage13 = QtWidgets.QGraphicsView(self.scrollAreaWidgetContents)
+        self.ScrollAreaImage13 = QtWidgets.QLabel(self.scrollAreaWidgetContents)
         self.ScrollAreaImage13.setGeometry(QtCore.QRect(20, 870, 111, 61))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -782,7 +782,7 @@ class Ui_MainDialog(object):
 "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage13.setObjectName("ScrollAreaImage13")
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.graphicsView = QtWidgets.QGraphicsView(MainDialog)
+        self.graphicsView = QtWidgets.QLabel(MainDialog)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 751, 461))
         self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
 "\n"
@@ -813,7 +813,69 @@ class Ui_MainDialog(object):
         self.HostEvent2.raise_()
         self.HostEvent3.raise_()
         self.scrollArea.raise_()
-
+        self.AttendEventList = [self.AttendEvent1, self.AttendEvent2, self.AttendEvent3]
+        self.HostEventList = [self.HostEvent1, self.HostEvent2, self.HostEvent3]
+        self.ScrollAreaList = [{'title':self.ScrollAreaEvent1,
+                                'date':self.ScrollAreaDate1,
+                                'address':self.ScrollAreaAddress1,
+                                'image':self.ScrollAreaImage1},
+                               {'title': self.ScrollAreaEvent2,
+                                'date': self.ScrollAreaDate2,
+                                'address': self.ScrollAreaAddress2,
+                                'image': self.ScrollAreaImage2},
+                               {'title': self.ScrollAreaEvent3,
+                                'date': self.ScrollAreaDate3,
+                                'address': self.ScrollAreaAddress3,
+                                'image': self.ScrollAreaImage3},
+                               {'title': self.ScrollAreaEvent4,
+                                'date': self.ScrollAreaDate4,
+                                'address': self.ScrollAreaAddress4,
+                                'image': self.ScrollAreaImage4},
+                               {'title': self.ScrollAreaEvent5,
+                                'date': self.ScrollAreaDate5,
+                                'address': self.ScrollAreaAddress5,
+                                'image': self.ScrollAreaImage5},
+                               {'title': self.ScrollAreaEvent6,
+                                'date': self.ScrollAreaDate6,
+                                'address': self.ScrollAreaAddress6,
+                                'image': self.ScrollAreaImage6},
+                               {'title': self.ScrollAreaEvent7,
+                                'date': self.ScrollAreaDate7,
+                                'address': self.ScrollAreaAddress7,
+                                'image': self.ScrollAreaImage7},
+                               {'title': self.ScrollAreaEvent8,
+                                'date': self.ScrollAreaDate8,
+                                'address': self.ScrollAreaAddress8,
+                                'image': self.ScrollAreaImage8},
+                               {'title': self.ScrollAreaEvent9,
+                                'date': self.ScrollAreaDate9,
+                                'address': self.ScrollAreaAddress9,
+                                'image': self.ScrollAreaImage9},
+                               {'title': self.ScrollAreaEvent10,
+                                'date': self.ScrollAreaDate10,
+                                'address': self.ScrollAreaAddress10,
+                                'image': self.ScrollAreaImage10},
+                               {'title': self.ScrollAreaEvent11,
+                                'date': self.ScrollAreaDate11,
+                                'address': self.ScrollAreaAddress11,
+                                'image': self.ScrollAreaImage11},
+                               {'title': self.ScrollAreaEvent12,
+                                'date': self.ScrollAreaDate12,
+                                'address': self.ScrollAreaAddress12,
+                                'image': self.ScrollAreaImage12},
+                               {'title': self.ScrollAreaEvent13,
+                                'date': self.ScrollAreaDate13,
+                                'address': self.ScrollAreaAddress13,
+                                'image': self.ScrollAreaImage13},
+                               {'title': self.ScrollAreaEvent14,
+                                'date': self.ScrollAreaDate14,
+                                'address': self.ScrollAreaAddress14,
+                                'image': self.ScrollAreaImage14},
+                               {'title': self.ScrollAreaEvent15,
+                                'date': self.ScrollAreaDate15,
+                                'address': self.ScrollAreaAddress15,
+                                'image': self.ScrollAreaImage15},
+                               ]
         self.retranslateUi(MainDialog)
         QtCore.QMetaObject.connectSlotsByName(MainDialog)
 
@@ -862,12 +924,33 @@ class Ui_MainDialog(object):
 
         self.KeywordInput.setPlaceholderText(_translate("MainDialog", "Keyword"))
         self.PostEventButton.setText(_translate("MainDialog", "Post Event"))
+        
+        AttendEventLength = len(self.AttendEventList)
+        for i in range(AttendEventLength):
+            self.AttendEventList[i].setText(_translate("MainDialog", "Event Title"+str(i+1)))
+
+        HostEventLength = len(self.HostEventList)
+        for i in range(HostEventLength):
+            self.HostEventList[i].setText(_translate("MainDialog", "Event Title" + str(i + 1)))
+        
+        ScrollEventLength = len(self.ScrollAreaList)
+        for i in range(ScrollEventLength):
+            currentEvent = self.ScrollAreaList[i]
+            currentEvent['title'].setText(_translate("MainDialog", "Event Title"+str(i+1)))
+            currentEvent['date'].setText(_translate("MainDialog", "Date"))
+            currentEvent['address'].setText(_translate("MainDialog", "Address"))
+            
+        
+        '''
         self.AttendEvent1.setText(_translate("MainDialog", "Event Title1"))
         self.AttendEvent2.setText(_translate("MainDialog", "Event Title2"))
         self.AttendEvent3.setText(_translate("MainDialog", "Event Title3"))
         self.HostEvent1.setText(_translate("MainDialog", "Event Title1"))
         self.HostEvent2.setText(_translate("MainDialog", "Event Title2"))
         self.HostEvent3.setText(_translate("MainDialog", "Event Title3"))
+        '''
+        
+        '''
         self.ScrollAreaEvent1.setText(_translate("MainDialog", "Event Title1"))
         self.ScrollAreaDate1.setText(_translate("MainDialog", "Date"))
         self.ScrollAreaAddress1.setText(_translate("MainDialog", "Address"))
@@ -914,3 +997,5 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate13.setText(_translate("MainDialog", "Date"))
         self.ScrollAreaEvent15.setText(_translate("MainDialog", "Event Title15"))
 
+        '''
+        
