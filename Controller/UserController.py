@@ -159,6 +159,7 @@ def get_host(user_id: str):
           'FROM Host ' \
           'WHERE HostID = %s'
     val = [user_id]
+    got = False
 
     try:
         cursor.execute(sql, val)

@@ -15,6 +15,9 @@ from Model.EventModel import EventModel
 from Controller.UserController import *
 from Login.GmapController import *
 from Login.GoogleDrive import *
+from Login.GmailController import *
+from QT_FrontEnd.logic import SignInHandler
+from QT_FrontEnd.logic import Connection
 
 TODAY = datetime.today().strftime('%Y-%m-%d')
 
@@ -33,7 +36,7 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
         self.QuitButton.clicked.connect(self.quit_button_clicked)
 
     def sign_in_button_clicked(self):
-        initiate_login()
+        SignInHandler.initiate_login()
         token_window.show()
         self.hide()
 
@@ -119,7 +122,7 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
     def login_button_clicked(self):
         global google_credentials
         token = self.TokenInput.text()
-        google_credentials = verify_login(token)
+        google_credentials = SignInHandler.verify_login(token)
 
         if google_credentials == 'login error':
             show_dialog("Unable to connect to Google account, check your token. ")
@@ -127,7 +130,7 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
             self.show()
         else:
             global current_user
-            result = verify_registration(google_credentials)
+            result = SignInHandler.verify_registration(google_credentials)
             gmail = Gmail()
             google_id = gmail.get_user_email(google_credentials)
             current_user.google_id = google_id
@@ -409,7 +412,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     'register_period': current_event.register_period,
                     'expire_date': current_event.expire_date
                 }
-                response = edit_event(data)
+                response = Connection.edit_event(data)
                 if response[0] == 'SUCCESS':
                     update_event_display(current_event.eid)
                     host_event_display_window.show()
@@ -493,7 +496,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
                     'register_period': current_event.register_period,
                     'expire_date': current_event.expire_date
                 }
-                response = post_event(data)
+                response = Connection.post_event(data)
                 current_event.eid = response[1]['eid']
                 current_event = get_event(current_event.eid)
                 update_event_display(current_event.eid)
@@ -770,13 +773,13 @@ def populate_attend_window(eid):
 
 
 def get_user(uid):
-    res = request_user(int(uid))
+    res = Connection.request_user(int(uid))
     user = response_to_user(res[1])
     return user
 
 
 def get_event(eid):
-    res = request_event(int(eid))
+    res = Connection.request_event(int(eid))
     event = response_to_event(res[1])
     print_event(event)
     return event
@@ -791,7 +794,7 @@ def get_default_list(uid):
 
 
 def get_list(event_filter):
-    result = get_events(event_filter)
+    result = Connection.get_events(event_filter)
     status = result[0]
     if status == Errors.FAILURE.name:
         show_dialog('Error retrieving event, please try again. ')
@@ -803,7 +806,7 @@ def get_list(event_filter):
 
 
 def attend(uid, eid):
-    result = attend_event(uid, eid)
+    result = Connection.attend_event(uid, eid)
     print(result)
     return result
 

@@ -3906,3 +3906,47 @@ OK
 Ran 7 tests in 9.732s
 
 OK
+........
+----------------------------------------------------------------------
+Ran 8 tests in 14.147s
+
+OK
+.....FEF
+======================================================================
+ERROR: test_edit_user_2 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 96, in test_edit_user_2
+    user_3.location = 'location_3'
+AttributeError: 'str' object has no attribute 'location'
+
+======================================================================
+FAIL: test_edit_user_1 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 86, in test_edit_user_1
+    self.assertIsNot(UserController.edit_user(user_3), 'MISSING' or 'DUPLICATE' or 'FAILURE')
+AssertionError: unexpectedly identical: 'MISSING'
+
+======================================================================
+FAIL: test_retrieve_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 107, in test_retrieve_user
+    self.assertEqual(UserController.retrieve_user('email', 'email_2'), 'MISSING')
+AssertionError: <Model.UserModel.UserModel object at 0x7ff7292f9ef0> != 'MISSING'
+
+----------------------------------------------------------------------
+Ran 8 tests in 10.602s
+
+FAILED (failures=2, errors=1)
+......
+----------------------------------------------------------------------
+Ran 6 tests in 12.158s
+
+OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 12.149s
+
+OK
