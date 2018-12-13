@@ -62,8 +62,8 @@ def edit_event(data):
     return result
 
 
-def get_default(location):
-    result = ControllerWrapper.get_default(location)
+def get_events(event_filter):
+    result = ControllerWrapper.get_events(event_filter)
     return result
 
 
@@ -72,6 +72,6 @@ def attend_event(uid, eid):
         'uid': uid,
         'eid': eid
     }
-    
+
     result = ControllerWrapper.attend_event(data)
     return result

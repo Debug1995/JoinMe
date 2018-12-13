@@ -49,8 +49,8 @@ def edit_event(data):
     return response
 
 
-def get_default(data):
-    response = ControllerHandler.get_default(data)
+def get_events(data):
+    response = ControllerHandler.get_events(data)
     return response
 
 

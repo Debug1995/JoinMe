@@ -290,20 +290,42 @@ def get_join(event_id: str):
             return []
 
 
-def get_default_list(data):
+def get_events(data):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     handled = False
+    time = data['time']
+    clauses = []
+    time_clause = "expiretime > \'" + datetime.datetime.today().strftime('%Y-%m-%d') + "\'"
+    if time:
+        time_clause = "(" + time_clause + " AND DATEDIFF(expiretime, \'" + \
+                      datetime.datetime.today().strftime('%Y-%m-%d') + "\') < " + str(time) + ")"
+    clauses.append(time_clause)
+    state = data['state']
+    if state:
+        state_clause = 'location = \'' + state + "\'"
+        clauses.append(state_clause)
+    tag = data['tag']
+    if tag:
+        tag_clause = "tags = \'" + tag + "\'"
+        clauses.append(tag_clause)
+    keyword = data['keyword']
+    if keyword:
+        keyword_clause = "(description LIKE \'%" + keyword + "%\'" + " OR " + "title LIKE \'%" + keyword + "%\')"
+        clauses.append(keyword_clause)
+    query = ''
+    for clause in clauses:
+        query = query + clause + ' AND '
+    query = query[: -5]
 
     sql = 'SELECT eventid, title, location ' \
           'FROM event ' \
-          'WHERE expiretime > %s AND location = %s'
-    val = (datetime.datetime.today().strftime('%Y-%m-%d'), data)
+          'WHERE ' + query
     try:
-        cursor.execute(sql, val)
-        list = cursor.fetchall()
+        cursor.execute(sql)
+        result_list = cursor.fetchall()
         handled = True
-        return Errors.SUCCESS.name, list
+        return Errors.SUCCESS.name, result_list
     finally:
         if not handled:
             connector.rollback()

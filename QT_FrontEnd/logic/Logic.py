@@ -104,7 +104,6 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
                 show_dialog("Unable to connect to server, please check your connections. ")
             else:
                 current_user.uid = response[1]['id']
-                print_user(current_user)
                 sign_in_window.show()
                 self.hide()
 
@@ -178,11 +177,33 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             self.hide()
 
     def search_button_clicked(self):
-        tag = self.TagsComboBox.currentText()
-        # state = self.PlaceComboBox.currentText()
-        # time = self.TimeComboBox.currentText()
-        # keyword = self.KeywordInput.text()
-        event_filter = tag,
+        tag = self.CatagoryComboBox.currentText()
+        if tag == 'Category':
+            tag = None
+        state = self.PlaceComboBox.currentText()
+        if state == 'Your Place':
+            state = None
+        time = self.TimeComboBox.currentText()
+        if time == 'In One Day':
+            time = 1
+        elif time == 'In Three Days':
+            time = 3
+        elif time == 'In One Week':
+            time = 7
+        elif time == 'In One Month':
+            time = 30
+        else:
+            time = None
+        keyword = self.KeywordInput.text()
+        if keyword == '':
+            keyword = None
+
+        event_filter = {
+            'tag': tag,
+            'state': state,
+            'time': time,
+            'keyword': keyword
+        }
 
         get_list(event_filter)
 
@@ -546,7 +567,6 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
                 current_user = previous_user
             else:
                 current_user.uid = response[1]['id']
-                print_user(current_user)
                 update_lobby_user()
                 lobby_window.show()
                 self.hide()
@@ -751,14 +771,12 @@ def populate_attend_window(eid):
 
 def get_user(uid):
     res = request_user(int(uid))
-    print(res[1])
     user = response_to_user(res[1])
     return user
 
 
 def get_event(eid):
     res = request_event(int(eid))
-    print(res[1])
     event = response_to_event(res[1])
     print_event(event)
     return event
@@ -767,15 +785,21 @@ def get_event(eid):
 def get_default_list(uid):
     user = get_user(uid)
     state = user.location
-    default_list = get_default(state)
-    default_list = default_list[1]
-    default_list = ast.literal_eval(str(default_list))
+    event_filter = {}
 
-    return default_list
+    return
 
 
 def get_list(event_filter):
-    return
+    result = get_events(event_filter)
+    status = result[0]
+    if status == Errors.FAILURE.name:
+        show_dialog('Error retrieving event, please try again. ')
+        result = []
+    else:
+        result = result[1]
+    print(result)
+    return result
 
 
 def attend(uid, eid):

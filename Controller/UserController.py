@@ -93,7 +93,6 @@ def decode_string(user_info: str):
     user_info = user_info[1: -1]
     user_info = '[' + user_info + ']'
     user_info = ast.literal_eval(user_info)
-    print(user_info)
     name = user_info[0]
     nickname = user_info[1]
     gender = user_info[2]

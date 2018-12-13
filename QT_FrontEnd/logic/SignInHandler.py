@@ -35,13 +35,3 @@ def verify_registration(credential):
     query_result = get_user(email)
     return query_result
 
-
-
-# service = gmail.build_service(credentials)
-#sender = '199511zc@gmail.com'
-#to = 'cy2468@columbia.edu'
-#subject = 'gmail api test'
-#message_text = 'This is a message sent from gmail api!!'
-#message = gmail.create_message(sender, to, subject, message_text)
-
-#gmail.send_message(service, '199511zc@gmail.com', message)

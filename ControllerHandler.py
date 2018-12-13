@@ -212,8 +212,8 @@ def send_email(message: str, address: str):
     add_output('Message: ' + message + ' send to ' + address + '. \n')
 
 
-def get_default(data):
-    return EventController.get_default_list(data)
+def get_events(data):
+    return EventController.get_events(data)
 
 
 def join_event():
