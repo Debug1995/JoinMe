@@ -116,6 +116,9 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
             elif response[0] == 'FAILURE':
                 show_dialog("Unable to connect to server, please check your connections. ")
             else:
+                if windll.user32.OpenClipboard(None):
+                    windll.user32.EmptyClipboard()
+                    windll.user32.CloseClipboard()
                 current_user.uid = response[1]['id']
                 sign_in_window.show()
                 self.hide()
@@ -256,6 +259,11 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
                 profile_edit_window.EmailSuffixComboBox.setCurrentText(_translate("RegisterDialog", self.email[1]))
             profile_edit_window.TagsComboBox.setCurrentText(_translate("RegisterDialog", current_user.tags))
             profile_edit_window.DescriptionInput.setText(_translate("RegisterDialog", current_user.description))
+            pixmap = load_image(current_user.image)
+            if pixmap != Errors.FAILURE.name:
+                profile_edit_window.profile_picture.setPixmap(pixmap.
+                                                              scaled(profile_edit_window.profile_picture.width(),
+                                                                     profile_edit_window.profile_picture.height()))
         profile_edit_window.show()
         self.hide()
 
@@ -359,7 +367,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             self.eventDate = datetime.strptime(self.eventDate, '%Y-%m-%d')
             self.expireDate = datetime.strptime(self.expireDate, '%Y-%m-%d')
             host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit", str((self.expireDate-self.eventDate).days)))
-            #图图图图图图图
+
         host_event_edit_window.show()
         self.hide()
 
@@ -474,7 +482,6 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
         self.UploadImage1.clicked.connect(self.upload_image_button_clicked)
 
-
     def upload_image_button_clicked(self):
         global current_event
         options = QFileDialog.Options()
@@ -568,13 +575,15 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
             self.show()
         if file_name[0] != '':
             global current_user
-            # file_path = file_name[0]
-            # file_title = current_user.google_id + '_profile.jpg'
-            # drive_service = set_up_drive(google_credentials)
-            # link = upload_image(drive_service, file_path, file_title)
-            # current_user.image = link
-            # pixmap = load_image(link)
-            # self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(), self.profile_picture.height()))
+            file_path = file_name[0]
+            file_title = current_user.google_id + '_profile.jpg'
+            upload_result = upload_image(file_path, file_title)
+            if upload_result:
+                current_user.image = file_title
+                pixmap = load_image(current_user.image)
+                if pixmap != Errors.FAILURE.name:
+                    self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(),
+                                                                 self.profile_picture.height()))
 
     def save_button_clicked(self):
         global current_user
@@ -607,7 +616,7 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
             current_user.location = state
             current_user.tags = string_to_enum(str(self.TagsComboBox.currentText()))
             current_user.description = self.DescriptionInput.toPlainText()
-            response = edit_user(current_user)
+            response = Connection.edit_user(current_user)
             if response[0] == 'MISSING':
                 show_dialog('User with this credential does not exist. ')
                 current_user = previous_user
