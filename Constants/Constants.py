@@ -7,6 +7,9 @@ class ConnectConstants:
     PASSWORD = "joinme4156"
     HOST = "joinme.czodqmkcwniq.us-east-1.rds.amazonaws.com"
     DATABASE = "joinme_db"
+    AWS_KEY = 'AKIAJK5XABQ3I6BOHTYA'
+    AWS_SECRET = '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'
+    AWS_URL = 'joinmeprofileimage.s3-us-east-1.amazonaws.com'
 
 
 class UserFields(Enum):
