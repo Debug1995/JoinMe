@@ -27,7 +27,7 @@ TODAY = datetime.today().strftime('%Y-%m-%d')
 AWS_CONNECTOR = AWSConnector()
 
 current_user: UserModel = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
-current_event: EventModel = EventModel('0', '', '', '', '', '', [], TODAY, '', '', '')
+current_event: EventModel = EventModel('0', '', '', '', '[None, None, None]', '', [], TODAY, '', '', '')
 google_credentials = None
 
 
@@ -481,10 +481,16 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         super(PostEventWindow, self).__init__(parent)
         self.setupUi(self)
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
-        self.UploadImage1.clicked.connect(self.upload_image_button_clicked)
+        self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
+        self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
+        self.UploadImage3.clicked.connect(lambda: self.upload_image_button_clicked(3))
 
-    def upload_image_button_clicked(self):
+    def enterEvent(self, event):
+        print('mouse entered')
+
+    def upload_image_button_clicked(self, number):
         global current_event
+        image_list = eval(current_event.image)
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         try:
@@ -494,13 +500,28 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
             self.show()
         if file_name[0] != '':
             global current_user
-            # file_path = file_name[0]
-            # file_title = current_user.google_id + '_event.jpg'
-            # drive_service = set_up_drive(google_credentials)
-            # link = upload_image(drive_service, file_path, file_title)
-            # current_event.image = link
-            # pixmap = load_image(link)
-            # self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
+            file_path = file_name[0]
+            file_title = current_event.eid + '_event_' + str(number) + '.jpg'
+            print(file_title)
+            upload_result = upload_image(file_path, file_title)
+            if upload_result:
+                image_list[number - 1] = file_title
+                current_event.image = str(image_list)
+                print(image_list)
+                print(current_event.image)
+                display_list = eval(current_event.image)
+                print(display_list)
+                pixmap = load_image(display_list[number - 1])
+                if pixmap != Errors.FAILURE.name:
+                    if number == 1:
+                        self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(),
+                                                                 self.EventImage1.height()))
+                    if number == 2:
+                        self.EventImage2.setPixmap(pixmap.scaled(self.EventImage2.width(),
+                                                                 self.EventImage2.height()))
+                    if number == 3:
+                        self.EventImage3.setPixmap(pixmap.scaled(self.EventImage3.width(),
+                                                                 self.EventImage3.height()))
 
     def save_button_clicked(self):
         global current_event
