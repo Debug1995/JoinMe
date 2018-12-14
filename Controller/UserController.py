@@ -27,6 +27,8 @@ def add_user(user: UserModel):
             return Errors.DUPLICATE.name
     finally:
         connector.rollback()
+        if not handled:
+            return Errors.FAILURE.name
 
 
 def edit_user(user: UserModel):

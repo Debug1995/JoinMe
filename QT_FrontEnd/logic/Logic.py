@@ -1,8 +1,10 @@
 import sys
-import time
+import urllib.request
+from ctypes import windll
+import pyperclip
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QImage
 from QT_FrontEnd.maindialog import Ui_MainDialog
 from QT_FrontEnd.mainwindow import Ui_MainWindow
 from QT_FrontEnd.googletokendisplay import Ui_GoogleTokenDisplay
@@ -40,6 +42,10 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
         SignInHandler.initiate_login()
         token_window.show()
         self.hide()
+        token = pyperclip.paste()
+        while not token:
+            token = pyperclip.paste()
+        token_window.TokenInput.setText(token)
 
     def quit_button_clicked(self):
         self.close()
@@ -68,7 +74,7 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
             upload_result = upload_image(file_path, file_title)
             if upload_result:
                 current_user.image = file_title
-                pixmap = load_image(current_user.image, 0)
+                pixmap = load_image(current_user.image)
                 if pixmap != Errors.FAILURE.name:
                     self.profile_picture.setPixmap(pixmap.scaled(self.profile_picture.width(),
                                                                  self.profile_picture.height()))
@@ -103,7 +109,7 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
             current_user.location = state
             current_user.tags = string_to_enum(str(self.TagsComboBox.currentText()))
             current_user.description = self.DescriptionInput.toPlainText()
-            response = add_user(current_user)
+            response = Connection.add_user(current_user)
             if response[0] == 'DUPLICATE':
                 show_dialog('User with the same credential already exists. ')
             elif response[0] == 'FAILURE':
@@ -154,6 +160,9 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
                 self.show()
 
     def back_button_clicked(self):
+        if windll.user32.OpenClipboard(None):
+            windll.user32.EmptyClipboard()
+            windll.user32.CloseClipboard()
         sign_in_window.show()
         self.hide()
 
@@ -189,17 +198,17 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         state = self.PlaceComboBox.currentText()
         if state == 'Your Place':
             state = None
-        time = self.TimeComboBox.currentText()
-        if time == 'In One Day':
-            time = 1
-        elif time == 'In Three Days':
-            time = 3
-        elif time == 'In One Week':
-            time = 7
-        elif time == 'In One Month':
-            time = 30
+        time_margin = self.TimeComboBox.currentText()
+        if time_margin == 'In One Day':
+            time_margin = 1
+        elif time_margin == 'In Three Days':
+            time_margin = 3
+        elif time_margin == 'In One Week':
+            time_margin = 7
+        elif time_margin == 'In One Month':
+            time_margin = 30
         else:
-            time = None
+            time_margin = None
         keyword = self.KeywordInput.text()
         if keyword == '':
             keyword = None
@@ -207,10 +216,9 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         event_filter = {
             'tag': tag,
             'state': state,
-            'time': time,
+            'time': time_margin,
             'keyword': keyword
         }
-        print(lobby_window.event_list)
         get_list(event_filter)
 
     def post_event_clicked(self):
@@ -617,19 +625,18 @@ def upload_image(file_path, file_key):
         return False
 
 
-def load_image(file_title, file_type=0):
+def load_image(file_title):
     if file_title == '':
         return
     else:
         loaded = False
         try:
-            if file_type == 0:
-                link = AWS_CONNECTOR.download_image(file_title, 0)
-            else:
-                link = AWS_CONNECTOR.download_image(file_title, 1)
+            link = AWS_CONNECTOR.download_image(file_title)
+            request = urllib.request.Request(link)
+            data = urllib.request.urlopen(request).read()
+            pixmap = QPixmap()
+            pixmap.loadFromData(data)
             loaded = True
-            f = open(link, "r")
-            pixmap = QPixmap(link)
             return pixmap
         finally:
             if not loaded:
@@ -654,6 +661,7 @@ def response_to_user(response):
 
 
 def response_to_event(response):
+
     event = EventModel('0', '', '', '', '', '', [], TODAY, '', '', '')
     event.title = response['title']
     event.eid = response['id']
@@ -833,6 +841,9 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     sys.excepthook = except_hook
+    if windll.user32.OpenClipboard(None):
+        windll.user32.EmptyClipboard()
+        windll.user32.CloseClipboard()
     app = QApplication(sys.argv)
     sign_in_window = SignInWindow()
     sign_up_window = SignUpWindow()

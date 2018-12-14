@@ -1,5 +1,6 @@
 from boto3.session import Session
 import boto3
+import os
 from Constants.Constants import ConnectConstants
 
 
@@ -27,19 +28,12 @@ class AWSConnector:
             if not uploaded:
                 return False
 
-    def download_image(self, image_name, file_type):
-        if file_type == 0:  # profile
-            file_path = '../../Images/Profile/'
-        elif file_type == 1:  # event
-            file_path = '../../Images/Activity/'
-        else:
-            return 'type error', None
-        s3 = boto3.resource('s3',
-                            aws_access_key_id=self.access_key,
-                            aws_secret_access_key=self.secret_key)
-        s3.Bucket('joinmeprofileimage').download_file(image_name, file_path + image_name)
-
-        return file_path + image_name
+    def download_image(self, image_name):
+        url = self.s3_client.generate_presigned_url('get_object',
+                                                    Params={'Bucket': 'joinmeprofileimage',
+                                                            'Key': image_name},
+                                                    ExpiresIn=3600)
+        return url
 
 # aws_connector = AWSConnector()
 #
