@@ -218,6 +218,7 @@ class Ui_RegisterDialog(object):
         self.UploadImageButton.setFont(font)
         self.UploadImageButton.setStyleSheet("border-image: \\*url();")
         self.UploadImageButton.setObjectName("UploadImageButton")
+        
         self.SaveProfileButton = QtWidgets.QPushButton(RegisterDialog)
         self.SaveProfileButton.setGeometry(QtCore.QRect(100, 210, 80, 32))
         font = QtGui.QFont()
@@ -225,6 +226,15 @@ class Ui_RegisterDialog(object):
         self.SaveProfileButton.setFont(font)
         self.SaveProfileButton.setStyleSheet("border-image: \\*url();")
         self.SaveProfileButton.setObjectName("SaveProfileButton")
+
+        self.BackButton = QtWidgets.QPushButton(RegisterDialog)
+        self.BackButton.setGeometry(QtCore.QRect(100, 240, 80, 32))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.BackButton.setFont(font)
+        self.BackButton.setStyleSheet("border-image: \\*url();")
+        self.BackButton.setObjectName("BackButton")
+        
         self.FirstNameInput = QtWidgets.QLineEdit(RegisterDialog)
         self.FirstNameInput.setGeometry(QtCore.QRect(380, 104, 101, 21))
         font = QtGui.QFont()
@@ -277,6 +287,7 @@ class Ui_RegisterDialog(object):
         self.profile_picture.raise_()
         self.UploadImageButton.raise_()
         self.SaveProfileButton.raise_()
+        self.BackButton.raise_()
         self.FirstNameInput.raise_()
         self.DescriptionInput.raise_()
 
@@ -322,5 +333,6 @@ class Ui_RegisterDialog(object):
         self.label_13.setText(_translate("RegisterDialog", "Description"))
         self.UploadImageButton.setText(_translate("RegisterDialog", "Upload Image"))
         self.SaveProfileButton.setText(_translate("RegisterDialog", "Save"))
+        self.BackButton.setText(_translate("RegisterDialog", "Back"))
         self.DescriptionInput.setWhatsThis(_translate("RegisterDialog", "ddd"))
 

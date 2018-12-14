@@ -99,6 +99,7 @@ class Ui_MainDialog(object):
         self.label_12.setFont(font)
         self.label_12.setStyleSheet("border-image: \\*url();")
         self.label_12.setObjectName("label_12")
+        
         self.SearchButton = QtWidgets.QPushButton(MainDialog)
         self.SearchButton.setGeometry(QtCore.QRect(4, 40, 81, 30))
         font = QtGui.QFont()
@@ -106,6 +107,15 @@ class Ui_MainDialog(object):
         self.SearchButton.setFont(font)
         self.SearchButton.setStyleSheet("border-image: \\*url();")
         self.SearchButton.setObjectName("SearchButton")
+
+        self.LogOutButton = QtWidgets.QPushButton(MainDialog)
+        self.LogOutButton.setGeometry(QtCore.QRect(495, 10, 116, 33))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.LogOutButton.setFont(font)
+        self.LogOutButton.setStyleSheet("border-image: \\*url();")
+        self.LogOutButton.setObjectName("LogOutButton")
+        
         self.label_2 = QtWidgets.QLabel(MainDialog)
         self.label_2.setGeometry(QtCore.QRect(10, -3, 151, 51))
         font = QtGui.QFont()
@@ -147,7 +157,7 @@ class Ui_MainDialog(object):
         self.CatagoryComboBox.addItem("")
         self.CatagoryComboBox.addItem("")
         self.PlaceComboBox = QtWidgets.QComboBox(MainDialog)
-        self.PlaceComboBox.setGeometry(QtCore.QRect(367, 40, 101, 30))
+        self.PlaceComboBox.setGeometry(QtCore.QRect(367, 40, 131, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.PlaceComboBox.setFont(font)
@@ -207,7 +217,7 @@ class Ui_MainDialog(object):
         self.PlaceComboBox.addItem("")
 
         self.KeywordInput = QtWidgets.QLineEdit(MainDialog)
-        self.KeywordInput.setGeometry(QtCore.QRect(472, 44, 111, 21))
+        self.KeywordInput.setGeometry(QtCore.QRect(502, 44, 101, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.KeywordInput.setFont(font)
@@ -215,6 +225,8 @@ class Ui_MainDialog(object):
         self.KeywordInput.setStyleSheet("border-image: \\*url();\n"
 "border-radius: 5px;\n"
 "")
+        
+        
         self.KeywordInput.setText("")
         self.KeywordInput.setClearButtonEnabled(False)
         self.KeywordInput.setObjectName("KeywordInput")
@@ -485,6 +497,7 @@ class Ui_MainDialog(object):
         self.HostEventSeeMoreButton.raise_()
         self.label_12.raise_()
         self.SearchButton.raise_()
+        self.LogOutButton.raise_()
         self.label_2.raise_()
         self.TimeComboBox.raise_()
         self.CatagoryComboBox.raise_()
@@ -555,6 +568,7 @@ class Ui_MainDialog(object):
         self.HostEventSeeMoreButton.setText(_translate("MainDialog", "Refresh"))
         self.label_12.setText(_translate("MainDialog", "Event Hosted"))
         self.SearchButton.setText(_translate("MainDialog", "Search"))
+        self.LogOutButton.setText(_translate("MainDialog", "Log Out"))
         self.label_2.setText(_translate("MainDialog", "JoinMe"))
         self.TimeComboBox.setItemText(0, _translate("MainDialog", "Time"))
         self.TimeComboBox.setItemText(1, _translate("MainDialog", "In One Day"))

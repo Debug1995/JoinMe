@@ -34,6 +34,7 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.SignInButton.clicked.connect(self.sign_in_button_clicked)
+        #self.SignInButton.mouseMoveEvent()
         self.QuitButton.clicked.connect(self.quit_button_clicked)
 
     def sign_in_button_clicked(self):
