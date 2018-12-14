@@ -142,21 +142,21 @@ class Ui_EventDisplayDialog(object):
         self.UserName_12.setFont(font)
         self.UserName_12.setStyleSheet("border-image: \\*url();")
         self.UserName_12.setObjectName("UserName_12")
-        self.EventIamge1 = QtWidgets.QGraphicsView(EventDisplayDialog)
+        self.EventIamge1 = QtWidgets.QLabel(EventDisplayDialog)
         self.EventIamge1.setGeometry(QtCore.QRect(580, 112, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.EventIamge1.setFont(font)
         self.EventIamge1.setStyleSheet("")
         self.EventIamge1.setObjectName("EventIamge1")
-        self.EventIamge2 = QtWidgets.QGraphicsView(EventDisplayDialog)
+        self.EventIamge2 = QtWidgets.QLabel(EventDisplayDialog)
         self.EventIamge2.setGeometry(QtCore.QRect(580, 200, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.EventIamge2.setFont(font)
         self.EventIamge2.setStyleSheet("")
         self.EventIamge2.setObjectName("EventIamge2")
-        self.EventIamge3 = QtWidgets.QGraphicsView(EventDisplayDialog)
+        self.EventIamge3 = QtWidgets.QLabel(EventDisplayDialog)
         self.EventIamge3.setGeometry(QtCore.QRect(580, 290, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -304,6 +304,18 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee6.setText("")
         self.Attendee6.setObjectName("Attendee6")
+        self.AttendeeList = [self.Attendee1,
+                             self.Attendee2,
+                             self.Attendee3,
+                             self.Attendee4,
+                             self.Attendee5,
+                             self.Attendee6,
+                             self.Attendee7,
+                             self.Attendee8,
+                             self.Attendee9,
+                             self.Attendee10,
+                             ]
+        
         self.Hostimage = QtWidgets.QPushButton(EventDisplayDialog)
         self.Hostimage.setGeometry(QtCore.QRect(221, 215, 31, 31))
         font = QtGui.QFont()

@@ -71,7 +71,7 @@ class Ui_GoogleTokenDisplay(object):
         self.JoinMeLabel.raise_()
         self.TokenInput.raise_()
         self.BackButton.raise_()
-
+        
         self.retranslateUi(GoogleTokenDisplay)
         QtCore.QMetaObject.connectSlotsByName(GoogleTokenDisplay)
 
