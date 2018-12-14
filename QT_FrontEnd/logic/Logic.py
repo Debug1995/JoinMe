@@ -4,7 +4,8 @@ from ctypes import windll
 import pyperclip
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtGui import QPixmap
+from PyQt5 import QtCore
 from QT_FrontEnd.maindialog import Ui_MainDialog
 from QT_FrontEnd.mainwindow import Ui_MainWindow
 from QT_FrontEnd.googletokendisplay import Ui_GoogleTokenDisplay
@@ -238,6 +239,23 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             self.hide()
 
     def update_profile_clicked(self):
+        global current_user
+        if current_user.uid != '0':
+            _translate = QtCore.QCoreApplication.translate
+            self.name = current_user.name.split(' ')
+            profile_edit_window.FirstNameInput.setText(_translate("RegisterDialog", self.name[0]))
+            profile_edit_window.LastNameInput.setText(_translate("RegisterDialog", self.name[1]))
+            profile_edit_window.NickNameInput.setText(_translate("RegisterDialog", current_user.nickname))
+            profile_edit_window.AddressInput.setText(_translate("RegisterDialog", current_user.location))
+            profile_edit_window.GenderComboBox.setCurrentText(_translate("RegisterDialog", current_user.gender))
+            self.email = current_user.email.split('@')
+            profile_edit_window.EmailAddInput.setText(_translate("RegisterDialog", self.email[0]))
+            if self.email[1] not in ['gmail.com', 'outlook.com', 'yahoo.com', '163.com', 'qq.com']:
+                profile_edit_window.EmailOthersInput.setText(_translate("RegisterDialog", self.email[1]))
+            else:
+                profile_edit_window.EmailSuffixComboBox.setCurrentText(_translate("RegisterDialog", self.email[1]))
+            profile_edit_window.TagsComboBox.setCurrentText(_translate("RegisterDialog", current_user.tags))
+            profile_edit_window.DescriptionInput.setText(_translate("RegisterDialog", current_user.description))
         profile_edit_window.show()
         self.hide()
 
@@ -324,6 +342,24 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.hide()
 
     def edit_button_clicked(self):
+        global current_event
+        if current_event.uid != '0':
+            _translate = QtCore.QCoreApplication.translate
+            host_event_edit_window.TitleInput.setText(_translate("HostEventEdit", current_event.title))
+            host_event_edit_window.DescriptionInput.setText(_translate("HostEventEdit", current_event.description))
+            host_event_edit_window.AddressInput.setText(_translate("HostEventEdit", current_event.location))
+            host_event_edit_window.CityInput.setText(_translate("HostEventEdit", current_event.location))
+            host_event_edit_window.CatagoryComboBox.setCurrentText(_translate("HostEventEdit", current_user.tags))
+            self.eventDate = current_event.event_date
+            self.eventDateList = self.eventDate.split('-')
+            host_event_edit_window.YearComboBox.setCurrentText(_translate("HostEventEdit", self.eventDateList[0]))
+            host_event_edit_window.MonthComboBox.setCurrentText(_translate("HostEventEdit", self.eventDateList[1]))
+            host_event_edit_window.DayComboBox.setCurrentText(_translate("HostEventEdit", self.eventDateList[2]))
+            self.expireDate = current_event.expire_date
+            self.eventDate = datetime.strptime(self.eventDate, '%Y-%m-%d')
+            self.expireDate = datetime.strptime(self.expireDate, '%Y-%m-%d')
+            host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit", str((self.expireDate-self.eventDate).days)))
+            #图图图图图图图
         host_event_edit_window.show()
         self.hide()
 
@@ -438,6 +474,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
         self.UploadImage1.clicked.connect(self.upload_image_button_clicked)
 
+
     def upload_image_button_clicked(self):
         global current_event
         options = QFileDialog.Options()
@@ -520,7 +557,7 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
 
         self.UploadImageButton.clicked.connect(self.upload_image_button_clicked)
         self.SaveProfileButton.clicked.connect(self.save_button_clicked)
-
+        
     def upload_image_button_clicked(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog

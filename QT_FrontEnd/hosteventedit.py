@@ -393,6 +393,19 @@ class Ui_HostEventEdit(object):
 "")
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
+        
+        self.AttendeeList = [self.Attendee1,
+                             self.Attendee2,
+                             self.Attendee3,
+                             self.Attendee4,
+                             self.Attendee5,
+                             self.Attendee6,
+                             self.Attendee7,
+                             self.Attendee8,
+                             self.Attendee9,
+                             self.Attendee10,
+                             ]
+        
         self.graphicsView.raise_()
         self.line_2.raise_()
         self.UserName_5.raise_()
@@ -429,7 +442,7 @@ class Ui_HostEventEdit(object):
         self.Attendee1.raise_()
         self.Attendee10.raise_()
         self.Attendee5.raise_()
-
+        
         self.retranslateUi(HostEventEdit)
         QtCore.QMetaObject.connectSlotsByName(HostEventEdit)
 
