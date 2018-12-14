@@ -171,7 +171,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.HostAttendSeeMoreButton.clicked.connect(self.refresh_attend)
         self.HostEventSeeMoreButton.clicked.connect(self.refresh_host)
         self.SearchButton.clicked.connect(self.search_button_clicked)
-        self.ScrollAreaDate1.clicked.connect(self.scroll_clicked)
+        #self.ScrollAreaDate1.clicked.connect(self.scroll_clicked)
         self.event_list = []
 
     def scroll_clicked(self):
@@ -241,6 +241,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             profile_edit_window.EmailAddInput.setText(_translate("RegisterDialog", self.email[0]))
             if self.email[1] not in ['gmail.com', 'outlook.com', 'yahoo.com', '163.com', 'qq.com']:
                 profile_edit_window.EmailOthersInput.setText(_translate("RegisterDialog", self.email[1]))
+                profile_edit_window.EmailSuffixComboBox.setCurrentText(_translate("RegisterDialog", "others"))
             else:
                 profile_edit_window.EmailSuffixComboBox.setCurrentText(_translate("RegisterDialog", self.email[1]))
             profile_edit_window.TagsComboBox.setCurrentText(_translate("RegisterDialog", current_user.tags))
