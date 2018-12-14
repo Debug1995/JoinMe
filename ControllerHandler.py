@@ -61,40 +61,6 @@ def update_event(data):
         return Errors.FAILURE.name
 
 
-def remove_user():
-    global current_user
-    global current_event
-    if not current_user:
-        add_output('You have to log in first. \n')
-    event_id = event_id_input.get()
-    current_event = EventController.retrieve_event(event_id)
-    if current_event == Errors.MISSING.name:
-        add_output('No such event. \n')
-        current_event = None
-        return
-    elif current_event == Errors.FAILURE.name:
-        return_failure()
-        current_event = None
-        return
-    if current_user.uid != current_event.hosts:
-        add_output('You have to be the host to remove attendees. \n')
-        current_event = None
-        return
-
-    user_id = user_id_input.get()
-    result = EventController.remove_user(user_id, current_event)
-    if result == Errors.MISSING.name:
-        add_output('User did not attend. \n')
-        current_event = None
-        return
-    elif result == Errors.FAILURE.name:
-        return_failure()
-        current_event = None
-        return
-    add_output('User #' + result[0] + ' removed from event #' + result[1] + '. \n')
-    return
-
-
 def register(data):
     user = UserModel(0, data['name'], data['nickname'], data['gender'], data['email'], data['location'],
                      stringToEnum(data['tags']), data['description'], [], [], data['image'], data['google_id'])
@@ -216,41 +182,9 @@ def get_events(data):
     return EventController.get_events(data)
 
 
-def join_event():
-    global current_event
-    global current_user
-    event_id = event_id_input.get()
-    current_event = EventController.retrieve_event(event_id)
-    if current_event == Errors.MISSING.name:
-        add_output('Event not found. \n')
-        current_event = None
-        return
-    elif current_event == Errors.FAILURE.name:
-        add_output('Failed to join event. \n')
-        current_event = None
-        return
-    if not current_user:
-        add_output('You have to login first to join events. \n')
-        current_event = None
-        return
-
-    result = EventController.join_event(current_user, current_event)
-    if result == Errors.DUPLICATE.name:
-        add_output('You have already joined the event. \n')
-    elif result == Errors.FAILURE.name:
-        return_failure()
-        current_event = None
-        return
-    else:
-        add_output('You have joined event #' + current_event.eid + '. User ID: ' + current_user.uid + '. \n')
-
-    EventController.print_event(current_event)
-    return
-
-
 def stringToEnum(tags_input):
-    check_set = set(['sports', 'social', 'outdoors', 'indoors', 'sightseeing',
-                     'exhibitions', 'entertaining', 'charity', 'business'])
+    check_set = {'sports', 'social', 'outdoors', 'indoors', 'sightseeing',
+                 'exhibitions', 'entertaining', 'charity', 'business'}
     if tags_input not in check_set:
         tags_input = 'anything'
     return tags_input

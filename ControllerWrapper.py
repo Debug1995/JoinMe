@@ -1,6 +1,6 @@
 import ControllerHandler
 from Controller.UserController import *
-from Controller.EventController import *
+import Controller.EventController as EventController
 
 
 def login(data):
@@ -76,9 +76,14 @@ def request_user(data):
     return 'OK', response
 
 
+def remove_user(data):
+    result = EventController.remove_user(data)
+    return result
+
+
 def request_event(data):
     print(data)
-    event = retrieve_event(data)
+    event = EventController.retrieve_event(data)
     if event == 'FAILURE':
         return event, None
     response = {
@@ -98,5 +103,5 @@ def request_event(data):
 
 
 def attend_event(data):
-    result = join_event(data)
+    result = EventController.join_event(data)
     return result

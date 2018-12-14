@@ -82,13 +82,13 @@ def expire():
         return Errors.FAILURE.name
 
 
-def remove_user(user_id: str, event: EventModel):
+def remove_user(data):
     connector = SqlController().sql_connector
     cursor = connector.cursor()
     handled = False
 
     sql = "DELETE FROM JoinTable WHERE JoinID = %s and EventID = %s"
-    val = (user_id, event.eid)
+    val = (data['uid'], data['eid'])
     try:
         cursor.execute(sql, val)
         connector.commit()
@@ -96,7 +96,7 @@ def remove_user(user_id: str, event: EventModel):
         if cursor.rowcount == 0:
             return Errors.MISSING.name
         else:
-            return user_id, event.eid
+            return data['uid'], data['eid']
     finally:
         if not handled:
             connector.rollback()

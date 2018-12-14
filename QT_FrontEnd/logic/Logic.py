@@ -723,6 +723,25 @@ def response_to_event(response):
     return event
 
 
+def parse_list(event_list):
+    length = 5
+    parsed_list = []
+    count = 0
+    temp_list = []
+    for event in event_list:
+        if count < length:
+            temp_list.append(event)
+            count = count + 1
+        else:
+            parsed_list.append(temp_list)
+            count = 0
+            temp_list = list()
+            temp_list.append(event)
+            count = count + 1
+    parsed_list.append(temp_list)
+    return parsed_list
+
+
 def print_user(user: UserModel):
     if not user:
         print('This user is empty. ')
@@ -872,12 +891,17 @@ def get_list(event_filter):
         result = []
     else:
         result = result[1]
-    return result
+    return parse_list(result)
 
 
 def attend(uid, eid):
     result = Connection.attend_event(uid, eid)
     print(result)
+    return result
+
+
+def remove_user(uid, eid):
+    result = Connection.remove_user(uid, eid)
     return result
 
 

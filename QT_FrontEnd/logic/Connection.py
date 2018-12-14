@@ -75,3 +75,13 @@ def attend_event(uid, eid):
 
     result = ControllerWrapper.attend_event(data)
     return result
+
+
+def remove_user(uid, eid):
+    data = {
+        'uid': uid,
+        'eid': eid
+    }
+
+    result = ControllerWrapper.remove_user(data)
+    return result
