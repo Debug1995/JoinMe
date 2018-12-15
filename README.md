@@ -3,7 +3,7 @@ This Readme file contains step by step instructions on how to build, test, insta
 
 * [Install and Build](#how-to-install-and-build)
 * [Test](#how-to-test)
-* [Operat](#how-to-install)
+* [Operate](#how-to-operate)
 
 ## How to Install and Build
 Before using our JoinMe platform, you need to install some python packages to make our platform able to run under your pc environment.
@@ -83,4 +83,4 @@ Implement pylint on different python files to generate specific static analysis 
 ```shell
 pylint xxx.py
 ```
-## Operate
+## How to Operate
