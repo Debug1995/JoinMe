@@ -8,6 +8,12 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+class EventPushButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-22.png);")
+
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-2.png);")
 
 class Ui_HostEventDisplayDialog(object):
     def setupUi(self, HostEventDisplayDialog):
@@ -288,7 +294,7 @@ class Ui_HostEventDisplayDialog(object):
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
 
-        self.mapView = QtWidgets.QPushButton(HostEventDisplayDialog)
+        self.mapView = EventPushButton(HostEventDisplayDialog)
         self.mapView.setGeometry(QtCore.QRect(630, 402, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -315,23 +321,18 @@ class Ui_HostEventDisplayDialog(object):
         self.HostImage.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.HostImage.setText("")
         self.HostImage.setObjectName("HostImage")
-        self.TokenInput = QtWidgets.QLineEdit(HostEventDisplayDialog)
-        self.TokenInput.setGeometry(QtCore.QRect(120, 340, 391, 21))
+        self.ToEmailInput = QtWidgets.QLineEdit(HostEventDisplayDialog)
+        self.ToEmailInput.setGeometry(QtCore.QRect(120, 340, 391, 21))
         font = QtGui.QFont()
         font.setPointSize(14)
-        self.TokenInput.setFont(font)
-        self.TokenInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.TokenInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
-        self.TokenInput.setText("")
-        self.TokenInput.setClearButtonEnabled(False)
-        self.TokenInput.setObjectName("TokenInput")
-        self.EventEditButton_2 = QtWidgets.QPushButton(HostEventDisplayDialog)
-        self.EventEditButton_2.setGeometry(QtCore.QRect(90, 254, 171, 34))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.EventEditButton_2.setFont(font)
-        self.EventEditButton_2.setStyleSheet("border-image: \\*url();")
-        self.EventEditButton_2.setObjectName("EventEditButton_2")
+        self.ToEmailInput.setFont(font)
+        self.ToEmailInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
+        self.ToEmailInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
+        self.ToEmailInput.setText("")
+        self.ToEmailInput.setClearButtonEnabled(False)
+        self.ToEmailInput.setObjectName("ToEmailInput")
+        
+       
 
         self.graphicsView.raise_()
         self.UserName_13.raise_()
@@ -371,8 +372,8 @@ class Ui_HostEventDisplayDialog(object):
         self.Attendee10.raise_()
         self.Attendee5.raise_()
         self.HostImage.raise_()
-        self.TokenInput.raise_()
-        self.EventEditButton_2.raise_()
+        self.ToEmailInput.raise_()
+
 
 
         self.retranslateUi(HostEventDisplayDialog)
@@ -402,6 +403,5 @@ class Ui_HostEventDisplayDialog(object):
         self.GroupEmailContent.setWhatsThis(_translate("HostEventDisplayDialog", "ddd"))
         self.GroupEmailContent.setPlaceholderText(_translate("HostEventDisplayDialog", "Please input your email content..."))
         self.BackButton.setText(_translate("HostEventDisplayDialog", "Back"))
-        self.TokenInput.setPlaceholderText(_translate("HostEventDisplayDialog", "Please input the user nickname if needed."))
-        self.EventEditButton_2.setText(_translate("HostEventDisplayDialog", "Extract Information"))
+        self.ToEmailInput.setPlaceholderText(_translate("HostEventDisplayDialog", "Please input the user nickname if needed."))
 

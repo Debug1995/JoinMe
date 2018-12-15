@@ -8,6 +8,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+class EventPushButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-22.png);")
+
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-2.png);")
+
 class Ui_EventDisplayDialog(object):
     def setupUi(self, EventDisplayDialog):
         EventDisplayDialog.setObjectName("EventDisplayDialog")
@@ -173,7 +180,7 @@ class Ui_EventDisplayDialog(object):
         
 
 
-        self.mapView = QtWidgets.QPushButton(EventDisplayDialog)
+        self.mapView = EventPushButton(EventDisplayDialog)
         self.mapView.setGeometry(QtCore.QRect(630, 402, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
