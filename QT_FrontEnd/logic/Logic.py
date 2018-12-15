@@ -393,8 +393,18 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
         self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
         self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
         self.UploadImage3.clicked.connect(lambda: self.upload_image_button_clicked(3))
-        for i, DeleteSign in enumerate(self.DeleteSignList):
-            DeleteSign.clicked.connect(lambda: self.delete_clicked(i))
+
+        self.DeleteSign1.clicked.connect(lambda: self.delete_clicked(0))
+        self.DeleteSign2.clicked.connect(lambda: self.delete_clicked(1))
+        self.DeleteSign3.clicked.connect(lambda: self.delete_clicked(2))
+        self.DeleteSign4.clicked.connect(lambda: self.delete_clicked(3))
+        self.DeleteSign5.clicked.connect(lambda: self.delete_clicked(4))
+        self.DeleteSign6.clicked.connect(lambda: self.delete_clicked(5))
+        self.DeleteSign7.clicked.connect(lambda: self.delete_clicked(6))
+        self.DeleteSign8.clicked.connect(lambda: self.delete_clicked(7))
+        self.DeleteSign9.clicked.connect(lambda: self.delete_clicked(8))
+        self.DeleteSign10.clicked.connect(lambda: self.delete_clicked(9))
+
         self.BackButton.clicked.connect(self.back_button_clicked)
 
     def back_button_clicked(self):
@@ -402,7 +412,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
         self.hide()
 
     def delete_clicked(self, i):
-        print('deleted ' + str(i))
+        pass
 
     def upload_image_button_clicked(self, number):
         global current_event
@@ -598,10 +608,15 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
     def __init__(self, parent=None):
         super(ProfileEditWindow, self).__init__(parent)
         self.setupUi(self)
-
+        self.BackButton.clicked.connect(self.back_button_clicked)
         self.UploadImageButton.clicked.connect(self.upload_image_button_clicked)
         self.SaveProfileButton.clicked.connect(self.save_button_clicked)
-        
+
+    def back_button_clicked(self):
+        lobby_window.show()
+        update_lobby_user()
+        self.hide()
+
     def upload_image_button_clicked(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog

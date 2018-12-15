@@ -423,15 +423,6 @@ class Ui_HostEventEdit(object):
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
 
-        self.AttendeeId10 = QtWidgets.QLabel(HostEventEdit)
-        self.AttendeeId10.setGeometry(QtCore.QRect(580, 280, 31, 31))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.Attendee10.setText("user_id")
-        self.Attendee10.setStyleSheet("color: opacity")
-        self.Attendee10.setStyleSheet("background: transparent;")
-        self.AttendeeId10.setFont(font)
-
         self.Attendee5 = QtWidgets.QPushButton(HostEventEdit)
         self.Attendee5.setGeometry(QtCore.QRect(330, 280, 31, 31))
         font = QtGui.QFont()
@@ -441,17 +432,18 @@ class Ui_HostEventEdit(object):
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
         
-        self.AttendeeList = [self.Attendee1,
-                             self.Attendee2,
-                             self.Attendee3,
-                             self.Attendee4,
-                             self.Attendee5,
-                             self.Attendee6,
-                             self.Attendee7,
-                             self.Attendee8,
-                             self.Attendee9,
-                             self.Attendee10,
-                             ]
+        self.AttendeeList = [
+            self.Attendee1,
+            self.Attendee2,
+            self.Attendee3,
+            self.Attendee4,
+            self.Attendee5,
+            self.Attendee6,
+            self.Attendee7,
+            self.Attendee8,
+            self.Attendee9,
+            self.Attendee10,
+        ]
 
         self.DeleteSign1 = EventPushButton(HostEventEdit)
         self.DeleteSign1.setGeometry(QtCore.QRect(143, 273, 21, 21))

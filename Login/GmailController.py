@@ -71,3 +71,20 @@ class Gmail:
         message = (service.users().messages().send(userId=user_id, body=message).execute())
         print('Message Id: %s' % message['id'])
         return message
+
+
+# # 1. get login url
+# gmail = Gmail()
+# print(gmail.get_autho_uri())
+# # 2. copy autho_code back
+# token =
+# credentials = gmail.get_credentials('4/swDObWJO-mkb2K5I9fUMODqYEHgxWjCMSvx1VnKxnUC9XM5nyeBaFCw')
+# service = gmail.build_service(credentials)
+# # 3. create a mail message object
+# sender = 'sender email'
+# to = 'receiver email'
+# subject = 'gmail api test'
+# message_text = 'This is a message sent from gmail api!!'
+# message = gmail.create_message(sender, to, subject, message_text)
+# # 4. send the email
+# gmail.send_message(service, '199511zc@gmail.com', message)
