@@ -331,12 +331,6 @@ class Ui_HostEventDisplayDialog(object):
         self.EventEditButton_2.setFont(font)
         self.EventEditButton_2.setStyleSheet("border-image: \\*url();")
         self.EventEditButton_2.setObjectName("EventEditButton_2")
-
-        
-        
-        
-        
-        
         
         
         
