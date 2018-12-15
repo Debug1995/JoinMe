@@ -16,11 +16,12 @@ from QT_FrontEnd.registerdialog import Ui_RegisterDialog
 from QT_FrontEnd.userprofiledisplay import Ui_UserProfileDisplay
 from Model.EventModel import EventModel
 from Controller.UserController import *
-from Login.GmapController import *
 from Login.GmailController import *
 from QT_FrontEnd.logic import SignInHandler
 from QT_FrontEnd.logic import Connection
 from Images.AWSConnector import AWSConnector
+import webbrowser
+from Login.GmapController import *
 
 TODAY = datetime.today().strftime('%Y-%m-%d')
 
@@ -346,6 +347,14 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.Attendee9.clicked.connect(self.view_profile_clicked)
         self.Attendee10.clicked.connect(self.view_profile_clicked)
         self.HostImage.clicked.connect(self.view_profile_clicked)
+        self.mapView.clicked.connect(self.map_view_clicked)
+        
+    def map_view_clicked(self):
+        gmap = Gmap()
+        print(current_event)
+        print('123'+str(current_event.location)+'123')
+        
+        #webbrowser.open(gmail.get_autho_uri(), new=2)
 
     def view_profile_clicked(self):
         profile_view_host_window.show()
