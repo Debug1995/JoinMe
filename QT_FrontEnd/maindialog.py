@@ -53,9 +53,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line.setFont(font)
-        self.line.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setMidLineWidth(0)
@@ -80,9 +78,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line_2.setFont(font)
-        self.line_2.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line_2.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
@@ -105,9 +101,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line_3.setFont(font)
-        self.line_3.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line_3.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
@@ -248,10 +242,7 @@ class Ui_MainDialog(object):
         font.setPointSize(14)
         self.KeywordInput.setFont(font)
         self.KeywordInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.KeywordInput.setStyleSheet("border-image: \\*url();\n"
-"border-radius: 5px;\n"
-"")
-        
+        self.KeywordInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
         
         self.KeywordInput.setText("")
         self.KeywordInput.setClearButtonEnabled(False)
@@ -268,9 +259,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent1.setFont(font)
-        self.AttendEvent1.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent1.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent1.setFlat(True)
         self.AttendEvent1.setObjectName("AttendEvent1")
         self.AttendEvent2 = EventPushButton(MainDialog)
@@ -278,9 +267,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent2.setFont(font)
-        self.AttendEvent2.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent2.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent2.setFlat(True)
         self.AttendEvent2.setObjectName("AttendEvent2")
         self.AttendEvent3 = EventPushButton(MainDialog)
@@ -288,9 +275,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent3.setFont(font)
-        self.AttendEvent3.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent3.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent3.setFlat(True)
         self.AttendEvent3.setObjectName("AttendEvent3")
         self.HostEvent1 = EventPushButton(MainDialog)
@@ -298,9 +283,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent1.setFont(font)
-        self.HostEvent1.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent1.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent1.setFlat(True)
         self.HostEvent1.setObjectName("HostEvent1")
         self.HostEvent2 = EventPushButton(MainDialog)
@@ -308,9 +291,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent2.setFont(font)
-        self.HostEvent2.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent2.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent2.setFlat(True)
         self.HostEvent2.setObjectName("HostEvent2")
         self.HostEvent3 = EventPushButton(MainDialog)
@@ -318,9 +299,7 @@ class Ui_MainDialog(object):
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent3.setFont(font)
-        self.HostEvent3.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent3.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent3.setFlat(True)
         self.HostEvent3.setObjectName("HostEvent3")
 
@@ -503,13 +482,9 @@ class Ui_MainDialog(object):
         self.NextPage.setText("")
         self.NextPage.setObjectName("NextPage")
         
-        
-        
         self.graphicsView = QtWidgets.QLabel(MainDialog)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 751, 461))
-        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
-"\n"
-"")
+        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n""\n""")
         self.graphicsView.setObjectName("graphicsView")
         self.graphicsView.raise_()
         self.UserImage.raise_()
@@ -560,10 +535,10 @@ class Ui_MainDialog(object):
         self.NextPage.raise_()
         self.AttendEventList = [self.AttendEvent1, self.AttendEvent2, self.AttendEvent3]
         self.HostEventList = [self.HostEvent1, self.HostEvent2, self.HostEvent3]
-        self.ScrollAreaList = [{'title':self.ScrollAreaEvent1,
-                                'date':self.ScrollAreaDate1,
-                                'address':self.ScrollAreaAddress1,
-                                'image':self.ScrollAreaImage1},
+        self.ScrollAreaList = [{'title': self.ScrollAreaEvent1,
+                                'date': self.ScrollAreaDate1,
+                                'address': self.ScrollAreaAddress1,
+                                'image': self.ScrollAreaImage1},
                                {'title': self.ScrollAreaEvent2,
                                 'date': self.ScrollAreaDate2,
                                 'address': self.ScrollAreaAddress2,
@@ -633,11 +608,11 @@ class Ui_MainDialog(object):
         
         AttendEventLength = len(self.AttendEventList)
         for i in range(AttendEventLength):
-            self.AttendEventList[i].setText(_translate("MainDialog", "Event Title"+str(i+1)))
+            self.AttendEventList[i].setText(_translate("MainDialog", ""))
 
         HostEventLength = len(self.HostEventList)
         for i in range(HostEventLength):
-            self.HostEventList[i].setText(_translate("MainDialog", "Event Title" + str(i + 1)))
+            self.HostEventList[i].setText(_translate("MainDialog", ""))
         
         ScrollEventLength = len(self.ScrollAreaList)
         for i in range(ScrollEventLength):
@@ -704,4 +679,3 @@ class Ui_MainDialog(object):
         self.ScrollAreaEvent15.setText(_translate("MainDialog", "Event Title15"))
 
         '''
-        

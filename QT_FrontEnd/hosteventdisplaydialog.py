@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_HostEventDisplayDialog(object):
     def setupUi(self, HostEventDisplayDialog):
         HostEventDisplayDialog.setObjectName("HostEventDisplayDialog")
@@ -39,9 +40,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line_2.setFont(font)
-        self.line_2.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line_2.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
@@ -102,28 +101,39 @@ class Ui_HostEventDisplayDialog(object):
         self.UserName.setFont(font)
         self.UserName.setStyleSheet("border-image: \\*url();")
         self.UserName.setObjectName("UserName")
-        self.EventIamge1 = QtWidgets.QGraphicsView(HostEventDisplayDialog)
-        self.EventIamge1.setGeometry(QtCore.QRect(580, 112, 131, 81))
+
+        self.EventImage1 = QtWidgets.QLabel(HostEventDisplayDialog)
+        self.EventImage1.setGeometry(QtCore.QRect(580, 112, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.EventIamge1.setFont(font)
-        self.EventIamge1.setStyleSheet("border-image: url(./DefaultImage.png)")
-        self.EventIamge1.setObjectName("EventIamge1")
-        self.EventIamge2 = QtWidgets.QGraphicsView(HostEventDisplayDialog)
-        self.EventIamge2.setGeometry(QtCore.QRect(580, 200, 131, 81))
+        self.EventImage1.setFont(font)
+        self.EventImage1.setStyleSheet("border-image: url(./Transparency.jpg)")
+        self.EventImage1.setObjectName("EventIamge1")
+
+        self.EventImage2 = QtWidgets.QLabel(HostEventDisplayDialog)
+        self.EventImage2.setGeometry(QtCore.QRect(580, 200, 131, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.EventIamge2.setFont(font)
-        self.EventIamge2.setStyleSheet("border-image: url(./DefaultImage.png)")
-        self.EventIamge2.setObjectName("EventIamge2")
+        self.EventImage2.setFont(font)
+        self.EventImage2.setStyleSheet("border-image: url(./Transparency.jpg)")
+        self.EventImage2.setObjectName("EventIamge2")
+
+        self.EventImage3 = QtWidgets.QLabel(HostEventDisplayDialog)
+        self.EventImage3.setGeometry(QtCore.QRect(580, 290, 131, 81))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.EventImage3.setFont(font)
+        self.EventImage3.setStyleSheet("border-image: url(./Transparency.jpg)")
+        self.EventImage3.setObjectName("EventIamge3")
+
+        self.EventImageList = [self.EventImage1, self.EventImage2, self.EventImage3]
+
         self.line_3 = QtWidgets.QFrame(HostEventDisplayDialog)
         self.line_3.setGeometry(QtCore.QRect(0, 80, 600, 2))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line_3.setFont(font)
-        self.line_3.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line_3.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line_3.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_3.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_3.setObjectName("line_3")
@@ -162,13 +172,6 @@ class Ui_HostEventDisplayDialog(object):
         self.UserName_2.setFont(font)
         self.UserName_2.setStyleSheet("border-image: \\*url();")
         self.UserName_2.setObjectName("UserName_2")
-        self.EventIamge3 = QtWidgets.QGraphicsView(HostEventDisplayDialog)
-        self.EventIamge3.setGeometry(QtCore.QRect(580, 290, 131, 81))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.EventIamge3.setFont(font)
-        self.EventIamge3.setStyleSheet("border-image: url(./DefaultImage.png)")
-        self.EventIamge3.setObjectName("EventIamge3")
         self.UserName_10 = QtWidgets.QLabel(HostEventDisplayDialog)
         self.UserName_10.setGeometry(QtCore.QRect(10, 260, 81, 20))
         font = QtGui.QFont()
@@ -192,9 +195,7 @@ class Ui_HostEventDisplayDialog(object):
         self.UserName_3.setObjectName("UserName_3")
         self.graphicsView = QtWidgets.QGraphicsView(HostEventDisplayDialog)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
-"\n"
-"")
+        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n""\n""")
         self.graphicsView.setObjectName("graphicsView")
         self.GroupEmailContent = QtWidgets.QTextEdit(HostEventDisplayDialog)
         self.GroupEmailContent.setGeometry(QtCore.QRect(11, 368, 501, 81))
@@ -202,9 +203,7 @@ class Ui_HostEventDisplayDialog(object):
         font.setPointSize(16)
         self.GroupEmailContent.setFont(font)
         self.GroupEmailContent.setAutoFillBackground(False)
-        self.GroupEmailContent.setStyleSheet("border-image: \\*url();\n"
-"border-radius: 5px;\n"
-"")
+        self.GroupEmailContent.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
         self.GroupEmailContent.setObjectName("GroupEmailContent")
         self.BackButton = QtWidgets.QPushButton(HostEventDisplayDialog)
         self.BackButton.setGeometry(QtCore.QRect(606, 33, 81, 34))
@@ -218,8 +217,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee4.setFont(font)
-        self.Attendee4.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee4.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee4.setText("")
         self.Attendee4.setObjectName("Attendee4")
         self.Attendee6 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -227,8 +225,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee6.setFont(font)
-        self.Attendee6.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee6.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee6.setText("")
         self.Attendee6.setObjectName("Attendee6")
         self.Attendee2 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -236,8 +233,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee2.setFont(font)
-        self.Attendee2.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee2.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee2.setText("")
         self.Attendee2.setObjectName("Attendee2")
         self.Attendee7 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -245,8 +241,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee7.setFont(font)
-        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee7.setText("")
         self.Attendee7.setObjectName("Attendee7")
         self.Attendee8 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -254,8 +249,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee8.setFont(font)
-        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee8.setText("")
         self.Attendee8.setObjectName("Attendee8")
         self.Attendee3 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -263,8 +257,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee3.setFont(font)
-        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee3.setText("")
         self.Attendee3.setObjectName("Attendee3")
         self.Attendee9 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -272,8 +265,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee9.setFont(font)
-        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee9.setText("")
         self.Attendee9.setObjectName("Attendee9")
         self.Attendee1 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -281,8 +273,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee1.setFont(font)
-        self.Attendee1.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee1.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee1.setText("")
         self.Attendee1.setObjectName("Attendee1")
         self.Attendee10 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -290,8 +281,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee10.setFont(font)
-        self.Attendee10.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee10.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
         self.Attendee5 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -299,8 +289,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee5.setFont(font)
-        self.Attendee5.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee5.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
         self.HostImage = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -308,8 +297,7 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.HostImage.setFont(font)
-        self.HostImage.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.HostImage.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.HostImage.setText("")
         self.HostImage.setObjectName("HostImage")
         self.TokenInput = QtWidgets.QLineEdit(HostEventDisplayDialog)
@@ -318,9 +306,7 @@ class Ui_HostEventDisplayDialog(object):
         font.setPointSize(14)
         self.TokenInput.setFont(font)
         self.TokenInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.TokenInput.setStyleSheet("border-image: \\*url();\n"
-"border-radius: 5px;\n"
-"")
+        self.TokenInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
         self.TokenInput.setText("")
         self.TokenInput.setClearButtonEnabled(False)
         self.TokenInput.setObjectName("TokenInput")
@@ -331,9 +317,7 @@ class Ui_HostEventDisplayDialog(object):
         self.EventEditButton_2.setFont(font)
         self.EventEditButton_2.setStyleSheet("border-image: \\*url();")
         self.EventEditButton_2.setObjectName("EventEditButton_2")
-        
-        
-        
+
         self.graphicsView.raise_()
         self.UserName_13.raise_()
         self.UserName_8.raise_()
@@ -347,15 +331,15 @@ class Ui_HostEventDisplayDialog(object):
         self.CityOutput.raise_()
         self.label_2.raise_()
         self.UserName.raise_()
-        self.EventIamge1.raise_()
-        self.EventIamge2.raise_()
+        self.EventImage1.raise_()
+        self.EventImage2.raise_()
+        self.EventImage3.raise_()
         self.line_3.raise_()
         self.UserName_12.raise_()
         self.UserName_9.raise_()
         self.UserName_11.raise_()
         self.SendEmailButton.raise_()
         self.UserName_2.raise_()
-        self.EventIamge3.raise_()
         self.UserName_10.raise_()
         self.DateOutput.raise_()
         self.UserName_3.raise_()

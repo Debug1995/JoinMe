@@ -1,7 +1,5 @@
 import sys
 import urllib.request
-#from ctypes import windll
-#import pyperclip
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QPixmap
@@ -164,12 +162,12 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def __init__(self, parent=None):
         super(LobbyWindow, self).__init__(parent)
         self.setupUi(self)
-        self.AttendEvent1.clicked.connect(self.attend_event_clicked)
-        self.AttendEvent2.clicked.connect(self.attend_event_clicked)
-        self.AttendEvent3.clicked.connect(self.attend_event_clicked)
-        self.HostEvent1.clicked.connect(self.host_event_clicked)
-        self.HostEvent2.clicked.connect(self.host_event_clicked)
-        self.HostEvent3.clicked.connect(self.host_event_clicked)
+        self.AttendEvent1.clicked.connect(lambda: self.attend_event_clicked(1))
+        self.AttendEvent2.clicked.connect(lambda: self.attend_event_clicked(2))
+        self.AttendEvent3.clicked.connect(lambda: self.attend_event_clicked(3))
+        self.HostEvent1.clicked.connect(lambda: self.host_event_clicked(1))
+        self.HostEvent2.clicked.connect(lambda: self.host_event_clicked(2))
+        self.HostEvent3.clicked.connect(lambda: self.host_event_clicked(3))
         self.UpdateProfileButton.clicked.connect(self.update_profile_clicked)
         self.PostEventButton.clicked.connect(self.post_event_clicked)
         self.HostAttendSeeMoreButton.clicked.connect(self.refresh_attend)
@@ -229,15 +227,15 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         post_event_window.show()
         self.hide()
 
-    def attend_event_clicked(self):
-        if self.AttendEvent1.text() != 'AttendEvent1':
-            populate_attend_window(self.AttendEvent1.text())
+    def attend_event_clicked(self, i):
+        if self.AttendEventList[i - 1].text() != '':
+            populate_attend_window(self.AttendEventList[i - 1].text())
             attend_event_display_window.show()
             self.hide()
 
-    def host_event_clicked(self):
-        if self.HostEvent1.text() != 'HostEvent1':
-            update_event_display(self.HostEvent1.text())
+    def host_event_clicked(self, i):
+        if self.HostEventList[i - 1].text() != '':
+            update_event_display(self.HostEventList[i - 1].text())
             host_event_display_window.show()
             self.hide()
 
@@ -271,12 +269,10 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def refresh_attend(self):
         global current_user
         current_user = get_user(current_user.uid)
-        if len(current_user.join_events) > 0:
-            self.AttendEvent1.setText(current_user.join_events[0])
-        if len(current_user.join_events) > 1:
-            self.AttendEvent2.setText(current_user.join_events[1])
-        if len(current_user.join_events) > 2:
-            self.AttendEvent3.setText(current_user.join_events[2])
+        for i, event in enumerate(current_user.join_events):
+            if i > 2:
+                break
+            self.AttendEventList[i].setText(event)
 
     def refresh_host(self):
         global current_user
@@ -345,6 +341,11 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.Attendee9.clicked.connect(self.view_profile_clicked)
         self.Attendee10.clicked.connect(self.view_profile_clicked)
         self.HostImage.clicked.connect(self.view_profile_clicked)
+        self.BackButton.clicked.connect(self.back_button_clicked)
+
+    def back_button_clicked(self):
+        lobby_window.show()
+        self.hide()
 
     def view_profile_clicked(self):
         profile_view_host_window.show()
@@ -373,14 +374,14 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             for image in image_list:
                 if image is not None:
                     display_list.append(image)
-
-
+            for i, image in enumerate(display_list):
+                print(image)
+                pixmap = load_image(image)
+                host_event_edit_window.EventImageList[i].setPixmap(pixmap.scaled(
+                    host_event_edit_window.EventImageList[i].width(),
+                    host_event_edit_window.EventImageList[i].height()))
 
         host_event_edit_window.show()
-        self.hide()
-
-    def back_button_clicked(self):
-        lobby_window.show()
         self.hide()
 
 
@@ -389,23 +390,23 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
         super(HostEventEditWindow, self).__init__(parent)
         self.setupUi(self)
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
-        self.UploadImage1.clicked.connect(self.upload_image_button_clicked)
-        self.Attendee1.clicked.connect(self.delete_clicked)
-        self.Attendee2.clicked.connect(self.delete_clicked)
-        self.Attendee3.clicked.connect(self.delete_clicked)
-        self.Attendee4.clicked.connect(self.delete_clicked)
-        self.Attendee5.clicked.connect(self.delete_clicked)
-        self.Attendee6.clicked.connect(self.delete_clicked)
-        self.Attendee7.clicked.connect(self.delete_clicked)
-        self.Attendee8.clicked.connect(self.delete_clicked)
-        self.Attendee9.clicked.connect(self.delete_clicked)
-        self.Attendee10.clicked.connect(self.delete_clicked)
+        self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
+        self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
+        self.UploadImage3.clicked.connect(lambda: self.upload_image_button_clicked(3))
+        for i, DeleteSign in enumerate(self.DeleteSignList):
+            DeleteSign.clicked.connect(lambda: self.delete_clicked(i))
+        self.BackButton.clicked.connect(self.back_button_clicked)
 
-    def delete_clicked(self):
-        pass
+    def back_button_clicked(self):
+        host_event_display_window.show()
+        self.hide()
 
-    def upload_image_button_clicked(self):
+    def delete_clicked(self, i):
+        print('deleted ' + str(i))
+
+    def upload_image_button_clicked(self, number):
         global current_event
+        image_list = eval(current_event.image)
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         try:
@@ -415,13 +416,24 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
             self.show()
         if file_name[0] != '':
             global current_user
-            # file_path = file_name[0]
-            # file_title = current_user.google_id + '_event.jpg'
-            # drive_service = set_up_drive(google_credentials)
-            # link = upload_image(drive_service, file_path, file_title)
-            # current_event.image = link
-            # pixmap = load_image(link)
-            # self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(), self.EventImage1.height()))
+            file_path = file_name[0]
+            file_title = str(current_event.eid) + '_event_' + str(number) + '.jpg'
+            upload_result = upload_image(file_path, file_title)
+            if upload_result:
+                image_list[number - 1] = file_title
+                current_event.image = str(image_list)
+                display_list = eval(current_event.image)
+                pixmap = load_image(display_list[number - 1])
+                if pixmap != Errors.FAILURE.name:
+                    if number == 1:
+                        self.EventImage1.setPixmap(pixmap.scaled(self.EventImage1.width(),
+                                                                 self.EventImage1.height()))
+                    if number == 2:
+                        self.EventImage2.setPixmap(pixmap.scaled(self.EventImage2.width(),
+                                                                 self.EventImage2.height()))
+                    if number == 3:
+                        self.EventImage3.setPixmap(pixmap.scaled(self.EventImage3.width(),
+                                                                 self.EventImage3.height()))
 
     def save_button_clicked(self):
         address = self.AddressInput.text()
@@ -459,7 +471,6 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                 current_event.location = state
                 current_event.register_period = self.PeriodTimeInput.text()
                 current_event.expire_date = end_date
-                print_event(current_event)
                 data = {
                     'id': current_event.eid,
                     'title': current_event.title,
@@ -474,7 +485,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     'expire_date': current_event.expire_date
                 }
                 response = Connection.edit_event(data)
-                if response[0] == 'SUCCESS':
+                if response[0] == 'SUCCESS' or current_event == previous_event:
                     update_event_display(current_event.eid)
                     host_event_display_window.show()
                     self.hide()
@@ -491,9 +502,11 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
         self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
         self.UploadImage3.clicked.connect(lambda: self.upload_image_button_clicked(3))
+        self.BackButton.clicked.connect(self.back_button_clicked)
 
-    def enterEvent(self, event):
-        print('mouse entered')
+    def back_button_clicked(self):
+        lobby_window.show()
+        self.hide()
 
     def upload_image_button_clicked(self, number):
         global current_event
@@ -508,16 +521,12 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         if file_name[0] != '':
             global current_user
             file_path = file_name[0]
-            file_title = current_event.eid + '_event_' + str(number) + '.jpg'
-            print(file_title)
+            file_title = str(current_event.eid) + '_event_' + str(number) + '.jpg'
             upload_result = upload_image(file_path, file_title)
             if upload_result:
                 image_list[number - 1] = file_title
                 current_event.image = str(image_list)
-                print(image_list)
-                print(current_event.image)
                 display_list = eval(current_event.image)
-                print(display_list)
                 pixmap = load_image(display_list[number - 1])
                 if pixmap != Errors.FAILURE.name:
                     if number == 1:
@@ -565,7 +574,6 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
                 current_event.location = state
                 current_event.register_period = self.PeriodTimeInput.text()
                 current_event.expire_date = end_date
-                print_event(current_event)
                 data = {
                     'title': current_event.title,
                     'tags': current_event.tags,
@@ -875,6 +883,16 @@ def update_event_display(eid):
     host_event_display_window.DescriptionOutput.setText(event.description)
     host_event_display_window.UserName.setText(event.title)
     host_event_display_window.HostIDOutput.setText(user.nickname)
+    image_list = eval(current_event.image)
+    display_list = []
+    for image in image_list:
+        if image is not None:
+            display_list.append(image)
+    for i, image in enumerate(display_list):
+        pixmap = load_image(image)
+        host_event_display_window.EventImageList[i].setPixmap(pixmap.scaled(
+            host_event_display_window.EventImageList[i].width(),
+            host_event_display_window.EventImageList[i].height()))
 
 
 def populate_attend_window(eid):
@@ -913,7 +931,6 @@ def get_default_list(uid):
         'keyword': None
     }
     default_list = get_list(event_filter)
-    print(default_list)
 
     return default_list
 
@@ -931,7 +948,6 @@ def get_list(event_filter):
 
 def attend(uid, eid):
     result = Connection.attend_event(uid, eid)
-    print(result)
     return result
 
 
