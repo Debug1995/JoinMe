@@ -1,7 +1,7 @@
 import sys
 import urllib.request
-from ctypes import windll
-import pyperclip
+#from ctypes import windll
+#import pyperclip
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
 from PyQt5.QtGui import QPixmap
@@ -44,10 +44,10 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
         SignInHandler.initiate_login()
         token_window.show()
         self.hide()
-        token = pyperclip.paste()
-        while not token:
-            token = pyperclip.paste()
-        token_window.TokenInput.setText(token)
+        #token = pyperclip.paste()
+        #while not token:
+        #    token = pyperclip.paste()
+        #token_window.TokenInput.setText(token)
 
     def quit_button_clicked(self):
         self.close()
@@ -116,10 +116,10 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
                 show_dialog('User with the same credential already exists. ')
             elif response[0] == 'FAILURE':
                 show_dialog("Unable to connect to server, please check your connections. ")
-            else:
-                if windll.user32.OpenClipboard(None):
-                    windll.user32.EmptyClipboard()
-                    windll.user32.CloseClipboard()
+            #else:
+            #    if windll.user32.OpenClipboard(None):
+            #        windll.user32.EmptyClipboard()
+            #        windll.user32.CloseClipboard()
                 current_user.uid = response[1]['id']
                 sign_in_window.show()
                 self.hide()
@@ -165,9 +165,9 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
                 self.show()
 
     def back_button_clicked(self):
-        if windll.user32.OpenClipboard(None):
-            windll.user32.EmptyClipboard()
-            windll.user32.CloseClipboard()
+        #if windll.user32.OpenClipboard(None):
+        #    windll.user32.EmptyClipboard()
+        #    windll.user32.CloseClipboard()
         sign_in_window.show()
         self.hide()
 
@@ -353,7 +353,9 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
 
     def edit_button_clicked(self):
         global current_event
-        if current_event.uid != '0':
+        print('111111111111'+current_event.eid)
+        if current_event.eid != '0':
+           
             _translate = QtCore.QCoreApplication.translate
             host_event_edit_window.TitleInput.setText(_translate("HostEventEdit", current_event.title))
             host_event_edit_window.DescriptionInput.setText(_translate("HostEventEdit", current_event.description))
@@ -934,9 +936,9 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     sys.excepthook = except_hook
-    if windll.user32.OpenClipboard(None):
-        windll.user32.EmptyClipboard()
-        windll.user32.CloseClipboard()
+    #if windll.user32.OpenClipboard(None):
+    #    windll.user32.EmptyClipboard()
+    #    windll.user32.CloseClipboard()
     app = QApplication(sys.argv)
     sign_in_window = SignInWindow()
     sign_up_window = SignUpWindow()

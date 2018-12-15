@@ -331,6 +331,15 @@ class Ui_HostEventDisplayDialog(object):
         self.EventEditButton_2.setFont(font)
         self.EventEditButton_2.setStyleSheet("border-image: \\*url();")
         self.EventEditButton_2.setObjectName("EventEditButton_2")
+
+        
+        
+        
+        
+        
+        
+        
+        
         self.graphicsView.raise_()
         self.UserName_13.raise_()
         self.UserName_8.raise_()
@@ -371,6 +380,7 @@ class Ui_HostEventDisplayDialog(object):
         self.HostImage.raise_()
         self.TokenInput.raise_()
         self.EventEditButton_2.raise_()
+
 
         self.retranslateUi(HostEventDisplayDialog)
         QtCore.QMetaObject.connectSlotsByName(HostEventDisplayDialog)
