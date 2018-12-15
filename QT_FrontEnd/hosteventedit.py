@@ -6,9 +6,22 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui
+import PyQt5.QtWidgets as QtWidgets
+
+
+class EventPushLeftButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./delete.png);")
+        print('enterenterenterenterenter')
+        
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./left.png);")
+        print('outoutoutoutout')
+
 
 class Ui_HostEventEdit(object):
+    
     def setupUi(self, HostEventEdit):
         HostEventEdit.setObjectName("HostEventEdit")
         HostEventEdit.resize(745, 453)
@@ -31,7 +44,6 @@ class Ui_HostEventEdit(object):
         self.UserName_5.setFont(font)
         self.UserName_5.setStyleSheet("border-image: \\*url();")
         self.UserName_5.setObjectName("UserName_5")
-        
         self.SaveEventButton = QtWidgets.QPushButton(HostEventEdit)
         self.SaveEventButton.setGeometry(QtCore.QRect(650, 34, 81, 34))
         font = QtGui.QFont()
@@ -455,6 +467,17 @@ class Ui_HostEventEdit(object):
                              self.Attendee9,
                              self.Attendee10,
                              ]
+
+        self.deleteSign1 = QtWidgets.QPushButton(HostEventEdit)
+        self.deleteSign1.setGeometry(QtCore.QRect(143, 276, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign1.setFont(font)
+        self.deleteSign1.setStyleSheet("border-image: url(./delete.png);\n"
+                                       "")
+        self.deleteSign1.setText("")
+        self.deleteSign1.setObjectName("deleteSign1")
+        
         
         self.graphicsView.raise_()
         self.line_2.raise_()
@@ -497,6 +520,7 @@ class Ui_HostEventEdit(object):
         self.Attendee1.raise_()
         self.Attendee10.raise_()
         self.Attendee5.raise_()
+        self.deleteSign1.raise_()
         
         self.retranslateUi(HostEventEdit)
         QtCore.QMetaObject.connectSlotsByName(HostEventEdit)

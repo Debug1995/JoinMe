@@ -6,7 +6,40 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui
+import PyQt5.QtWidgets as QtWidgets
+
+class EventPushButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("color: rgb(28, 0, 255);")
+        print('enterenterenterenterenter')
+    
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet(";")
+        print('outoutoutoutout')
+
+
+class EventPushLeftButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./left2.png);")
+        print('enterenterenterenterenter')
+	
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./left.png);")
+        print('outoutoutoutout')
+
+
+class EventPushRightButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./right2.png);")
+        print('enterenterenterenterenter')
+	
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./right.png);")
+        print('outoutoutoutout')
+  
+  
+  
 
 class Ui_MainDialog(object):
     def setupUi(self, MainDialog):
@@ -313,7 +346,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage1.setStyleSheet("background-color: \\*rgba(43, 230, 255,50);\n"
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage1.setObjectName("ScrollAreaImage1")
-        self.ScrollAreaEvent1 = QtWidgets.QPushButton(MainDialog)
+        self.ScrollAreaEvent1 = EventPushButton(MainDialog)
         self.ScrollAreaEvent1.setGeometry(QtCore.QRect(160, 108, 421, 32))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -345,7 +378,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage2.setStyleSheet("background-color: \\*rgba(43, 230, 255,50);\n"
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage2.setObjectName("ScrollAreaImage2")
-        self.ScrollAreaEvent2 = QtWidgets.QPushButton(MainDialog)
+        self.ScrollAreaEvent2 = EventPushButton(MainDialog)
         self.ScrollAreaEvent2.setGeometry(QtCore.QRect(160, 178, 421, 32))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -369,7 +402,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaAddress3.setFont(font)
         self.ScrollAreaAddress3.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaAddress3.setObjectName("ScrollAreaAddress3")
-        self.ScrollAreaEvent3 = QtWidgets.QPushButton(MainDialog)
+        self.ScrollAreaEvent3 = EventPushButton(MainDialog)
         self.ScrollAreaEvent3.setGeometry(QtCore.QRect(160, 248, 421, 32))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -409,7 +442,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage4.setStyleSheet("background-color: \\*rgba(43, 230, 255,50);\n"
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage4.setObjectName("ScrollAreaImage4")
-        self.ScrollAreaEvent4 = QtWidgets.QPushButton(MainDialog)
+        self.ScrollAreaEvent4 = EventPushButton(MainDialog)
         self.ScrollAreaEvent4.setGeometry(QtCore.QRect(160, 318, 421, 32))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -448,7 +481,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate5.setFont(font)
         self.ScrollAreaDate5.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaDate5.setObjectName("ScrollAreaDate5")
-        self.ScrollAreaEvent5 = QtWidgets.QPushButton(MainDialog)
+        self.ScrollAreaEvent5 = EventPushButton(MainDialog)
         self.ScrollAreaEvent5.setGeometry(QtCore.QRect(160, 387, 421, 32))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -458,7 +491,7 @@ class Ui_MainDialog(object):
                                             "")
         self.ScrollAreaEvent5.setFlat(True)
         self.ScrollAreaEvent5.setObjectName("ScrollAreaEvent5")
-        self.LastPage = QtWidgets.QPushButton(MainDialog)
+        self.LastPage = EventPushLeftButton(MainDialog)
         self.LastPage.setGeometry(QtCore.QRect(500, 70, 41, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -467,7 +500,7 @@ class Ui_MainDialog(object):
                                     "")
         self.LastPage.setText("")
         self.LastPage.setObjectName("LastPage")
-        self.NextPage = QtWidgets.QPushButton(MainDialog)
+        self.NextPage = EventPushRightButton(MainDialog)
         self.NextPage.setGeometry(QtCore.QRect(540, 70, 41, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
