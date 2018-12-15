@@ -10,14 +10,12 @@ from PyQt5 import QtCore, QtGui
 import PyQt5.QtWidgets as QtWidgets
 
 
-class EventPushLeftButton(QtWidgets.QPushButton):
+class EventPushButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./delete.png);")
-        print('enterenterenterenterenter')
         
     def leaveEvent(self, *args, **kwargs):
-        self.setStyleSheet("border-image: url(./left.png);")
-        print('outoutoutoutout')
+        self.setStyleSheet("background: transparent;")
 
 
 class Ui_HostEventEdit(object):
@@ -468,17 +466,96 @@ class Ui_HostEventEdit(object):
                              self.Attendee10,
                              ]
 
-        self.deleteSign1 = QtWidgets.QPushButton(HostEventEdit)
-        self.deleteSign1.setGeometry(QtCore.QRect(143, 276, 21, 21))
+        self.deleteSign1 = EventPushButton(HostEventEdit)
+        self.deleteSign1.setGeometry(QtCore.QRect(143, 273, 21, 21))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.deleteSign1.setFont(font)
-        self.deleteSign1.setStyleSheet("border-image: url(./delete.png);\n"
-                                       "")
+        self.deleteSign1.setStyleSheet("background: transparent;")
         self.deleteSign1.setText("")
         self.deleteSign1.setObjectName("deleteSign1")
-        
-        
+
+        self.deleteSign2 = EventPushButton(HostEventEdit)
+        self.deleteSign2.setGeometry(QtCore.QRect(195, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign2.setFont(font)
+        self.deleteSign2.setStyleSheet("background: transparent;")
+        self.deleteSign2.setText("")
+        self.deleteSign2.setObjectName("deleteSign2")
+
+        self.deleteSign3 = EventPushButton(HostEventEdit)
+        self.deleteSign3.setGeometry(QtCore.QRect(245, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign3.setFont(font)
+        self.deleteSign3.setStyleSheet("background: transparent;")
+        self.deleteSign3.setText("")
+        self.deleteSign3.setObjectName("deleteSign3")
+
+        self.deleteSign4 = EventPushButton(HostEventEdit)
+        self.deleteSign4.setGeometry(QtCore.QRect(295, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign4.setFont(font)
+        self.deleteSign4.setStyleSheet("background: transparent;")
+        self.deleteSign4.setText("")
+        self.deleteSign4.setObjectName("deleteSign4")
+
+        self.deleteSign5 = EventPushButton(HostEventEdit)
+        self.deleteSign5.setGeometry(QtCore.QRect(345, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign5.setFont(font)
+        self.deleteSign5.setStyleSheet("background: transparent;")
+        self.deleteSign5.setText("")
+        self.deleteSign5.setObjectName("deleteSign5")
+
+        self.deleteSign6 = EventPushButton(HostEventEdit)
+        self.deleteSign6.setGeometry(QtCore.QRect(395, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign6.setFont(font)
+        self.deleteSign6.setStyleSheet("background: transparent;")
+        self.deleteSign6.setText("")
+        self.deleteSign6.setObjectName("deleteSign6")
+
+        self.deleteSign7 = EventPushButton(HostEventEdit)
+        self.deleteSign7.setGeometry(QtCore.QRect(445, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign7.setFont(font)
+        self.deleteSign7.setStyleSheet("background: transparent;")
+        self.deleteSign7.setText("")
+        self.deleteSign7.setObjectName("deleteSign7")
+
+        self.deleteSign8 = EventPushButton(HostEventEdit)
+        self.deleteSign8.setGeometry(QtCore.QRect(495, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign8.setFont(font)
+        self.deleteSign8.setStyleSheet("background: transparent;")
+        self.deleteSign8.setText("")
+        self.deleteSign8.setObjectName("deleteSign8")
+
+        self.deleteSign9 = EventPushButton(HostEventEdit)
+        self.deleteSign9.setGeometry(QtCore.QRect(545, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign9.setFont(font)
+        self.deleteSign9.setStyleSheet("background: transparent;")
+        self.deleteSign9.setText("")
+        self.deleteSign9.setObjectName("deleteSign9")
+
+        self.deleteSign10 = EventPushButton(HostEventEdit)
+        self.deleteSign10.setGeometry(QtCore.QRect(595, 273, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.deleteSign10.setFont(font)
+        self.deleteSign10.setStyleSheet("background: transparent;")
+        self.deleteSign10.setText("")
+        self.deleteSign10.setObjectName("deleteSign10")
+
         self.graphicsView.raise_()
         self.line_2.raise_()
         self.UserName_5.raise_()
@@ -521,6 +598,17 @@ class Ui_HostEventEdit(object):
         self.Attendee10.raise_()
         self.Attendee5.raise_()
         self.deleteSign1.raise_()
+        self.deleteSign2.raise_()
+        self.deleteSign3.raise_()
+        self.deleteSign4.raise_()
+        self.deleteSign5.raise_()
+        self.deleteSign6.raise_()
+        self.deleteSign7.raise_()
+        self.deleteSign8.raise_()
+        self.deleteSign9.raise_()
+        self.deleteSign10.raise_()
+        
+        
         
         self.retranslateUi(HostEventEdit)
         QtCore.QMetaObject.connectSlotsByName(HostEventEdit)
