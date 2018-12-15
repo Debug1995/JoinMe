@@ -18,6 +18,7 @@ What’s more, we also need the mysql-connector package to make our platform abl
 pip install mysql-connector
 ```
 Since our platform embedded the Google Map, Gmail, and AWS service as well. In order to power these services, you need to install some packages by running the following code in your terminal.
+
 For Gmail:
 ```shell
 pip install --upgrade google-api-python-client oauth2client
