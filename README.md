@@ -1,6 +1,7 @@
 ### JoinMe is the final project of the Advanced Software Engineering course at Columbia University.
 This Readme file contains step by step instructions on how to build, test, install and operate our application.
 
+* [Install](#how-to-install)
 ## How to Install
 Before using our JoinMe platform, you need to install some python packages to make our platform able to run under your pc environment.
 
