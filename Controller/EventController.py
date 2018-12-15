@@ -198,7 +198,6 @@ def retrieve_event(event_id: str):
             return_event = decode_string_event(str(event_info))
             return_event.hosts = get_host(return_event.eid)
             return_event.attendees = get_join(return_event.eid)
-            print(return_event.attendees)
             return return_event
     finally:
         if not handled:

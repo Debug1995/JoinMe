@@ -37,17 +37,12 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.SignInButton.clicked.connect(self.sign_in_button_clicked)
-        #self.SignInButton.mouseMoveEvent()
         self.QuitButton.clicked.connect(self.quit_button_clicked)
 
     def sign_in_button_clicked(self):
         SignInHandler.initiate_login()
         token_window.show()
         self.hide()
-        #token = pyperclip.paste()
-        #while not token:
-        #    token = pyperclip.paste()
-        #token_window.TokenInput.setText(token)
 
     def quit_button_clicked(self):
         self.close()
@@ -116,10 +111,6 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
                 show_dialog('User with the same credential already exists. ')
             elif response[0] == 'FAILURE':
                 show_dialog("Unable to connect to server, please check your connections. ")
-            #else:
-            #    if windll.user32.OpenClipboard(None):
-            #        windll.user32.EmptyClipboard()
-            #        windll.user32.CloseClipboard()
                 current_user.uid = response[1]['id']
                 sign_in_window.show()
                 self.hide()
@@ -165,9 +156,6 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
                 self.show()
 
     def back_button_clicked(self):
-        #if windll.user32.OpenClipboard(None):
-        #    windll.user32.EmptyClipboard()
-        #    windll.user32.CloseClipboard()
         sign_in_window.show()
         self.hide()
 
@@ -187,8 +175,19 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.HostAttendSeeMoreButton.clicked.connect(self.refresh_attend)
         self.HostEventSeeMoreButton.clicked.connect(self.refresh_host)
         self.SearchButton.clicked.connect(self.search_button_clicked)
-        #self.ScrollAreaDate1.clicked.connect(self.scroll_clicked)
+        self.LogOutButton.clicked.connect(self.log_out_button_clicked)
         self.event_list = []
+
+    def log_out_button_clicked(self):
+        global current_user
+        global current_event
+        global google_credentials
+        current_user = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
+        current_event = EventModel('0', '', '', '', '[None, None, None]', '', [], TODAY, '', '', '')
+        google_credentials = None
+        self.event_list = []
+        self.hide()
+        sign_in_window.show()
 
     def scroll_clicked(self):
         if self.ScrollAreaDate1.text() != 'Date':
@@ -352,10 +351,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.hide()
 
     def edit_button_clicked(self):
-        global current_event
-        print('111111111111'+current_event.eid)
-        if current_event.eid != '0':
-           
+        if current_event.eid != 0:
             _translate = QtCore.QCoreApplication.translate
             host_event_edit_window.TitleInput.setText(_translate("HostEventEdit", current_event.title))
             host_event_edit_window.DescriptionInput.setText(_translate("HostEventEdit", current_event.description))
@@ -370,7 +366,15 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             self.expireDate = current_event.expire_date
             self.eventDate = datetime.strptime(self.eventDate, '%Y-%m-%d')
             self.expireDate = datetime.strptime(self.expireDate, '%Y-%m-%d')
-            host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit", str((self.expireDate-self.eventDate).days)))
+            host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit",
+                                                                      str((self.expireDate - self.eventDate).days)))
+            image_list = eval(current_event.image)
+            display_list = []
+            for image in image_list:
+                if image is not None:
+                    display_list.append(image)
+
+            host_event_edit_window.
 
         host_event_edit_window.show()
         self.hide()
@@ -643,8 +647,13 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
             current_user.description = self.DescriptionInput.toPlainText()
             response = Connection.edit_user(current_user)
             if response[0] == 'MISSING':
-                show_dialog('User with this credential does not exist. ')
-                current_user = previous_user
+                if current_user == previous_user:
+                    update_lobby_user()
+                    lobby_window.show()
+                    self.hide()
+                else:
+                    show_dialog('User with this credential does not exist. ')
+                    current_user = previous_user
             elif response[0] == 'FAILURE':
                 show_dialog("Unable to connect to server, please check your connections. ")
                 current_user = previous_user
@@ -857,6 +866,8 @@ def calculate_date(initial_date, register_period):
 
 def update_event_display(eid):
     event = get_event(eid)
+    global current_event
+    current_event = event
     user = get_user(event.hosts)
     host_event_display_window.AddressOutput.setText(event.address)
     host_event_display_window.CityOutput.setText(event.location)
@@ -888,7 +899,6 @@ def get_user(uid):
 def get_event(eid):
     res = Connection.request_event(int(eid))
     event = response_to_event(res[1])
-    print_event(event)
     return event
 
 
@@ -936,9 +946,6 @@ def except_hook(cls, exception, traceback):
 
 if __name__ == '__main__':
     sys.excepthook = except_hook
-    #if windll.user32.OpenClipboard(None):
-    #    windll.user32.EmptyClipboard()
-    #    windll.user32.CloseClipboard()
     app = QApplication(sys.argv)
     sign_in_window = SignInWindow()
     sign_up_window = SignUpWindow()

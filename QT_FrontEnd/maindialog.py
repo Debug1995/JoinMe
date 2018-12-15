@@ -9,36 +9,29 @@
 from PyQt5 import QtCore, QtGui
 import PyQt5.QtWidgets as QtWidgets
 
+
 class EventPushButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("color: rgb(28, 0, 255);")
-        print('enterenterenterenterenter')
     
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet(";")
-        print('outoutoutoutout')
 
 
 class EventPushLeftButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./left2.png);")
-        print('enterenterenterenterenter')
-	
+
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./left.png);")
-        print('outoutoutoutout')
 
 
 class EventPushRightButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./right2.png);")
-        print('enterenterenterenterenter')
-	
+
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./right.png);")
-        print('outoutoutoutout')
-  
-  
   
 
 class Ui_MainDialog(object):

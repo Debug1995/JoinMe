@@ -13,11 +13,9 @@ import PyQt5.QtWidgets as QtWidgets
 class EventPushLeftButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./delete.png);")
-        print('enterenterenterenterenter')
         
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./left.png);")
-        print('outoutoutoutout')
 
 
 class Ui_HostEventEdit(object):
@@ -151,9 +149,7 @@ class Ui_HostEventEdit(object):
         font.setPointSize(14)
         self.AddressInput.setFont(font)
         self.AddressInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.AddressInput.setStyleSheet("border-image: \\*url();\n"
-"border-radius: 5px;\n"
-"")
+        self.AddressInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
         self.AddressInput.setText("")
         self.AddressInput.setPlaceholderText("")
         self.AddressInput.setClearButtonEnabled(False)
@@ -164,9 +160,7 @@ class Ui_HostEventEdit(object):
         font.setPointSize(14)
         self.CityInput.setFont(font)
         self.CityInput.setContextMenuPolicy(QtCore.Qt.DefaultContextMenu)
-        self.CityInput.setStyleSheet("border-image: \\*url();\n"
-"border-radius: 5px;\n"
-"")
+        self.CityInput.setStyleSheet("border-image: \\*url();\n""border-radius: 5px;\n""")
         self.CityInput.setText("")
         self.CityInput.setPlaceholderText("")
         self.CityInput.setClearButtonEnabled(False)
@@ -397,8 +391,7 @@ class Ui_HostEventEdit(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee7.setFont(font)
-        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee7.setText("")
         self.Attendee7.setObjectName("Attendee7")
         self.Attendee8 = QtWidgets.QPushButton(HostEventEdit)
@@ -406,8 +399,7 @@ class Ui_HostEventEdit(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee8.setFont(font)
-        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee8.setText("")
         self.Attendee8.setObjectName("Attendee8")
         self.Attendee3 = QtWidgets.QPushButton(HostEventEdit)
@@ -415,8 +407,7 @@ class Ui_HostEventEdit(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee3.setFont(font)
-        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee3.setText("")
         self.Attendee3.setObjectName("Attendee3")
         self.Attendee9 = QtWidgets.QPushButton(HostEventEdit)
@@ -424,8 +415,7 @@ class Ui_HostEventEdit(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee9.setFont(font)
-        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
+        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee9.setText("")
         self.Attendee9.setObjectName("Attendee9")
         self.Attendee1 = QtWidgets.QPushButton(HostEventEdit)

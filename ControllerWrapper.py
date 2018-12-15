@@ -44,7 +44,6 @@ def post_event(data):
 
 
 def edit_event(data):
-    print(data)
     response = ControllerHandler.update_event(data)
     return response
 
@@ -55,7 +54,6 @@ def get_events(data):
 
 
 def request_user(data):
-    print(data)
     user = retrieve_user('userid', data)
     if user == 'FAILURE':
         return user, None
@@ -82,7 +80,6 @@ def remove_user(data):
 
 
 def request_event(data):
-    print(data)
     event = EventController.retrieve_event(data)
     if event == 'FAILURE':
         return event, None
