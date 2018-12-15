@@ -38,9 +38,9 @@ Furthermore, we also use some supposed-built-in python package in our platform. 
 pip install ast
 pip install datetime
 pip install threading
-pip install time
 pip install urllib.request
 pip install webbrowser
+pip install time
 ```
 You have installed all the needed packages for launching our platform. 
 Just have fun!
