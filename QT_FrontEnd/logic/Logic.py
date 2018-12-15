@@ -374,7 +374,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
                 if image is not None:
                     display_list.append(image)
 
-            host_event_edit_window.
+
 
         host_event_edit_window.show()
         self.hide()
