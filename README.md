@@ -1,8 +1,11 @@
 ### JoinMe is the final project of the Advanced Software Engineering course at Columbia University.
 This Readme file contains step by step instructions on how to build, test, install and operate our application.
 
-* [Install](#how-to-install)
-## How to Install
+* [Install and Build](#how-to-install-and-build)
+* [Test](#how-to-test)
+* [Operat](#how-to-install)
+
+## How to Install and Build
 Before using our JoinMe platform, you need to install some python packages to make our platform able to run under your pc environment.
 
 For the frontend of our platform, we mainly used the PyQt5 framework.
@@ -43,14 +46,12 @@ Just have fun!
 
 ## How to Test
 The test of our application could be separated into three parts, unit test, branch coverage test and static analysis. All test reports are stored in the ./report.
-
 ### Unit test: 
 To do unit test, install the unittest library using:
 ```shell
 pip install unittest
 ```
 And run the file of unit_test.py under the main directory of our project, then a new unit test report will generate and be attached at the end of our unittest_log.txt file.
-
 ### Branch coverage test:
 To do branch coverage test, install the coverage library using:
 ```shell
@@ -73,7 +74,6 @@ Which will generate annotated HTML listings with coverage results. The HTML repo
 coverage html -d ./report/branch_coverage_report
 ```
 To store the HTML under the ./report as a single file branch_coverage_report
-
 ### Static analysis:
 To do static analysis, install static analysis tool pylint:
 ```shell
@@ -83,3 +83,4 @@ Implement pylint on different python files to generate specific static analysis 
 ```shell
 pylint xxx.py
 ```
+## Operate
