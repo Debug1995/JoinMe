@@ -51,13 +51,13 @@ class Ui_HostEventDisplayDialog(object):
         self.DescriptionOutput.setFont(font)
         self.DescriptionOutput.setStyleSheet("border-image: \\*url();")
         self.DescriptionOutput.setObjectName("DescriptionOutput")
-        self.graphicsView_14 = QtWidgets.QGraphicsView(HostEventDisplayDialog)
-        self.graphicsView_14.setGeometry(QtCore.QRect(630, 402, 31, 31))
-        font = QtGui.QFont()
-        font.setPointSize(16)
-        self.graphicsView_14.setFont(font)
-        self.graphicsView_14.setStyleSheet("border-image: url(./pin-2.png)")
-        self.graphicsView_14.setObjectName("graphicsView_14")
+        
+        
+        
+       
+        
+        
+        
         self.UserName_5 = QtWidgets.QLabel(HostEventDisplayDialog)
         self.UserName_5.setGeometry(QtCore.QRect(300, 180, 31, 20))
         font = QtGui.QFont()
@@ -276,6 +276,9 @@ class Ui_HostEventDisplayDialog(object):
         self.Attendee1.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee1.setText("")
         self.Attendee1.setObjectName("Attendee1")
+        
+        
+        
         self.Attendee10 = QtWidgets.QPushButton(HostEventDisplayDialog)
         self.Attendee10.setGeometry(QtCore.QRect(472, 298, 31, 31))
         font = QtGui.QFont()
@@ -284,6 +287,18 @@ class Ui_HostEventDisplayDialog(object):
         self.Attendee10.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
+
+        self.mapView = QtWidgets.QPushButton(HostEventDisplayDialog)
+        self.mapView.setGeometry(QtCore.QRect(630, 402, 31, 31))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.mapView.setFont(font)
+        self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
+        self.mapView.setText("")
+        self.mapView.setObjectName("mapView")
+        
+        
+        
         self.Attendee5 = QtWidgets.QPushButton(HostEventDisplayDialog)
         self.Attendee5.setGeometry(QtCore.QRect(222, 298, 31, 31))
         font = QtGui.QFont()
@@ -324,7 +339,7 @@ class Ui_HostEventDisplayDialog(object):
         self.HostIDOutput.raise_()
         self.line_2.raise_()
         self.DescriptionOutput.raise_()
-        self.graphicsView_14.raise_()
+        self.mapView.raise_()
         self.UserName_5.raise_()
         self.EventEditButton.raise_()
         self.AddressOutput.raise_()
