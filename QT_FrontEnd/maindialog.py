@@ -12,11 +12,9 @@ import PyQt5.QtWidgets as QtWidgets
 class EventPushButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("color: rgb(28, 0, 255);")
-        print('enterenterenterenterenter')
     
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet(";")
-        print('outoutoutoutout')
 
 
 class EventPushLeftButton(QtWidgets.QPushButton):
@@ -270,7 +268,7 @@ class Ui_MainDialog(object):
         self.PostEventButton.setFont(font)
         self.PostEventButton.setStyleSheet("border-image: \\*url();")
         self.PostEventButton.setObjectName("PostEventButton")
-        self.AttendEvent1 = QtWidgets.QPushButton(MainDialog)
+        self.AttendEvent1 = EventPushButton(MainDialog)
         self.AttendEvent1.setGeometry(QtCore.QRect(623, 173, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -280,7 +278,7 @@ class Ui_MainDialog(object):
 "")
         self.AttendEvent1.setFlat(True)
         self.AttendEvent1.setObjectName("AttendEvent1")
-        self.AttendEvent2 = QtWidgets.QPushButton(MainDialog)
+        self.AttendEvent2 = EventPushButton(MainDialog)
         self.AttendEvent2.setGeometry(QtCore.QRect(623, 201, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -290,7 +288,7 @@ class Ui_MainDialog(object):
 "")
         self.AttendEvent2.setFlat(True)
         self.AttendEvent2.setObjectName("AttendEvent2")
-        self.AttendEvent3 = QtWidgets.QPushButton(MainDialog)
+        self.AttendEvent3 = EventPushButton(MainDialog)
         self.AttendEvent3.setGeometry(QtCore.QRect(623, 230, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -300,7 +298,7 @@ class Ui_MainDialog(object):
 "")
         self.AttendEvent3.setFlat(True)
         self.AttendEvent3.setObjectName("AttendEvent3")
-        self.HostEvent1 = QtWidgets.QPushButton(MainDialog)
+        self.HostEvent1 = EventPushButton(MainDialog)
         self.HostEvent1.setGeometry(QtCore.QRect(623, 330, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -310,7 +308,7 @@ class Ui_MainDialog(object):
 "")
         self.HostEvent1.setFlat(True)
         self.HostEvent1.setObjectName("HostEvent1")
-        self.HostEvent2 = QtWidgets.QPushButton(MainDialog)
+        self.HostEvent2 = EventPushButton(MainDialog)
         self.HostEvent2.setGeometry(QtCore.QRect(623, 360, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -320,7 +318,7 @@ class Ui_MainDialog(object):
 "")
         self.HostEvent2.setFlat(True)
         self.HostEvent2.setObjectName("HostEvent2")
-        self.HostEvent3 = QtWidgets.QPushButton(MainDialog)
+        self.HostEvent3 = EventPushButton(MainDialog)
         self.HostEvent3.setGeometry(QtCore.QRect(623, 388, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
