@@ -303,6 +303,14 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         self.Attendee9.clicked.connect(self.view_profile_clicked)
         self.Attendee10.clicked.connect(self.view_profile_clicked)
         self.Hostimage.clicked.connect(self.view_profile_clicked)
+        self.mapView.clicked.connect(self.map_view_clicked)
+
+    def map_view_clicked(self):
+        print(current_event.address)
+        coordinate = eval(current_event.address)
+        lat = coordinate[0]
+        lng = coordinate[1]
+        get_map_link(lat, lng)
 
     def view_profile_clicked(self):
         profile_view_attend_window.show()
@@ -351,11 +359,12 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
 
         
     def map_view_clicked(self):
-        gmap = Gmap()
-        print(current_event)
-        print('123'+str(current_event.location)+'123')
+        print(current_event.address)
+        coordinate = eval(current_event.address)
+        lat = coordinate[0]
+        lng = coordinate[1]
+        get_map_link(lat, lng)
         
-        #webbrowser.open(gmail.get_autho_uri(), new=2)
 
 
     def view_profile_clicked(self):
@@ -985,6 +994,17 @@ def remove_user(uid, eid):
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
+def get_map_link(lat, lng):
+    link = 'https://www.google.com/maps/search/?api=1&query=' + str(lat) + ',' + str(lng)
+    webbrowser.open(link, new=2)
+    
+    '''
+    coordinate = eval(current_event.address)
+    lat = coordinate[0]
+    lng = coordinate[1]
+    '''
+    
+    
 
 if __name__ == '__main__':
     sys.excepthook = except_hook
