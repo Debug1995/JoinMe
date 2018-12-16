@@ -8,12 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class EventPushButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./pin-22.png);")
 
     def leaveEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./pin-2.png);")
+
 
 class Ui_HostEventDisplayDialog(object):
     def setupUi(self, HostEventDisplayDialog):
@@ -57,13 +59,7 @@ class Ui_HostEventDisplayDialog(object):
         self.DescriptionOutput.setFont(font)
         self.DescriptionOutput.setStyleSheet("border-image: \\*url();")
         self.DescriptionOutput.setObjectName("DescriptionOutput")
-        
-        
-        
-       
-        
-        
-        
+
         self.UserName_5 = QtWidgets.QLabel(HostEventDisplayDialog)
         self.UserName_5.setGeometry(QtCore.QRect(300, 180, 31, 20))
         font = QtGui.QFont()
@@ -223,7 +219,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee4.setFont(font)
-        self.Attendee4.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee4.setText("")
         self.Attendee4.setObjectName("Attendee4")
         self.Attendee6 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -231,7 +226,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee6.setFont(font)
-        self.Attendee6.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee6.setText("")
         self.Attendee6.setObjectName("Attendee6")
         self.Attendee2 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -239,7 +233,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee2.setFont(font)
-        self.Attendee2.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee2.setText("")
         self.Attendee2.setObjectName("Attendee2")
         self.Attendee7 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -247,7 +240,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee7.setFont(font)
-        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee7.setText("")
         self.Attendee7.setObjectName("Attendee7")
         self.Attendee8 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -255,7 +247,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee8.setFont(font)
-        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee8.setText("")
         self.Attendee8.setObjectName("Attendee8")
         self.Attendee3 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -263,7 +254,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee3.setFont(font)
-        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee3.setText("")
         self.Attendee3.setObjectName("Attendee3")
         self.Attendee9 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -271,7 +261,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee9.setFont(font)
-        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee9.setText("")
         self.Attendee9.setObjectName("Attendee9")
         self.Attendee1 = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -279,18 +268,14 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee1.setFont(font)
-        self.Attendee1.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee1.setText("")
         self.Attendee1.setObjectName("Attendee1")
-        
-        
-        
+
         self.Attendee10 = QtWidgets.QPushButton(HostEventDisplayDialog)
         self.Attendee10.setGeometry(QtCore.QRect(472, 298, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee10.setFont(font)
-        self.Attendee10.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
 
@@ -302,15 +287,12 @@ class Ui_HostEventDisplayDialog(object):
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
         self.mapView.setText("")
         self.mapView.setObjectName("mapView")
-        
-        
-        
+
         self.Attendee5 = QtWidgets.QPushButton(HostEventDisplayDialog)
         self.Attendee5.setGeometry(QtCore.QRect(222, 298, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee5.setFont(font)
-        self.Attendee5.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
         self.HostImage = QtWidgets.QPushButton(HostEventDisplayDialog)
@@ -318,7 +300,6 @@ class Ui_HostEventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.HostImage.setFont(font)
-        self.HostImage.setStyleSheet("border-image: url(./DefaultUser.png);\n""")
         self.HostImage.setText("")
         self.HostImage.setObjectName("HostImage")
         self.ToEmailInput = QtWidgets.QLineEdit(HostEventDisplayDialog)
@@ -331,8 +312,6 @@ class Ui_HostEventDisplayDialog(object):
         self.ToEmailInput.setText("")
         self.ToEmailInput.setClearButtonEnabled(False)
         self.ToEmailInput.setObjectName("ToEmailInput")
-        
-       
 
         self.graphicsView.raise_()
         self.UserName_13.raise_()
@@ -374,9 +353,19 @@ class Ui_HostEventDisplayDialog(object):
         self.HostImage.raise_()
         self.ToEmailInput.raise_()
 
-
-
         self.retranslateUi(HostEventDisplayDialog)
+        self.AttendeeList = [
+            self.Attendee1,
+            self.Attendee2,
+            self.Attendee3,
+            self.Attendee4,
+            self.Attendee5,
+            self.Attendee6,
+            self.Attendee7,
+            self.Attendee8,
+            self.Attendee9,
+            self.Attendee10,
+        ]
         QtCore.QMetaObject.connectSlotsByName(HostEventDisplayDialog)
 
     def retranslateUi(self, HostEventDisplayDialog):
@@ -385,7 +374,10 @@ class Ui_HostEventDisplayDialog(object):
         self.UserName_13.setText(_translate("HostEventDisplayDialog", "map"))
         self.UserName_8.setText(_translate("HostEventDisplayDialog", "Host"))
         self.HostIDOutput.setText(_translate("HostEventDisplayDialog", "I\'m Host Nickname"))
-        self.DescriptionOutput.setText(_translate("HostEventDisplayDialog", "I\'m a description. I\'m a description. I\'m a description. I\'m a description. I\'m a description. I\'m a description. "))
+        self.DescriptionOutput.setText(_translate("HostEventDisplayDialog",
+                                                  "I\'m a description. I\'m a description. "
+                                                  "I\'m a description. I\'m a description. "
+                                                  "I\'m a description. I\'m a description. "))
         self.UserName_5.setText(_translate("HostEventDisplayDialog", "City"))
         self.EventEditButton.setText(_translate("HostEventDisplayDialog", "Edit"))
         self.AddressOutput.setText(_translate("HostEventDisplayDialog", "I\'m address I\'m address"))
@@ -401,7 +393,9 @@ class Ui_HostEventDisplayDialog(object):
         self.DateOutput.setText(_translate("HostEventDisplayDialog", "I\'m Date I\'m Date"))
         self.UserName_3.setText(_translate("HostEventDisplayDialog", "Address"))
         self.GroupEmailContent.setWhatsThis(_translate("HostEventDisplayDialog", "ddd"))
-        self.GroupEmailContent.setPlaceholderText(_translate("HostEventDisplayDialog", "Please input your email content..."))
+        self.GroupEmailContent.setPlaceholderText(_translate("HostEventDisplayDialog",
+                                                             "Please input your email content..."))
         self.BackButton.setText(_translate("HostEventDisplayDialog", "Back"))
-        self.ToEmailInput.setPlaceholderText(_translate("HostEventDisplayDialog", "Please input the user nickname if needed."))
+        self.ToEmailInput.setPlaceholderText(_translate("HostEventDisplayDialog",
+                                                        "Please input the user nickname if needed."))
 

@@ -2,7 +2,7 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5 import QtCore
 from QT_FrontEnd.maindialog import Ui_MainDialog
 from QT_FrontEnd.mainwindow import Ui_MainWindow
@@ -28,7 +28,7 @@ TODAY = datetime.today().strftime('%Y-%m-%d')
 
 AWS_CONNECTOR = AWSConnector()
 
-current_user: UserModel = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
+current_user: UserModel = UserModel('0', '', '', '', '', '', 'anything', '', [], [], 'DefaultUser.png', '')
 current_event: EventModel = EventModel('0', '', '', '', '[None, None, None]', '', [], TODAY, '', '', '')
 google_credentials = None
 
@@ -43,6 +43,7 @@ class SignInWindow(QMainWindow, Ui_MainWindow):
 
     def sign_in_button_clicked(self):
         SignInHandler.initiate_login()
+        token_window.TokenInput.setText('')
         token_window.show()
         self.hide()
 
@@ -113,7 +114,9 @@ class SignUpWindow(QMainWindow, Ui_RegisterDialog):
                 show_dialog('User with the same credential already exists. ')
             elif response[0] == 'FAILURE':
                 show_dialog("Unable to connect to server, please check your connections. ")
+            else:
                 current_user.uid = response[1]['id']
+                token_window.TokenInput.setText('')
                 sign_in_window.show()
                 self.hide()
 
@@ -122,7 +125,6 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
     def __init__(self, parent=None):
         super(TokenWindow, self).__init__(parent)
         self.setupUi(self)
-
         self.LoginButton.clicked.connect(self.login_button_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
 
@@ -184,7 +186,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         global current_user
         global current_event
         global google_credentials
-        current_user = UserModel('0', '', '', '', '', '', 'anything', '', [], [], '', '')
+        current_user = UserModel('0', '', '', '', '', '', 'anything', '', [], [], 'DefaultUser.png', '')
         current_event = EventModel('0', '', '', '', '[None, None, None]', '', [], TODAY, '', '', '')
         google_credentials = None
         self.event_list = []
@@ -240,6 +242,9 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def host_event_clicked(self, i):
         if self.HostEventList[i - 1].text() != '':
             update_event_display(self.HostEventList[i - 1].text())
+            host_event_display_window.restore_attendees()
+            host_event_display_window.update_attendees_image()
+            host_event_display_window.update_host_image()
             host_event_display_window.show()
             self.hide()
 
@@ -336,45 +341,81 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
 
 
 class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
-
     def __init__(self, parent=None):
-
         super(HostEventDisplayWindow, self).__init__(parent)
         self.setupUi(self)
+        self.image_list = []
+        self.last_image = 0
+        self.host_image = None
         self.EventEditButton.clicked.connect(self.edit_button_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
-        self.Attendee1.clicked.connect(self.view_profile_clicked)
-        self.Attendee2.clicked.connect(self.view_profile_clicked)
-        self.Attendee3.clicked.connect(self.view_profile_clicked)
-        self.Attendee4.clicked.connect(self.view_profile_clicked)
-        self.Attendee5.clicked.connect(self.view_profile_clicked)
-        self.Attendee6.clicked.connect(self.view_profile_clicked)
-        self.Attendee7.clicked.connect(self.view_profile_clicked)
-        self.Attendee8.clicked.connect(self.view_profile_clicked)
-        self.Attendee9.clicked.connect(self.view_profile_clicked)
-        self.Attendee10.clicked.connect(self.view_profile_clicked)
-        self.HostImage.clicked.connect(self.view_profile_clicked)
+        self.Attendee1.clicked.connect(lambda: self.view_profile_clicked(0))
+        self.Attendee2.clicked.connect(lambda: self.view_profile_clicked(1))
+        self.Attendee3.clicked.connect(lambda: self.view_profile_clicked(2))
+        self.Attendee4.clicked.connect(lambda: self.view_profile_clicked(3))
+        self.Attendee5.clicked.connect(lambda: self.view_profile_clicked(4))
+        self.Attendee6.clicked.connect(lambda: self.view_profile_clicked(5))
+        self.Attendee7.clicked.connect(lambda: self.view_profile_clicked(6))
+        self.Attendee8.clicked.connect(lambda: self.view_profile_clicked(7))
+        self.Attendee9.clicked.connect(lambda: self.view_profile_clicked(8))
+        self.Attendee10.clicked.connect(lambda: self.view_profile_clicked(9))
+        self.HostImage.clicked.connect(lambda: self.view_profile_clicked(-1))
         self.mapView.clicked.connect(self.map_view_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
-        self.SendEmailButton.clicked.connect(self.sendemail_button_clicked)
+        self.SendEmailButton.clicked.connect(self.send_email_button_clicked)
 
-    def sendemail_button_clicked(self):
+    def update_host_image(self):
+        pixmap = load_image(get_user(current_event.hosts).image)
+        self.HostImage.setIcon(QIcon(pixmap))
+        size = QtCore.QSize()
+        size.setHeight(self.HostImage.height())
+        size.setWidth(self.HostImage.width())
+        self.HostImage.setIconSize(size)
+
+    def restore_attendees(self):
+        self.image_list = []
+        self.last_image = 0
+        for i in range(0, 10):
+            self.AttendeeList[i].setVisible(False)
+
+    def update_attendees_image(self):
+        global current_event
+        current_event = get_event(current_event.eid)
+        self.restore_attendees()
+        self.image_list = get_image_list(current_event.attendees)
+        last_image = 0
+        for i, image in enumerate(self.image_list):
+            if i > 9:
+                last_image = 9
+                break
+            else:
+                pixmap = load_image(self.image_list[i])
+                self.AttendeeList[i].setVisible(True)
+                self.AttendeeList[i].setIcon(QIcon(pixmap))
+                size = QtCore.QSize()
+                size.setHeight(self.AttendeeList[i].height())
+                size.setWidth(self.AttendeeList[i].width())
+                self.AttendeeList[i].setIconSize(size)
+                last_image = i
+        self.last_image = last_image
+
+    def send_email_button_clicked(self):
         sender = current_user.google_id
         subject = "A New Message from the event: " + current_event.title
-        tempTarget = self.ToEmailInput.text()
+        temp_target = self.ToEmailInput.text()
         receiver = []
-        if tempTarget:
-            targetUser = retrieve_user('nickname', tempTarget)
-            receiver.append(targetUser.email)
+        if temp_target:
+            target_user = retrieve_user('nickname', temp_target)
+            receiver.append(target_user.email)
         else:
-            tempList = EventController.get_join(current_event.eid)
-            receiver = tempList[:]
-        message = self.GroupEmailContent.toPlainText()
-        print(sender, receiver, subject, message)
-        send_email(sender, receiver, subject, message)
-        
+            temp_list = EventController.get_join(current_event.eid)
+            for user_id in temp_list:
+                receiver.append(get_user(user_id).email)
 
-    
+        message = self.GroupEmailContent.toPlainText()
+        send_email(sender, receiver, subject, message)
+        self.ToEmailInput.setText('')
+        self.GroupEmailContent.setText('')
 
     def back_button_clicked(self):
         lobby_window.show()
@@ -388,11 +429,17 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         lng = coordinate[1]
         get_map_link(lat, lng)
 
-    def view_profile_clicked(self):
+    def view_profile_clicked(self, i):
+        if i == -1:
+            profile_view_host_window.show_user(current_event.hosts)
+        else:
+            profile_view_host_window.show_user(current_event.attendees[i])
         profile_view_host_window.show()
         self.hide()
 
     def edit_button_clicked(self):
+        global current_event
+
         if current_event.eid != 0:
             _translate = QtCore.QCoreApplication.translate
             host_event_edit_window.TitleInput.setText(_translate("HostEventEdit", current_event.title))
@@ -408,7 +455,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             self.expireDate = current_event.expire_date
             self.eventDate = datetime.strptime(self.eventDate, '%Y-%m-%d')
             self.expireDate = datetime.strptime(self.expireDate, '%Y-%m-%d')
-            host_event_edit_window.image_list = get_image_list(current_event.attendees)
+            current_event = get_event(current_event.eid)
             host_event_edit_window.update_attendees_image()
             host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit",
                                                                       str((self.expireDate - self.eventDate).days)))
@@ -473,12 +520,17 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     show_dialog('Unable to remove user from event. ')
 
     def restore_attendees(self):
+        self.image_list = []
+        self.last_image = 0
         for i in range(0, 10):
             self.AttendeeList[i].setVisible(False)
             self.DeleteSignList[i].setVisible(False)
 
     def update_attendees_image(self):
+        global current_event
+        current_event = get_event(current_event.eid)
         self.restore_attendees()
+        self.image_list = get_image_list(current_event.attendees)
         last_image = 0
         print(self.image_list)
         for i, image in enumerate(self.image_list):
@@ -774,12 +826,70 @@ class ProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
         self.BackButton.clicked.connect(self.back_button_clicked)
 
     def back_button_clicked(self):
-        # if user_priority == 0:
         attend_event_display_window.show()
         self.hide()
-        # else:
-        #     host_event_display_window.show()
-        #     self.hide()
+
+    def show_user(self, user_id):
+        user = get_user(user_id)
+        first_name, last_name = user.name.split(' ')
+        self.FirstNameOutput.setText(first_name)
+        self.LastNameOutput.setText(last_name)
+        self.GenderOutput.setText(user.gender)
+        self.EmailAddressOutput.setText(user.email)
+        self.DescritionOutput.setText(user.description)
+        pixmap = load_image(user.image)
+        self.UserImageOutput.setPixmap(pixmap.scaled(self.UserImageOutput.width(),
+                                                     self.UserImageOutput.height()))
+
+
+class HostProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
+    def __init__(self, parent=None):
+        super(HostProfileViewWindow, self).__init__(parent)
+        self.setupUi(self)
+        self.BackButton.clicked.connect(self.back_button_clicked)
+
+    def back_button_clicked(self):
+        global current_event
+        current_event = get_event(current_event.eid)
+
+        host_event_display_window.show()
+        self.hide()
+
+    def show_user(self, user_id):
+        user = get_user(user_id)
+        first_name, last_name = user.name.split(' ')
+        self.FirstNameOutput.setText(first_name)
+        self.LastNameOutput.setText(last_name)
+        self.GenderOutput.setText(user.gender)
+        self.EmailAddressOutput.setText(user.email)
+        self.DescriptionOutput.setText(user.description)
+        pixmap = load_image(user.image)
+        self.UserImageOutput.setPixmap(pixmap.scaled(self.UserImageOutput.width(),
+                                                     self.UserImageOutput.height()))
+        self.CityOutput.setText(user.location)
+        self.TagOutput.setText(user.tags)
+        self.update_attendees(user)
+        self.update_hosts(user)
+
+    def update_attendees(self, user: UserModel):
+        for event_title in self.AttendEventList:
+            event_title.setText('')
+        for i, event_id in enumerate(user.join_events):
+            event = get_event(event_id)
+            if i > 2:
+                break
+            else:
+                self.AttendEventList[i].setText(event.title)
+
+    def update_hosts(self, user: UserModel):
+        for event_title in self.HostEventList:
+            event_title.setText('')
+        for i, event_id in enumerate(user.host_events):
+            event = get_event(event_id)
+            if i > 2:
+                break
+            else:
+                self.HostEventList[i].setText(event.title)
 
 
 def show_dialog(message):
@@ -1054,6 +1164,7 @@ def remove_user(uid, eid):
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
+
 def get_map_link(lat, lng):
     link = 'https://www.google.com/maps/search/?api=1&query=' + str(lat) + ',' + str(lng)
     webbrowser.open(link, new=2)
@@ -1063,19 +1174,18 @@ def get_map_link(lat, lng):
     lat = coordinate[0]
     lng = coordinate[1]
     '''
-    
+
+
 def send_email(sender, receiver, subject, message_text):
-    gmailAgent = Gmail()
-    service = gmailAgent.build_service(google_credentials)
-    #sender = 'cy2468@columbia.edu'
-    #to = 'cy2468@columbia.edu'
-    #subject = 'gmail api test'
-    #message_text = 'This is a message sent from gmail api!!'
-    receiverNum = len(receiver)
-    for i in range(receiverNum):
+    gmail_agent = Gmail()
+    service = gmail_agent.build_service(google_credentials)
+
+    receiver_num = len(receiver)
+    for i in range(receiver_num):
         curr_receiver = receiver[i]
-        message = gmailAgent.create_message(sender, curr_receiver, subject, message_text)
-        gmailAgent.send_message(service, sender, message)
+        message = gmail_agent.create_message(sender, curr_receiver, subject, message_text)
+        gmail_agent.send_message(service, sender, message)
+
 
 def get_image_list(user_list):
     image_list = []
@@ -1099,6 +1209,6 @@ if __name__ == '__main__':
     attend_event_display_window = AttendEventDisplayWindow()
     profile_edit_window = ProfileEditWindow()
     profile_view_attend_window = ProfileViewWindow()
-    profile_view_host_window = ProfileViewWindow()
+    profile_view_host_window = HostProfileViewWindow()
     sign_in_window.show()
     sys.exit(app.exec_())
