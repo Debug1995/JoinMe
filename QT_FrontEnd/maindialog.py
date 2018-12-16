@@ -145,7 +145,7 @@ class Ui_MainDialog(object):
         self.label_2.setStyleSheet("border-image: \\*url();")
         self.label_2.setObjectName("label_2")
         self.TimeComboBox = QtWidgets.QComboBox(MainDialog)
-        self.TimeComboBox.setGeometry(QtCore.QRect(223, 40, 141, 30))
+        self.TimeComboBox.setGeometry(QtCore.QRect(223, 40, 146, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.TimeComboBox.setFont(font)

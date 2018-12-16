@@ -474,6 +474,19 @@ class Ui_HostEventDisplayDialog(object):
         
 
         self.retranslateUi(HostEventDisplayDialog)
+        self.eyeList = [
+            self.eye1,
+            self.eye2,
+            self.eye3,
+            self.eye4,
+            self.eye5,
+            self.eye6,
+            self.eye7,
+            self.eye8,
+            self.eye9,
+            self.eye10,
+        ]
+        
         self.AttendeeList = [
             self.Attendee1,
             self.Attendee2,

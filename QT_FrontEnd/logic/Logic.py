@@ -348,6 +348,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         profile_view_attend_window.show()
         self.hide()
 
+
     @staticmethod
     def attend_button_clicked():
         result = attend(current_user.uid, current_event.eid)
@@ -404,6 +405,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.last_image = 0
         for i in range(0, 10):
             self.AttendeeList[i].setVisible(False)
+            self.eyeList[i].setVisible(False)
 
     def update_attendees_image(self):
         global current_event
@@ -418,6 +420,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             else:
                 pixmap = load_image(self.image_list[i])
                 self.AttendeeList[i].setVisible(True)
+                self.eyeList[i].setVisible(True)
                 self.AttendeeList[i].setPixmap(pixmap.scaled(self.AttendeeList[i].width(), self.AttendeeList[i].height()))
                 last_image = i
         self.last_image = last_image
