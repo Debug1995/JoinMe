@@ -8,6 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_UserProfileDisplay(object):
     def setupUi(self, UserProfileDisplay):
         UserProfileDisplay.setObjectName("UserProfileDisplay")
@@ -42,14 +43,12 @@ class Ui_UserProfileDisplay(object):
         self.FirstNameOutput.setFont(font)
         self.FirstNameOutput.setStyleSheet("border-image: \\*url();")
         self.FirstNameOutput.setObjectName("FirstNameOutput")
-        self.UserImageOutput = QtWidgets.QGraphicsView(UserProfileDisplay)
+        self.UserImageOutput = QtWidgets.QLabel(UserProfileDisplay)
         self.UserImageOutput.setGeometry(QtCore.QRect(220, 72, 51, 51))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.UserImageOutput.setFont(font)
-        self.UserImageOutput.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"\n"
-"")
+        self.UserImageOutput.setStyleSheet("border-image: url(./Transparency.png);\n""\n""")
         self.UserImageOutput.setObjectName("UserImageOutput")
         self.label_8 = QtWidgets.QLabel(UserProfileDisplay)
         self.label_8.setGeometry(QtCore.QRect(220, 190, 111, 20))
@@ -112,22 +111,20 @@ class Ui_UserProfileDisplay(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.line.setFont(font)
-        self.line.setStyleSheet("border-image: \\*url();\n"
-"background-color: rgb(19, 35, 255);\n"
-"")
+        self.line.setStyleSheet("border-image: \\*url();\n""background-color: rgb(19, 35, 255);\n""")
         self.line.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setMidLineWidth(0)
         self.line.setFrameShape(QtWidgets.QFrame.VLine)
         self.line.setObjectName("line")
-        self.DescritionOutput = QtWidgets.QLabel(UserProfileDisplay)
-        self.DescritionOutput.setGeometry(QtCore.QRect(220, 250, 281, 121))
+        self.DescriptionOutput = QtWidgets.QLabel(UserProfileDisplay)
+        self.DescriptionOutput.setGeometry(QtCore.QRect(220, 250, 281, 121))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.DescritionOutput.setFont(font)
-        self.DescritionOutput.setStyleSheet("border-image: \\*url();")
-        self.DescritionOutput.setWordWrap(True)
-        self.DescritionOutput.setObjectName("DescritionOutput")
+        self.DescriptionOutput.setFont(font)
+        self.DescriptionOutput.setStyleSheet("border-image: \\*url();")
+        self.DescriptionOutput.setWordWrap(True)
+        self.DescriptionOutput.setObjectName("DescritionOutput")
         self.CityOutput = QtWidgets.QLabel(UserProfileDisplay)
         self.CityOutput.setGeometry(QtCore.QRect(260, 160, 61, 20))
         font = QtGui.QFont()
@@ -149,71 +146,68 @@ class Ui_UserProfileDisplay(object):
         self.EmailAddressOutput.setFont(font)
         self.EmailAddressOutput.setStyleSheet("border-image: \\*url();")
         self.EmailAddressOutput.setObjectName("EmailAddressOutput")
+
         self.AttendEvent1 = QtWidgets.QPushButton(UserProfileDisplay)
         self.AttendEvent1.setGeometry(QtCore.QRect(551, 150, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent1.setFont(font)
-        self.AttendEvent1.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent1.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent1.setFlat(True)
         self.AttendEvent1.setObjectName("AttendEvent1")
+
         self.AttendEvent2 = QtWidgets.QPushButton(UserProfileDisplay)
         self.AttendEvent2.setGeometry(QtCore.QRect(551, 180, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent2.setFont(font)
-        self.AttendEvent2.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent2.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent2.setFlat(True)
         self.AttendEvent2.setObjectName("AttendEvent2")
+
         self.AttendEvent3 = QtWidgets.QPushButton(UserProfileDisplay)
         self.AttendEvent3.setGeometry(QtCore.QRect(551, 210, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.AttendEvent3.setFont(font)
-        self.AttendEvent3.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.AttendEvent3.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.AttendEvent3.setFlat(True)
         self.AttendEvent3.setObjectName("AttendEvent3")
+
+        self.AttendEventList = [self.AttendEvent1, self.AttendEvent2, self.AttendEvent3]
+
         self.HostEvent1 = QtWidgets.QPushButton(UserProfileDisplay)
         self.HostEvent1.setGeometry(QtCore.QRect(551, 270, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent1.setFont(font)
-        self.HostEvent1.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent1.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent1.setFlat(True)
         self.HostEvent1.setObjectName("HostEvent1")
+
         self.HostEvent2 = QtWidgets.QPushButton(UserProfileDisplay)
         self.HostEvent2.setGeometry(QtCore.QRect(552, 299, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent2.setFont(font)
-        self.HostEvent2.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent2.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent2.setFlat(True)
         self.HostEvent2.setObjectName("HostEvent2")
+
         self.HostEvent3 = QtWidgets.QPushButton(UserProfileDisplay)
         self.HostEvent3.setGeometry(QtCore.QRect(552, 328, 113, 32))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.HostEvent3.setFont(font)
-        self.HostEvent3.setStyleSheet("border-image: \\*url();\n"
-"background: transparent;\n"
-"")
+        self.HostEvent3.setStyleSheet("border-image: \\*url();\n""background: transparent;\n""")
         self.HostEvent3.setFlat(True)
         self.HostEvent3.setObjectName("HostEvent3")
+
+        self.HostEventList = [self.HostEvent1, self.HostEvent2, self.HostEvent3]
+
         self.graphicsView = QtWidgets.QGraphicsView(UserProfileDisplay)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 745, 453))
-        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n"
-"\n"
-"")
+        self.graphicsView.setStyleSheet("border-image: url(./bg.png)\n""\n""")
         self.graphicsView.setObjectName("graphicsView")
         self.graphicsView.raise_()
         self.label_2.raise_()
@@ -230,7 +224,7 @@ class Ui_UserProfileDisplay(object):
         self.label_9.raise_()
         self.label_14.raise_()
         self.line.raise_()
-        self.DescritionOutput.raise_()
+        self.DescriptionOutput.raise_()
         self.CityOutput.raise_()
         self.TagOutput.raise_()
         self.EmailAddressOutput.raise_()
@@ -248,25 +242,24 @@ class Ui_UserProfileDisplay(object):
         _translate = QtCore.QCoreApplication.translate
         UserProfileDisplay.setWindowTitle(_translate("UserProfileDisplay", "Dialog"))
         self.label_2.setText(_translate("UserProfileDisplay", "JoinMe"))
-        self.label_4.setText(_translate("UserProfileDisplay", "City"))
-        self.GenderOutput.setText(_translate("UserProfileDisplay", "Gender"))
-        self.FirstNameOutput.setText(_translate("UserProfileDisplay", "First Name"))
+        self.label_4.setText(_translate("UserProfileDisplay", "State"))
+        self.GenderOutput.setText(_translate("UserProfileDisplay", ""))
+        self.FirstNameOutput.setText(_translate("UserProfileDisplay", ""))
         self.label_8.setText(_translate("UserProfileDisplay", "Email Address"))
-        self.NicknameOutput.setText(_translate("UserProfileDisplay", "Nickname (Account ID)"))
+        self.NicknameOutput.setText(_translate("UserProfileDisplay", ""))
         self.label_13.setText(_translate("UserProfileDisplay", "Description:"))
         self.BackButton.setText(_translate("UserProfileDisplay", "Back"))
-        self.LastNameOutput.setText(_translate("UserProfileDisplay", "Last Name"))
+        self.LastNameOutput.setText(_translate("UserProfileDisplay", ""))
         self.label_12.setText(_translate("UserProfileDisplay", "Tags"))
         self.label_9.setText(_translate("UserProfileDisplay", "Event Attended"))
         self.label_14.setText(_translate("UserProfileDisplay", "Event Hosted"))
-        self.DescritionOutput.setText(_translate("UserProfileDisplay", "I\'m Description.  I\'m Descriptionm Description.  I\'m Descriptionm Description.  I\'m Descriptionm Description.  I\'m Descriptionm Description.  I\'m Description"))
-        self.CityOutput.setText(_translate("UserProfileDisplay", "I\'m city"))
-        self.TagOutput.setText(_translate("UserProfileDisplay", "I\'m Tags"))
-        self.EmailAddressOutput.setText(_translate("UserProfileDisplay", "I\'m Email Address"))
-        self.AttendEvent1.setText(_translate("UserProfileDisplay", "Event Title1"))
-        self.AttendEvent2.setText(_translate("UserProfileDisplay", "Event Title2"))
-        self.AttendEvent3.setText(_translate("UserProfileDisplay", "Event Title3"))
-        self.HostEvent1.setText(_translate("UserProfileDisplay", "Event Title1"))
-        self.HostEvent2.setText(_translate("UserProfileDisplay", "Event Title2"))
-        self.HostEvent3.setText(_translate("UserProfileDisplay", "Event Title3"))
-
+        self.DescriptionOutput.setText(_translate("UserProfileDisplay", ""))
+        self.CityOutput.setText(_translate("UserProfileDisplay", ""))
+        self.TagOutput.setText(_translate("UserProfileDisplay", ""))
+        self.EmailAddressOutput.setText(_translate("UserProfileDisplay", ""))
+        self.AttendEvent1.setText(_translate("UserProfileDisplay", ""))
+        self.AttendEvent2.setText(_translate("UserProfileDisplay", ""))
+        self.AttendEvent3.setText(_translate("UserProfileDisplay", ""))
+        self.HostEvent1.setText(_translate("UserProfileDisplay", ""))
+        self.HostEvent2.setText(_translate("UserProfileDisplay", ""))
+        self.HostEvent3.setText(_translate("UserProfileDisplay", ""))
