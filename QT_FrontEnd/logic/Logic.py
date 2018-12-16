@@ -176,8 +176,8 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.HostEvent3.clicked.connect(lambda: self.host_event_clicked(3))
         self.UpdateProfileButton.clicked.connect(self.update_profile_clicked)
         self.PostEventButton.clicked.connect(self.post_event_clicked)
-        self.HostAttendSeeMoreButton.clicked.connect(self.refresh_attend)
-        self.HostEventSeeMoreButton.clicked.connect(self.refresh_host)
+        self.HostAttendSeeMoreButton.clicked.connect(self.see_more_attend_clicked)
+        self.HostEventSeeMoreButton.clicked.connect(self.see_more_host_clicked)
         self.SearchButton.clicked.connect(self.search_button_clicked)
         self.LogOutButton.clicked.connect(self.log_out_button_clicked)
         self.event_list = []
@@ -274,6 +274,14 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
                                                                      profile_edit_window.profile_picture.height()))
         profile_edit_window.show()
         self.hide()
+
+    def see_more_attend_clicked(self):
+        self.refresh_attend
+        get_attend_event_list()
+
+    def see_more_host_clicked(self):
+        self.refresh_host()
+        get_host_event_list()
 
     def refresh_attend(self):
         global current_user
@@ -644,6 +652,9 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                 response = Connection.edit_event(data)
                 if response[0] == 'SUCCESS' or current_event == previous_event:
                     update_event_display(current_event.eid)
+                    host_event_display_window.restore_attendees()
+                    host_event_display_window.update_attendees_image()
+                    host_event_display_window.update_host_image()
                     host_event_display_window.show()
                     self.hide()
                 else:
@@ -655,6 +666,8 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
     def __init__(self, parent=None):
         super(PostEventWindow, self).__init__(parent)
         self.setupUi(self)
+        self.image_list = []
+        self.last_image = 0
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
         self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
         self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
@@ -695,6 +708,33 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
                     if number == 3:
                         self.EventImage3.setPixmap(pixmap.scaled(self.EventImage3.width(),
                                                                  self.EventImage3.height()))
+
+    def restore_attendees(self):
+        self.image_list = []
+        self.last_image = 0
+        for i in range(0, 10):
+            self.AttendeeList[i].setVisible(False)
+            self.DeleteSignList[i].setVisible(False)
+
+    def update_attendees_image(self):
+        global current_event
+        current_event = get_event(current_event.eid)
+        self.restore_attendees()
+        self.image_list = get_image_list(current_event.attendees)
+        last_image = 0
+        print(self.image_list)
+        for i, image in enumerate(self.image_list):
+            if i > 9:
+                last_image = 9
+                break
+            else:
+                pixmap = load_image(self.image_list[i])
+                self.AttendeeList[i].setPixmap(pixmap.scaled(self.AttendeeList[i].width(),
+                                                             self.AttendeeList[i].height()))
+                self.AttendeeList[i].setVisible(True)
+                self.DeleteSignList[i].setVisible(True)
+                last_image = i
+        self.last_image = last_image
 
     def save_button_clicked(self):
         global current_event
@@ -747,6 +787,9 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
                 current_event.eid = response[1]['eid']
                 current_event = get_event(current_event.eid)
                 update_event_display(current_event.eid)
+                host_event_display_window.restore_attendees()
+                host_event_display_window.update_attendees_image()
+                host_event_display_window.update_host_image()
                 host_event_display_window.show()
                 self.hide()
 
@@ -1105,6 +1148,8 @@ def update_event_display(eid):
     host_event_display_window.HostIDOutput.setText(user.nickname)
     image_list = eval(current_event.image)
     display_list = []
+    for event_image in host_event_display_window.EventImageList:
+        event_image.setStyleSheet("border-image: url(./Transparency.png);\n""")
     for image in image_list:
         if image is not None:
             display_list.append(image)
@@ -1152,7 +1197,7 @@ def get_default_list(uid):
     }
     default_list = get_list(event_filter)
 
-    return default_list
+    return parse_list(default_list)
 
 
 def get_list(event_filter):
@@ -1163,7 +1208,10 @@ def get_list(event_filter):
         result = []
     else:
         result = result[1]
-    return parse_list(result)
+
+    result = parse_list(result)
+    print(result)
+    return result
 
 
 def attend(uid, eid):
@@ -1209,6 +1257,36 @@ def get_image_list(user_list):
         image_list.append(user.image)
 
     return image_list
+
+
+def get_attend_event_list():
+    global current_user
+    current_user = get_user(current_user.uid)
+    result = []
+    for event_id in current_user.join_events:
+        event = get_event(event_id)
+        tuple = [event.eid, event.title, event.location,
+                 datetime.strptime(event.expire_date, '%Y-%m-%d').date(), event.image]
+        result.append(tuple)
+
+    result = parse_list(result)
+    print(result)
+    return result
+
+
+def get_host_event_list():
+    global current_user
+    current_user = get_user(current_user.uid)
+    result = []
+    for event_id in current_user.host_events:
+        event = get_event(event_id)
+        tuple = [event.eid, event.title, event.location,
+                 datetime.strptime(event.expire_date, '%Y-%m-%d').date(), event.image]
+        result.append(tuple)
+
+    result = parse_list(result)
+    print(result)
+    return result
 
 
 if __name__ == '__main__':
