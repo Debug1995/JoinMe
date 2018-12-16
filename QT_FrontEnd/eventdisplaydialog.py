@@ -8,6 +8,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+class EventPushButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-22.png);")
+
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./pin-2.png);")
+
 class Ui_EventDisplayDialog(object):
     def setupUi(self, EventDisplayDialog):
         EventDisplayDialog.setObjectName("EventDisplayDialog")
@@ -170,13 +177,18 @@ class Ui_EventDisplayDialog(object):
         self.UserName_13.setFont(font)
         self.UserName_13.setStyleSheet("border-image: \\*url();")
         self.UserName_13.setObjectName("UserName_13")
-        self.graphicsView_14 = QtWidgets.QGraphicsView(EventDisplayDialog)
-        self.graphicsView_14.setGeometry(QtCore.QRect(630, 402, 31, 31))
+        
+
+
+        self.mapView = EventPushButton(EventDisplayDialog)
+        self.mapView.setGeometry(QtCore.QRect(630, 402, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.graphicsView_14.setFont(font)
-        self.graphicsView_14.setStyleSheet("border-image: url(./pin-2.png)")
-        self.graphicsView_14.setObjectName("graphicsView_14")
+        self.mapView.setFont(font)
+        self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
+        self.mapView.setText("")
+        self.mapView.setObjectName("mapView")
+        
         self.UserName_9 = QtWidgets.QLabel(EventDisplayDialog)
         self.UserName_9.setGeometry(QtCore.QRect(300, 220, 71, 20))
         font = QtGui.QFont()
@@ -347,7 +359,7 @@ class Ui_EventDisplayDialog(object):
         self.EventIamge2.raise_()
         self.EventIamge3.raise_()
         self.UserName_13.raise_()
-        self.graphicsView_14.raise_()
+        self.mapView.raise_()
         self.UserName_9.raise_()
         self.DateOutput.raise_()
         self.GroupEmailContent.raise_()

@@ -20,6 +20,9 @@ from QT_FrontEnd.logic import Connection
 from Images.AWSConnector import AWSConnector
 import webbrowser
 from Login.GmapController import *
+from Controller.UserController import retrieve_user
+import Controller.EventController as EventController
+
 
 TODAY = datetime.today().strftime('%Y-%m-%d')
 
@@ -303,6 +306,15 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         self.Attendee9.clicked.connect(self.view_profile_clicked)
         self.Attendee10.clicked.connect(self.view_profile_clicked)
         self.Hostimage.clicked.connect(self.view_profile_clicked)
+        self.mapView.clicked.connect(self.map_view_clicked)
+
+    def map_view_clicked(self):
+        print(current_event.address)
+        self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
+        coordinate = eval(current_event.address)
+        lat = coordinate[0]
+        lng = coordinate[1]
+        get_map_link(lat, lng)
 
     def view_profile_clicked(self):
         profile_view_attend_window.show()
@@ -344,17 +356,37 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.HostImage.clicked.connect(self.view_profile_clicked)
         self.mapView.clicked.connect(self.map_view_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
+        self.SendEmailButton.clicked.connect(self.sendemail_button_clicked)
+
+    def sendemail_button_clicked(self):
+        sender = current_user.google_id
+        subject = "A New Message from the event: " + current_event.title
+        tempTarget = self.ToEmailInput.text()
+        receiver = []
+        if tempTarget:
+            targetUser = retrieve_user('nickname', tempTarget)
+            receiver.append(targetUser.email)
+        else:
+            tempList = EventController.get_join(current_event.eid)
+            receiver = tempList[:]
+        message = self.GroupEmailContent.toPlainText()
+        print(sender, receiver, subject, message)
+        send_email(sender, receiver, subject, message)
+        
+
+    
 
     def back_button_clicked(self):
         lobby_window.show()
         self.hide()
         
     def map_view_clicked(self):
-        gmap = Gmap()
-        print(current_event)
-        print('123'+str(current_event.location)+'123')
-        
-        # webbrowser.open(gmail.get_autho_uri(), new=2)
+        print(current_event.address)
+        self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
+        coordinate = eval(current_event.address)
+        lat = coordinate[0]
+        lng = coordinate[1]
+        get_map_link(lat, lng)
 
     def view_profile_clicked(self):
         profile_view_host_window.show()
@@ -1022,6 +1054,28 @@ def remove_user(uid, eid):
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
 
+def get_map_link(lat, lng):
+    link = 'https://www.google.com/maps/search/?api=1&query=' + str(lat) + ',' + str(lng)
+    webbrowser.open(link, new=2)
+    
+    '''
+    coordinate = eval(current_event.address)
+    lat = coordinate[0]
+    lng = coordinate[1]
+    '''
+    
+def send_email(sender, receiver, subject, message_text):
+    gmailAgent = Gmail()
+    service = gmailAgent.build_service(google_credentials)
+    #sender = 'cy2468@columbia.edu'
+    #to = 'cy2468@columbia.edu'
+    #subject = 'gmail api test'
+    #message_text = 'This is a message sent from gmail api!!'
+    receiverNum = len(receiver)
+    for i in range(receiverNum):
+        curr_receiver = receiver[i]
+        message = gmailAgent.create_message(sender, curr_receiver, subject, message_text)
+        gmailAgent.send_message(service, sender, message)
 
 def get_image_list(user_list):
     image_list = []
