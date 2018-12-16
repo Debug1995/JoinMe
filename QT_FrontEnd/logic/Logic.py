@@ -13,7 +13,6 @@ from QT_FrontEnd.eventdisplaydialog import Ui_EventDisplayDialog
 from QT_FrontEnd.registerdialog import Ui_RegisterDialog
 from QT_FrontEnd.userprofiledisplay import Ui_UserProfileDisplay
 from Model.EventModel import EventModel
-from Controller.UserController import *
 from Login.GmailController import *
 from QT_FrontEnd.logic import SignInHandler
 from QT_FrontEnd.logic import Connection
@@ -329,11 +328,12 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
             
 
     def map_view_clicked(self):
-        print(current_event.address)
+        print(current_event.address+'1')
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
-        coordinate = eval(current_event.address)
+        coordinate = eval(get_coordinate(current_event.address))
         lat = coordinate[0]
         lng = coordinate[1]
+        print(lat, lng)
         get_map_link(lat, lng)
 
     def view_profile_clicked(self):
@@ -438,8 +438,9 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         
     def map_view_clicked(self):
         print(current_event.address)
+
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
-        coordinate = get_coordinate(current_event.address)
+        coordinate = eval(get_coordinate(current_event.address))
         lat = coordinate[0]
         lng = coordinate[1]
         get_map_link(lat, lng)
@@ -594,6 +595,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
 
     def save_button_clicked(self):
         address = self.AddressInput.text()
+        print(address+'111')
         state = get_state(address)
         year = self.YearComboBox.currentText()
         month = self.MonthComboBox.currentText()
@@ -640,6 +642,7 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     'register_period': current_event.register_period,
                     'expire_date': current_event.expire_date
                 }
+                print(data['address']+'11111')
                 response = Connection.edit_event(data)
                 if response[0] == 'SUCCESS' or current_event == previous_event:
                     update_event_display(current_event.eid)
@@ -699,7 +702,6 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         global current_event
         address = self.AddressInput.text()
         state = get_state(address)
-        address = get_coordinate(address)
         year = self.YearComboBox.currentText()
         month = self.MonthComboBox.currentText()
         day = self.DayComboBox.currentText()
