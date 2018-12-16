@@ -401,7 +401,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
     def map_view_clicked(self):
         print(current_event.address)
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
-        coordinate = eval(current_event.address)
+        coordinate = get_coordinate(current_event.address)
         lat = coordinate[0]
         lng = coordinate[1]
         get_map_link(lat, lng)
@@ -509,7 +509,6 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
     def save_button_clicked(self):
         address = self.AddressInput.text()
         state = get_state(address)
-        address = get_coordinate(address)
         year = self.YearComboBox.currentText()
         month = self.MonthComboBox.currentText()
         day = self.DayComboBox.currentText()
