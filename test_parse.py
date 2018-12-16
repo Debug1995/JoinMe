@@ -1,5 +1,4 @@
 from QT_FrontEnd.logic import Logic
 
-test_list = []
-parsed_list = Logic.parse_list(test_list)
-print(parsed_list)
+user_list = [327, 329]
+image_list = Logic.get_image_list(user_list)

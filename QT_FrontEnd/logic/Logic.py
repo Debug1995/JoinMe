@@ -348,15 +348,13 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
     def back_button_clicked(self):
         lobby_window.show()
         self.hide()
-
         
     def map_view_clicked(self):
         gmap = Gmap()
         print(current_event)
         print('123'+str(current_event.location)+'123')
         
-        #webbrowser.open(gmail.get_autho_uri(), new=2)
-
+        # webbrowser.open(gmail.get_autho_uri(), new=2)
 
     def view_profile_clicked(self):
         profile_view_host_window.show()
@@ -378,6 +376,8 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             self.expireDate = current_event.expire_date
             self.eventDate = datetime.strptime(self.eventDate, '%Y-%m-%d')
             self.expireDate = datetime.strptime(self.expireDate, '%Y-%m-%d')
+            host_event_edit_window.image_list = get_image_list(current_event.attendees)
+            host_event_edit_window.update_attendees_image()
             host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit",
                                                                       str((self.expireDate - self.eventDate).days)))
             image_list = eval(current_event.image)
@@ -386,7 +386,6 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
                 if image is not None:
                     display_list.append(image)
             for i, image in enumerate(display_list):
-                print(image)
                 pixmap = load_image(image)
                 host_event_edit_window.EventImageList[i].setPixmap(pixmap.scaled(
                     host_event_edit_window.EventImageList[i].width(),
@@ -399,12 +398,13 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
 class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
     def __init__(self, parent=None):
         super(HostEventEditWindow, self).__init__(parent)
+        self.image_list = []
+        self.last_image = 0
         self.setupUi(self)
         self.SaveEventButton.clicked.connect(self.save_button_clicked)
         self.UploadImage1.clicked.connect(lambda: self.upload_image_button_clicked(1))
         self.UploadImage2.clicked.connect(lambda: self.upload_image_button_clicked(2))
         self.UploadImage3.clicked.connect(lambda: self.upload_image_button_clicked(3))
-
         self.DeleteSign1.clicked.connect(lambda: self.delete_clicked(0))
         self.DeleteSign2.clicked.connect(lambda: self.delete_clicked(1))
         self.DeleteSign3.clicked.connect(lambda: self.delete_clicked(2))
@@ -418,12 +418,49 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
 
         self.BackButton.clicked.connect(self.back_button_clicked)
 
+        for i in range(0, 10):
+            self.AttendeeList[i].setStyleSheet("border-image: url(./Transparency.jpg);\n""")
+            self.DeleteSignList[i].setVisible(False)
+
     def back_button_clicked(self):
         host_event_display_window.show()
         self.hide()
 
     def delete_clicked(self, i):
-        pass
+        if i > self.last_image:
+            return
+        else:
+            removed = False
+            try:
+                remove_user(current_event.attendees[i], current_event.eid)
+                removed = True
+                self.image_list.pop(i)
+                self.update_attendees_image()
+            finally:
+                if not removed:
+                    show_dialog('Unable to remove user from event. ')
+
+    def restore_attendees(self):
+        for i in range(0, 10):
+            self.AttendeeList[i].setVisible(False)
+            self.DeleteSignList[i].setVisible(False)
+
+    def update_attendees_image(self):
+        self.restore_attendees()
+        last_image = 0
+        print(self.image_list)
+        for i, image in enumerate(self.image_list):
+            if i > 9:
+                last_image = 9
+                break
+            else:
+                pixmap = load_image(self.image_list[i])
+                self.AttendeeList[i].setPixmap(pixmap.scaled(self.AttendeeList[i].width(),
+                                                             self.AttendeeList[i].height()))
+                self.AttendeeList[i].setVisible(True)
+                self.DeleteSignList[i].setVisible(True)
+                last_image = i
+        self.last_image = last_image
 
     def upload_image_button_clicked(self, number):
         global current_event
@@ -984,6 +1021,15 @@ def remove_user(uid, eid):
 
 def except_hook(cls, exception, traceback):
     sys.__excepthook__(cls, exception, traceback)
+
+
+def get_image_list(user_list):
+    image_list = []
+    for user_id in user_list:
+        user = get_user(user_id)
+        image_list.append(user.image)
+
+    return image_list
 
 
 if __name__ == '__main__':
