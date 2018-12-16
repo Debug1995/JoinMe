@@ -302,7 +302,7 @@ class Ui_HostEventDisplayDialog(object):
         self.Attendee5.setFont(font)
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
-        self.HostImage = QtWidgets.QPushButton(HostEventDisplayDialog)
+        self.HostImage = QtWidgets.QLabel(HostEventDisplayDialog)
         self.HostImage.setGeometry(QtCore.QRect(210, 213, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -319,6 +319,15 @@ class Ui_HostEventDisplayDialog(object):
         self.ToEmailInput.setText("")
         self.ToEmailInput.setClearButtonEnabled(False)
         self.ToEmailInput.setObjectName("ToEmailInput")
+
+        self.eyeHost = EyePushButton(HostEventDisplayDialog)
+        self.eyeHost.setGeometry(QtCore.QRect(224, 208, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eyeHost.setFont(font)
+        self.eyeHost.setStyleSheet("background: transparent;")
+        self.eyeHost.setText("")
+        self.eyeHost.setObjectName("eyeHost")
 
         self.eye1 = EyePushButton(HostEventDisplayDialog)
         self.eye1.setGeometry(QtCore.QRect(35, 293, 21, 21))
@@ -461,7 +470,7 @@ class Ui_HostEventDisplayDialog(object):
         self.eye8.raise_()
         self.eye9.raise_()
         self.eye10.raise_()
-        
+        self.eyeHost.raise_()
         
 
         self.retranslateUi(HostEventDisplayDialog)

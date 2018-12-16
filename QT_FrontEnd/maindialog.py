@@ -248,7 +248,7 @@ class Ui_MainDialog(object):
         self.KeywordInput.setClearButtonEnabled(False)
         self.KeywordInput.setObjectName("KeywordInput")
         self.PostEventButton = QtWidgets.QPushButton(MainDialog)
-        self.PostEventButton.setGeometry(QtCore.QRect(630, 122, 101, 30))
+        self.PostEventButton.setGeometry(QtCore.QRect(625, 122, 111, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.PostEventButton.setFont(font)
@@ -472,8 +472,10 @@ class Ui_MainDialog(object):
                                     "")
         self.LastPage.setText("")
         self.LastPage.setObjectName("LastPage")
+        
+        
         self.NextPage = EventPushRightButton(MainDialog)
-        self.NextPage.setGeometry(QtCore.QRect(540, 70, 41, 30))
+        self.NextPage.setGeometry(QtCore.QRect(570, 70, 41, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.NextPage.setFont(font)
@@ -481,6 +483,15 @@ class Ui_MainDialog(object):
                                     "")
         self.NextPage.setText("")
         self.NextPage.setObjectName("NextPage")
+
+        self.pageNumber = QtWidgets.QLabel(MainDialog)
+        self.pageNumber.setGeometry(QtCore.QRect(550, 76, 21, 20))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.pageNumber.setFont(font)
+        self.pageNumber.setStyleSheet("background-color: rgba(43, 230, 255,0)")
+        self.pageNumber.setObjectName("pageNumber")
+        
         
         self.graphicsView = QtWidgets.QLabel(MainDialog)
         self.graphicsView.setGeometry(QtCore.QRect(0, 0, 751, 461))
@@ -531,6 +542,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage5.raise_()
         self.ScrollAreaDate5.raise_()
         self.ScrollAreaEvent5.raise_()
+        self.pageNumber.raise_()
         self.LastPage.raise_()
         self.NextPage.raise_()
         self.AttendEventList = [self.AttendEvent1, self.AttendEvent2, self.AttendEvent3]
@@ -570,6 +582,7 @@ class Ui_MainDialog(object):
         self.label_12.setText(_translate("MainDialog", "Event Hosted"))
         self.SearchButton.setText(_translate("MainDialog", "Search"))
         self.LogOutButton.setText(_translate("MainDialog", "Log Out"))
+        self.pageNumber.setText(_translate("MainDialog", "1"))
         self.label_2.setText(_translate("MainDialog", "JoinMe"))
         self.TimeComboBox.setItemText(0, _translate("MainDialog", "Time"))
         self.TimeComboBox.setItemText(1, _translate("MainDialog", "In One Day"))
