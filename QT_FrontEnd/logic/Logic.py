@@ -20,7 +20,7 @@ from QT_FrontEnd.logic import Connection
 from Images.AWSConnector import AWSConnector
 import webbrowser
 from Login.GmapController import *
-from Controller.UserController import retrieve_user
+from Controller.UserController import *
 import Controller.EventController as EventController
 
 
@@ -307,6 +307,21 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         self.Attendee10.clicked.connect(self.view_profile_clicked)
         self.Hostimage.clicked.connect(self.view_profile_clicked)
         self.mapView.clicked.connect(self.map_view_clicked)
+        self.SendEmailButton.clicked.connect(self.sendemail_button_clicked)
+
+    def sendemail_button_clicked(self):
+        sender = current_user.google_id
+        subject = "A New Message from the attendee of " + current_event.title
+
+        receiver = []
+
+        hostID = EventController.get_host(current_event.eid)
+        user = retrieve_user('userid', hostID)
+        receiver.append(user.google_id)
+        message = self.ToEmailInput.toPlainText()
+        print(sender, receiver, subject, message)
+        send_email(sender, receiver, subject, message)
+            
 
     def map_view_clicked(self):
         print(current_event.address)
@@ -368,7 +383,9 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             receiver.append(targetUser.email)
         else:
             tempList = EventController.get_join(current_event.eid)
-            receiver = tempList[:]
+            for item in tempList:
+                user = get_user(item)
+                receiver.append(user.email)
         message = self.GroupEmailContent.toPlainText()
         print(sender, receiver, subject, message)
         send_email(sender, receiver, subject, message)

@@ -209,16 +209,16 @@ class Ui_EventDisplayDialog(object):
 "\n"
 "")
         self.graphicsView.setObjectName("graphicsView")
-        self.GroupEmailContent = QtWidgets.QTextEdit(EventDisplayDialog)
-        self.GroupEmailContent.setGeometry(QtCore.QRect(10, 362, 501, 81))
+        self.ToEmailInput = QtWidgets.QTextEdit(EventDisplayDialog)
+        self.ToEmailInput.setGeometry(QtCore.QRect(10, 362, 501, 81))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.GroupEmailContent.setFont(font)
-        self.GroupEmailContent.setAutoFillBackground(False)
-        self.GroupEmailContent.setStyleSheet("border-image: \\*url();\n"
+        self.ToEmailInput.setFont(font)
+        self.ToEmailInput.setAutoFillBackground(False)
+        self.ToEmailInput.setStyleSheet("border-image: \\*url();\n"
 "border-radius: 5px;\n"
 "")
-        self.GroupEmailContent.setObjectName("GroupEmailContent")
+        self.ToEmailInput.setObjectName("ToEmailInput")
         self.BackButton = QtWidgets.QPushButton(EventDisplayDialog)
         self.BackButton.setGeometry(QtCore.QRect(608, 37, 81, 34))
         font = QtGui.QFont()
@@ -362,7 +362,7 @@ class Ui_EventDisplayDialog(object):
         self.mapView.raise_()
         self.UserName_9.raise_()
         self.DateOutput.raise_()
-        self.GroupEmailContent.raise_()
+        self.ToEmailInput.raise_()
         self.BackButton.raise_()
         self.Attendee1.raise_()
         self.Attendee2.raise_()
@@ -400,7 +400,7 @@ class Ui_EventDisplayDialog(object):
         self.UserName_13.setText(_translate("EventDisplayDialog", "map"))
         self.UserName_9.setText(_translate("EventDisplayDialog", "Date"))
         self.DateOutput.setText(_translate("EventDisplayDialog", "I\'m Date I\'m Date"))
-        self.GroupEmailContent.setWhatsThis(_translate("EventDisplayDialog", "ddd"))
-        self.GroupEmailContent.setPlaceholderText(_translate("EventDisplayDialog", "Please input your email content..."))
+        self.ToEmailInput.setWhatsThis(_translate("EventDisplayDialog", "ddd"))
+        self.ToEmailInput.setPlaceholderText(_translate("EventDisplayDialog", "Please input your email content..."))
         self.BackButton.setText(_translate("EventDisplayDialog", "Back"))
 
