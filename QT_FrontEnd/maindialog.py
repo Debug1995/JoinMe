@@ -319,7 +319,7 @@ class Ui_MainDialog(object):
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage1.setObjectName("ScrollAreaImage1")
         self.ScrollAreaEvent1 = EventPushButton(MainDialog)
-        self.ScrollAreaEvent1.setGeometry(QtCore.QRect(160, 108, 421, 32))
+        self.ScrollAreaEvent1.setGeometry(QtCore.QRect(160, 108, 421, 35))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.ScrollAreaEvent1.setFont(font)
@@ -351,7 +351,7 @@ class Ui_MainDialog(object):
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage2.setObjectName("ScrollAreaImage2")
         self.ScrollAreaEvent2 = EventPushButton(MainDialog)
-        self.ScrollAreaEvent2.setGeometry(QtCore.QRect(160, 178, 421, 32))
+        self.ScrollAreaEvent2.setGeometry(QtCore.QRect(160, 178, 421, 35))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.ScrollAreaEvent2.setFont(font)
@@ -375,7 +375,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaAddress3.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaAddress3.setObjectName("ScrollAreaAddress3")
         self.ScrollAreaEvent3 = EventPushButton(MainDialog)
-        self.ScrollAreaEvent3.setGeometry(QtCore.QRect(160, 248, 421, 32))
+        self.ScrollAreaEvent3.setGeometry(QtCore.QRect(160, 248, 421, 35))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.ScrollAreaEvent3.setFont(font)
@@ -415,7 +415,7 @@ class Ui_MainDialog(object):
                                             "background-color: rgba(255, 255, 255)")
         self.ScrollAreaImage4.setObjectName("ScrollAreaImage4")
         self.ScrollAreaEvent4 = EventPushButton(MainDialog)
-        self.ScrollAreaEvent4.setGeometry(QtCore.QRect(160, 318, 421, 32))
+        self.ScrollAreaEvent4.setGeometry(QtCore.QRect(160, 318, 421, 35))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.ScrollAreaEvent4.setFont(font)
@@ -454,7 +454,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaDate5.setStyleSheet("background-color: rgba(43, 230, 255,0)")
         self.ScrollAreaDate5.setObjectName("ScrollAreaDate5")
         self.ScrollAreaEvent5 = EventPushButton(MainDialog)
-        self.ScrollAreaEvent5.setGeometry(QtCore.QRect(160, 387, 421, 32))
+        self.ScrollAreaEvent5.setGeometry(QtCore.QRect(160, 387, 421, 35))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.ScrollAreaEvent5.setFont(font)
@@ -464,7 +464,7 @@ class Ui_MainDialog(object):
         self.ScrollAreaEvent5.setFlat(True)
         self.ScrollAreaEvent5.setObjectName("ScrollAreaEvent5")
         self.LastPage = EventPushLeftButton(MainDialog)
-        self.LastPage.setGeometry(QtCore.QRect(500, 70, 41, 30))
+        self.LastPage.setGeometry(QtCore.QRect(470, 70, 41, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.LastPage.setFont(font)
@@ -475,7 +475,7 @@ class Ui_MainDialog(object):
         
         
         self.NextPage = EventPushRightButton(MainDialog)
-        self.NextPage.setGeometry(QtCore.QRect(570, 70, 41, 30))
+        self.NextPage.setGeometry(QtCore.QRect(555, 70, 41, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.NextPage.setFont(font)
@@ -485,7 +485,7 @@ class Ui_MainDialog(object):
         self.NextPage.setObjectName("NextPage")
 
         self.pageNumber = QtWidgets.QLabel(MainDialog)
-        self.pageNumber.setGeometry(QtCore.QRect(550, 76, 21, 20))
+        self.pageNumber.setGeometry(QtCore.QRect(520, 76, 31, 20))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.pageNumber.setFont(font)
@@ -542,9 +542,10 @@ class Ui_MainDialog(object):
         self.ScrollAreaImage5.raise_()
         self.ScrollAreaDate5.raise_()
         self.ScrollAreaEvent5.raise_()
-        self.pageNumber.raise_()
+        
         self.LastPage.raise_()
         self.NextPage.raise_()
+        self.pageNumber.raise_()
         self.AttendEventList = [self.AttendEvent1, self.AttendEvent2, self.AttendEvent3]
         self.HostEventList = [self.HostEvent1, self.HostEvent2, self.HostEvent3]
         self.ScrollAreaList = [{'title': self.ScrollAreaEvent1,

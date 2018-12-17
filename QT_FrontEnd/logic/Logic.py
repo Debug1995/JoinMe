@@ -216,10 +216,10 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.clear_list()
         current_list = self.event_list[self.current_page - 1]
         if len(current_list) == 0:
-            self.pageNumber.setText('0 / 0')
+            self.pageNumber.setText('0/0')
             self.ScrollAreaList[0]['title'].setText('No events match the filter. ')
         else:
-            self.pageNumber.setText(str(self.current_page) + ' / ' + str(self.total_page))
+            self.pageNumber.setText(str(self.current_page) + '/' + str(self.total_page))
             for i, event in enumerate(self.event_list[self.current_page - 1]):
                 self.ScrollAreaList[i]['id'] = event[0]
                 self.ScrollAreaList[i]['title'].setText(event[1])
@@ -311,6 +311,22 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         
 
     def post_event_clicked(self):
+        post_event_window.AddressInput.setText('')
+        post_event_window.CityInput.setText('')
+        post_event_window.TitleInput.setText('')
+        post_event_window.DescriptionInput.setText('')
+        post_event_window.PeriodTimeInput.setText('')
+        post_event_window.DayComboBox.setCurrentText('Day')
+        post_event_window.MonthComboBox.setCurrentText('Month')
+        post_event_window.YearComboBox.setCurrentText('Year')
+        post_event_window.CatagoryComboBox.setCurrentText('Tags')
+        for i, image in enumerate(post_event_window.EventImageList):
+            image_profile = QImage('./DefaultImage.png')
+            post_event_window.EventImageList[i].setPixmap(QPixmap.fromImage(image_profile).scaled(
+	            post_event_window.EventImageList[i].width(),
+	            post_event_window.EventImageList[i].height()))
+        for item in post_event_window.DeleteSignList:
+            item.setVisible(False)
         post_event_window.show()
         self.hide()
 
@@ -471,6 +487,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         receiver.append(user.google_id)
         message = self.ToEmailInput.toPlainText()
         send_email(sender, receiver, subject, message)
+        self.ToEmailInput.setText('')
 
     def map_view_clicked(self):
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
@@ -573,6 +590,8 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.GroupEmailContent.setText('')
 
     def back_button_clicked(self):
+        lobby_window.refresh_host()
+        lobby_window.refresh_attend()
         lobby_window.show()
         self.hide()
         
@@ -598,7 +617,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             _translate = QtCore.QCoreApplication.translate
             host_event_edit_window.TitleInput.setText(_translate("HostEventEdit", current_event.title))
             host_event_edit_window.DescriptionInput.setText(_translate("HostEventEdit", current_event.description))
-            host_event_edit_window.AddressInput.setText(_translate("HostEventEdit", current_event.location))
+            host_event_edit_window.AddressInput.setText(_translate("HostEventEdit", current_event.address))
             host_event_edit_window.CityInput.setText(_translate("HostEventEdit", current_event.location))
             host_event_edit_window.CatagoryComboBox.setCurrentText(_translate("HostEventEdit", current_user.tags))
             self.eventDate = current_event.event_date
@@ -612,7 +631,7 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             current_event = get_event(current_event.eid)
             host_event_edit_window.update_attendees_image()
             host_event_edit_window.PeriodTimeInput.setText(_translate("HostEventEdit",
-                                                                      str((self.expireDate - self.eventDate).days)))
+                                                                      str((self.expireDate - self.eventDate).days+1)))
             image_list = eval(current_event.image)
             display_list = []
             for image in image_list:
@@ -1294,7 +1313,7 @@ def calculate_date(initial_date, register_period):
     d = d1 + timedelta(days=int(register_period))
     year = str(d.year)
     month = str(d.month).zfill(2)
-    date = str(d.day-1).zfill(2)
+    date = str(d.day).zfill(2)
     return year + '-' + month + '-' + date
 
 
