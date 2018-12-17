@@ -378,17 +378,17 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         self.setupUi(self)
         self.AttendEventButton.clicked.connect(self.attend_button_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
-        self.Attendee1.clicked.connect(self.view_profile_clicked)
-        self.Attendee2.clicked.connect(self.view_profile_clicked)
-        self.Attendee3.clicked.connect(self.view_profile_clicked)
-        self.Attendee4.clicked.connect(self.view_profile_clicked)
-        self.Attendee5.clicked.connect(self.view_profile_clicked)
-        self.Attendee6.clicked.connect(self.view_profile_clicked)
-        self.Attendee7.clicked.connect(self.view_profile_clicked)
-        self.Attendee8.clicked.connect(self.view_profile_clicked)
-        self.Attendee9.clicked.connect(self.view_profile_clicked)
-        self.Attendee10.clicked.connect(self.view_profile_clicked)
-        self.Hostimage.clicked.connect(self.view_profile_clicked)
+        self.eye1.clicked.connect(self.view_profile_clicked)
+        self.eye2.clicked.connect(self.view_profile_clicked)
+        self.eye3.clicked.connect(self.view_profile_clicked)
+        self.eye4.clicked.connect(self.view_profile_clicked)
+        self.eye5.clicked.connect(self.view_profile_clicked)
+        self.eye6.clicked.connect(self.view_profile_clicked)
+        self.eye7.clicked.connect(self.view_profile_clicked)
+        self.eye8.clicked.connect(self.view_profile_clicked)
+        self.eye9.clicked.connect(self.view_profile_clicked)
+        self.eye10.clicked.connect(self.view_profile_clicked)
+        self.eyeHost.clicked.connect(self.view_profile_clicked)
         self.mapView.clicked.connect(self.map_view_clicked)
         self.SendEmailButton.clicked.connect(self.sendemail_button_clicked)
 
@@ -415,6 +415,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         profile_view_attend_window.show()
         self.hide()
 
+
     @staticmethod
     def attend_button_clicked():
         result = attend(current_user.uid, current_event.eid)
@@ -440,34 +441,39 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.host_image = None
         self.EventEditButton.clicked.connect(self.edit_button_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
-        self.Attendee1.clicked.connect(lambda: self.view_profile_clicked(0))
-        self.Attendee2.clicked.connect(lambda: self.view_profile_clicked(1))
-        self.Attendee3.clicked.connect(lambda: self.view_profile_clicked(2))
-        self.Attendee4.clicked.connect(lambda: self.view_profile_clicked(3))
-        self.Attendee5.clicked.connect(lambda: self.view_profile_clicked(4))
-        self.Attendee6.clicked.connect(lambda: self.view_profile_clicked(5))
-        self.Attendee7.clicked.connect(lambda: self.view_profile_clicked(6))
-        self.Attendee8.clicked.connect(lambda: self.view_profile_clicked(7))
-        self.Attendee9.clicked.connect(lambda: self.view_profile_clicked(8))
-        self.Attendee10.clicked.connect(lambda: self.view_profile_clicked(9))
-        self.HostImage.clicked.connect(lambda: self.view_profile_clicked(-1))
+        self.eye1.clicked.connect(lambda: self.view_profile_clicked(0))
+        self.eye2.clicked.connect(lambda: self.view_profile_clicked(1))
+        self.eye3.clicked.connect(lambda: self.view_profile_clicked(2))
+        self.eye4.clicked.connect(lambda: self.view_profile_clicked(3))
+        self.eye5.clicked.connect(lambda: self.view_profile_clicked(4))
+        self.eye6.clicked.connect(lambda: self.view_profile_clicked(5))
+        self.eye7.clicked.connect(lambda: self.view_profile_clicked(6))
+        self.eye8.clicked.connect(lambda: self.view_profile_clicked(7))
+        self.eye9.clicked.connect(lambda: self.view_profile_clicked(8))
+        self.eye10.clicked.connect(lambda: self.view_profile_clicked(9))
+        self.eyeHost.clicked.connect(lambda: self.view_profile_clicked(-1))
         self.mapView.clicked.connect(self.map_view_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
         self.SendEmailButton.clicked.connect(self.send_email_button_clicked)
 
     def update_host_image(self):
+        #pixmap = load_image(get_user(current_event.hosts).image)
+        #self.HostImage.setIcon(QIcon(pixmap))
+        #size = QtCore.QSize()
+        #size.setHeight(self.HostImage.height())
+        #size.setWidth(self.HostImage.width())
+        #self.HostImage.setIconSize(size)
+
         pixmap = load_image(get_user(current_event.hosts).image)
-        self.HostImage.setIcon(QIcon(pixmap))
-        size = QtCore.QSize()
-        size.setHeight(self.HostImage.height())
-        size.setWidth(self.HostImage.width())
-        self.HostImage.setIconSize(size)
+        self.HostImage.setVisible(True)
+        self.HostImage.setPixmap(pixmap.scaled(self.HostImage.width(), self.HostImage.height()))
 
     def restore_attendees(self):
         self.image_list = []
         self.last_image = 0
         for i in range(0, 10):
             self.AttendeeList[i].setVisible(False)
+            self.eyeList[i].setVisible(False)
 
     def update_attendees_image(self):
         global current_event
@@ -482,11 +488,8 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
             else:
                 pixmap = load_image(self.image_list[i])
                 self.AttendeeList[i].setVisible(True)
-                self.AttendeeList[i].setIcon(QIcon(pixmap))
-                size = QtCore.QSize()
-                size.setHeight(self.AttendeeList[i].height())
-                size.setWidth(self.AttendeeList[i].width())
-                self.AttendeeList[i].setIconSize(size)
+                self.eyeList[i].setVisible(True)
+                self.AttendeeList[i].setPixmap(pixmap.scaled(self.AttendeeList[i].width(), self.AttendeeList[i].height()))
                 last_image = i
         self.last_image = last_image
 

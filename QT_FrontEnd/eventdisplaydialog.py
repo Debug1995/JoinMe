@@ -8,6 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
+class EyePushButton(QtWidgets.QPushButton):
+    def enterEvent(self, *args, **kwargs):
+        self.setStyleSheet("border-image: url(./eye.png);")
+        
+    def leaveEvent(self, *args, **kwargs):
+        self.setStyleSheet("background: transparent;")
+
 class EventPushButton(QtWidgets.QPushButton):
     def enterEvent(self, *args, **kwargs):
         self.setStyleSheet("border-image: url(./pin-22.png);")
@@ -226,7 +234,7 @@ class Ui_EventDisplayDialog(object):
         self.BackButton.setFont(font)
         self.BackButton.setStyleSheet("border-image: \\*url();")
         self.BackButton.setObjectName("BackButton")
-        self.Attendee1 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee1 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee1.setGeometry(QtCore.QRect(28, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -235,7 +243,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee1.setText("")
         self.Attendee1.setObjectName("Attendee1")
-        self.Attendee2 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee2 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee2.setGeometry(QtCore.QRect(78, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -244,7 +252,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee2.setText("")
         self.Attendee2.setObjectName("Attendee2")
-        self.Attendee3 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee3 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee3.setGeometry(QtCore.QRect(128, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -253,7 +261,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee3.setText("")
         self.Attendee3.setObjectName("Attendee3")
-        self.Attendee5 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee5 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee5.setGeometry(QtCore.QRect(228, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -262,7 +270,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
-        self.Attendee10 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee10 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee10.setGeometry(QtCore.QRect(478, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -271,7 +279,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
-        self.Attendee4 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee4 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee4.setGeometry(QtCore.QRect(178, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -280,7 +288,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee4.setText("")
         self.Attendee4.setObjectName("Attendee4")
-        self.Attendee9 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee9 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee9.setGeometry(QtCore.QRect(428, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -289,7 +297,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee9.setText("")
         self.Attendee9.setObjectName("Attendee9")
-        self.Attendee7 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee7 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee7.setGeometry(QtCore.QRect(328, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -298,7 +306,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee7.setText("")
         self.Attendee7.setObjectName("Attendee7")
-        self.Attendee8 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee8 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee8.setGeometry(QtCore.QRect(378, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -307,7 +315,7 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee8.setText("")
         self.Attendee8.setObjectName("Attendee8")
-        self.Attendee6 = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Attendee6 = QtWidgets.QLabel(EventDisplayDialog)
         self.Attendee6.setGeometry(QtCore.QRect(278, 295, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -316,6 +324,111 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Attendee6.setText("")
         self.Attendee6.setObjectName("Attendee6")
+
+        
+
+        self.eye1 = EyePushButton(EventDisplayDialog)
+        self.eye1.setGeometry(QtCore.QRect(41, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye1.setFont(font)
+        self.eye1.setStyleSheet("background: transparent;")
+        self.eye1.setText("")
+        self.eye1.setObjectName("eye1")
+
+        self.eye2 = EyePushButton(EventDisplayDialog)
+        self.eye2.setGeometry(QtCore.QRect(91, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye2.setFont(font)
+        self.eye2.setStyleSheet("background: transparent;")
+        self.eye2.setText("")
+        self.eye2.setObjectName("eye2")
+
+        self.eye3 = EyePushButton(EventDisplayDialog)
+        self.eye3.setGeometry(QtCore.QRect(141, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye3.setFont(font)
+        self.eye3.setStyleSheet("background: transparent;")
+        self.eye3.setText("")
+        self.eye3.setObjectName("eye3")
+
+        self.eye4 = EyePushButton(EventDisplayDialog)
+        self.eye4.setGeometry(QtCore.QRect(191, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye4.setFont(font)
+        self.eye4.setStyleSheet("background: transparent;")
+        self.eye4.setText("")
+        self.eye4.setObjectName("eye4")
+
+        self.eye5 = EyePushButton(EventDisplayDialog)
+        self.eye5.setGeometry(QtCore.QRect(241, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye5.setFont(font)
+        self.eye5.setStyleSheet("background: transparent;")
+        self.eye5.setText("")
+        self.eye5.setObjectName("eye5")
+
+        self.eye6 = EyePushButton(EventDisplayDialog)
+        self.eye6.setGeometry(QtCore.QRect(291, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye6.setFont(font)
+        self.eye6.setStyleSheet("background: transparent;")
+        self.eye6.setText("")
+        self.eye6.setObjectName("eye6")
+
+        self.eye7 = EyePushButton(EventDisplayDialog)
+        self.eye7.setGeometry(QtCore.QRect(341, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye7.setFont(font)
+        self.eye7.setStyleSheet("background: transparent;")
+        self.eye7.setText("")
+        self.eye7.setObjectName("eye7")
+
+        self.eye8 = EyePushButton(EventDisplayDialog)
+        self.eye8.setGeometry(QtCore.QRect(391, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye8.setFont(font)
+        self.eye8.setStyleSheet("background: transparent;")
+        self.eye8.setText("")
+        self.eye8.setObjectName("eye8")
+
+        self.eye9 = EyePushButton(EventDisplayDialog)
+        self.eye9.setGeometry(QtCore.QRect(441, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye9.setFont(font)
+        self.eye9.setStyleSheet("background: transparent;")
+        self.eye9.setText("")
+        self.eye9.setObjectName("eye9")
+
+        self.eye10 = EyePushButton(EventDisplayDialog)
+        self.eye10.setGeometry(QtCore.QRect(491, 290, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eye10.setFont(font)
+        self.eye10.setStyleSheet("background: transparent;")
+        self.eye10.setText("")
+        self.eye10.setObjectName("eye10")
+        self.eyeList = [
+                self.eye1,
+                self.eye2,
+                self.eye3,
+                self.eye4,
+                self.eye5,
+                self.eye6,
+                self.eye7,
+                self.eye8,
+                self.eye9,
+                self.eye10,
+                ]
+        
         self.AttendeeList = [self.Attendee1,
                              self.Attendee2,
                              self.Attendee3,
@@ -328,7 +441,7 @@ class Ui_EventDisplayDialog(object):
                              self.Attendee10,
                              ]
         
-        self.Hostimage = QtWidgets.QPushButton(EventDisplayDialog)
+        self.Hostimage = QtWidgets.QLabel(EventDisplayDialog)
         self.Hostimage.setGeometry(QtCore.QRect(221, 215, 31, 31))
         font = QtGui.QFont()
         font.setPointSize(16)
@@ -337,6 +450,16 @@ class Ui_EventDisplayDialog(object):
 "")
         self.Hostimage.setText("")
         self.Hostimage.setObjectName("Hostimage")
+
+        self.eyeHost = EyePushButton(EventDisplayDialog)
+        self.eyeHost.setGeometry(QtCore.QRect(235, 210, 21, 21))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.eyeHost.setFont(font)
+        self.eyeHost.setStyleSheet("background: transparent;")
+        self.eyeHost.setText("")
+        self.eyeHost.setObjectName("eyeHost")
+        
         self.graphicsView.raise_()
         self.label_2.raise_()
         self.SendEmailButton.raise_()
@@ -375,6 +498,17 @@ class Ui_EventDisplayDialog(object):
         self.Attendee8.raise_()
         self.Attendee6.raise_()
         self.Hostimage.raise_()
+        self.eye1.raise_()
+        self.eye2.raise_()
+        self.eye3.raise_()
+        self.eye4.raise_()
+        self.eye5.raise_()
+        self.eye6.raise_()
+        self.eye7.raise_()
+        self.eye8.raise_()
+        self.eye9.raise_()
+        self.eye10.raise_()
+        self.eyeHost.raise_()
 
         self.retranslateUi(EventDisplayDialog)
         QtCore.QMetaObject.connectSlotsByName(EventDisplayDialog)
