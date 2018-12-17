@@ -415,9 +415,12 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         profile_view_attend_window.show()
         self.hide()
 
-
     @staticmethod
     def attend_button_clicked():
+        print(current_event.hosts, current_user.uid)
+        if current_event.hosts == current_user.uid:
+            show_dialog('You cannot join the event you host. ')
+            return
         result = attend(current_user.uid, current_event.eid)
         if result == 'DUPLICATE':
             show_dialog('You already attended this event. ')
@@ -425,6 +428,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
             show_dialog('Congrats, you are in! ')
         if result == 'FAILURE':
             show_dialog('Failed to add you to the event, try again later. ')
+        return
 
     def back_button_clicked(self):
         lobby_window.show()
