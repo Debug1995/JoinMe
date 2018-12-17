@@ -241,6 +241,8 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
                         self.ScrollAreaList[i]['image'].width(),
                         self.ScrollAreaList[i]['image'].height()))
                     self.ScrollAreaList[i]['image'].setVisible(True)
+        self.hide()
+        self.show()
 
     def log_out_button_clicked(self):
         global current_user
@@ -291,6 +293,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.total_page = len(self.event_list)
         self.current_page = 1
         self.display_list()
+        
 
     def post_event_clicked(self):
         post_event_window.show()

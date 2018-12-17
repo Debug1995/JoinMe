@@ -68,7 +68,7 @@ class Ui_HostEventDisplayDialog(object):
         self.DescriptionOutput.setObjectName("DescriptionOutput")
 
         self.UserName_5 = QtWidgets.QLabel(HostEventDisplayDialog)
-        self.UserName_5.setGeometry(QtCore.QRect(300, 180, 31, 20))
+        self.UserName_5.setGeometry(QtCore.QRect(300, 180, 41, 20))
         font = QtGui.QFont()
         font.setPointSize(17)
         self.UserName_5.setFont(font)
@@ -89,7 +89,7 @@ class Ui_HostEventDisplayDialog(object):
         self.AddressOutput.setStyleSheet("border-image: \\*url();")
         self.AddressOutput.setObjectName("AddressOutput")
         self.CityOutput = QtWidgets.QLabel(HostEventDisplayDialog)
-        self.CityOutput.setGeometry(QtCore.QRect(340, 180, 181, 20))
+        self.CityOutput.setGeometry(QtCore.QRect(350, 180, 181, 20))
         font = QtGui.QFont()
         font.setPointSize(16)
         self.CityOutput.setFont(font)
@@ -511,7 +511,7 @@ class Ui_HostEventDisplayDialog(object):
                                                   "I\'m a description. I\'m a description. "
                                                   "I\'m a description. I\'m a description. "
                                                   "I\'m a description. I\'m a description. "))
-        self.UserName_5.setText(_translate("HostEventDisplayDialog", "City"))
+        self.UserName_5.setText(_translate("HostEventDisplayDialog", "State"))
         self.EventEditButton.setText(_translate("HostEventDisplayDialog", "Edit"))
         self.AddressOutput.setText(_translate("HostEventDisplayDialog", "I\'m address I\'m address"))
         self.CityOutput.setText(_translate("HostEventDisplayDialog", "I\'m city I\'m city"))
