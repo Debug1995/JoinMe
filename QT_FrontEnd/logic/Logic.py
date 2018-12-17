@@ -156,6 +156,10 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
                 lobby_window.display_list()
                 lobby_window.refresh_host()
                 lobby_window.refresh_attend()
+                lobby_window.TimeComboBox.setCurrentText('Time')
+                lobby_window.CatagoryComboBox.setCurrentText('Category')
+                lobby_window.PlaceComboBox.setCurrentText('Your Place')
+                lobby_window.KeywordInput.setText('')
                 lobby_window.show()
                 self.hide()
             else:
@@ -193,6 +197,10 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.ScrollAreaEvent3.clicked.connect(lambda: self.scroll_clicked(2))
         self.ScrollAreaEvent4.clicked.connect(lambda: self.scroll_clicked(3))
         self.ScrollAreaEvent5.clicked.connect(lambda: self.scroll_clicked(4))
+        self.TimeComboBox.setCurrentText('Time')
+        self.CatagoryComboBox.setCurrentText('Category')
+        self.PlaceComboBox.setCurrentText('Your Place')
+        self.KeywordInput.setText('')
 
     def next_clicked(self):
         if self.current_page < self.total_page:
@@ -496,8 +504,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         lng = coordinate[1]
         get_map_link(lat, lng)
 
-    @staticmethod
-    def attend_button_clicked():
+    def attend_button_clicked(self):
         if str(current_event.hosts) == str(current_user.uid):
             show_dialog('You cannot join the event you host. ')
             return
@@ -507,6 +514,7 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
                 show_dialog('You already attended this event. ')
             if result == 'OK':
                 show_dialog('Congrats, you are in! ')
+                self.update_attendees_image()
             if result == 'FAILURE':
                 show_dialog('Failed to add you to the event, try again later. ')
             return
@@ -577,17 +585,28 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         temp_target = self.ToEmailInput.text()
         receiver = []
         if temp_target:
-            target_user = retrieve_user('nickname', temp_target)
-            receiver.append(target_user.email)
+            okay = False
+            try:
+                target_user = retrieve_user('nickname', temp_target)
+                receiver.append(target_user.email)
+                message = self.GroupEmailContent.toPlainText()
+                send_email(sender, receiver, subject, message)
+                self.ToEmailInput.setText('')
+                self.GroupEmailContent.setText('')
+                okay = True
+            finally:
+                if not okay:
+                    show_dialog("Unable to find use with nickname \'" + temp_target + "\'. Please check and try again. ")
         else:
             tempList = EventController.get_join(current_event.eid)
             for item in tempList:
                 user = get_user(item)
                 receiver.append(user.email)
-        message = self.GroupEmailContent.toPlainText()
-        send_email(sender, receiver, subject, message)
-        self.ToEmailInput.setText('')
-        self.GroupEmailContent.setText('')
+            message = self.GroupEmailContent.toPlainText()
+            send_email(sender, receiver, subject, message)
+            self.ToEmailInput.setText('')
+            self.GroupEmailContent.setText('')
+        
 
     def back_button_clicked(self):
         lobby_window.refresh_host()
@@ -914,6 +933,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
             show_dialog('Please enter a valid address. ')
         else:
             end_date = calculate_date(start_date, self.PeriodTimeInput.text())
+            print(end_date)
             if datetime.strptime(end_date, "%Y-%m-%d") <= datetime.strptime(TODAY, "%Y-%m-%d"):
                 show_dialog('Please make sure that the event ends after today. ')
 
@@ -926,6 +946,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
                 current_event.location = state
                 current_event.register_period = self.PeriodTimeInput.text()
                 current_event.expire_date = end_date
+                print(current_event.expire_date)
                 data = {
                     'title': current_event.title,
                     'tags': current_event.tags,
@@ -1309,11 +1330,15 @@ def valid_period(period):
 
 def calculate_date(initial_date, register_period):
     cur_date = [int(x) for x in initial_date.strip().split('-')]
+    print(cur_date)
     d1 = datetime(cur_date[0], cur_date[1], cur_date[2])
+    print(d1)
     d = d1 + timedelta(days=int(register_period))
+    print(d)
     year = str(d.year)
     month = str(d.month).zfill(2)
     date = str(d.day).zfill(2)
+    print(date)
     return year + '-' + month + '-' + date
 
 
@@ -1331,7 +1356,7 @@ def update_event_display(eid):
     image_list = eval(current_event.image)
     display_list = []
     for event_image in host_event_display_window.EventImageList:
-        event_image.setStyleSheet("border-image: url(./Transparency.png);\n""")
+        event_image.setVisible(False)
     for image in image_list:
         if image is not None:
             display_list.append(image)
@@ -1340,6 +1365,7 @@ def update_event_display(eid):
         host_event_display_window.EventImageList[i].setPixmap(pixmap.scaled(
             host_event_display_window.EventImageList[i].width(),
             host_event_display_window.EventImageList[i].height()))
+        host_event_display_window.EventImageList[i].setVisible(True)
 
 
 def populate_attend_window(eid):
@@ -1353,7 +1379,20 @@ def populate_attend_window(eid):
     attend_event_display_window.DateOutput.setText(event.expire_date)
     attend_event_display_window.DescriptionOutput.setText(event.description)
     attend_event_display_window.UserNameOutput.setText(event.title)
-
+    image_list = eval(current_event.image)
+    print(image_list)
+    display_list = []
+    for event_image in attend_event_display_window.EventImageList:
+        event_image.setVisible(False)
+    for image in image_list:
+        if image is not None:
+            display_list.append(image)
+    for i, image in enumerate(display_list):
+        pixmap = load_image(image)
+        attend_event_display_window.EventImageList[i].setPixmap(pixmap.scaled(
+            attend_event_display_window.EventImageList[i].width(),
+            attend_event_display_window.EventImageList[i].height()))
+        attend_event_display_window.EventImageList[i].setVisible(True)
 
 def get_user(uid):
     res = Connection.request_user(int(uid))
@@ -1428,7 +1467,11 @@ def send_email(sender, receiver, subject, message_text):
     for i in range(receiver_num):
         curr_receiver = receiver[i]
         message = gmail_agent.create_message(sender, curr_receiver, subject, message_text)
-        gmail_agent.send_message(service, sender, message)
+        result = gmail_agent.send_message(service, sender, message)
+        if result == 'FAILURE':
+            show_dialog('Unable to sent email to ' + curr_receiver)
+        else:
+            show_dialog('Email sent to ' + curr_receiver)
 
 
 def get_image_list(user_list):

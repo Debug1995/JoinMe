@@ -20,7 +20,7 @@ class EventModel:
             today = datetime.date.today()
             year = str(today.year)
             month = str(today.month).zfill(2)
-            date = str(today.day - 1).zfill(2)
+            date = str(today.day).zfill(2)
             self.event_date = year + '-' + month + '-' + date
         self.location = location
         if self.validPeriod(register_period):
@@ -61,5 +61,5 @@ class EventModel:
         d = d1 + datetime.timedelta(days=int(register_period))
         year = str(d.year)
         month = str(d.month).zfill(2)
-        date = str(d.day-1).zfill(2)
+        date = str(d.day).zfill(2)
         return year + '-' + month + '-' + date
