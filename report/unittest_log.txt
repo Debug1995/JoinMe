@@ -3950,3 +3950,40 @@ OK
 Ran 6 tests in 12.149s
 
 OK
+......
+----------------------------------------------------------------------
+Ran 6 tests in 12.368s
+
+OK
+.F.EF.
+======================================================================
+ERROR: test_edit_user_1 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 94, in test_edit_user_1
+    self.assertEqual(UserController.retrieve_user('email', 'email_2').nickname, 'nickname_3')
+AttributeError: 'str' object has no attribute 'nickname'
+
+======================================================================
+FAIL: test_add_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 78, in test_add_user
+    self.assertEqual(UserController.add_user(self.user_2), 'DUPLICATE')
+AssertionError: 'SUCCESS' != 'DUPLICATE'
+- SUCCESS
++ DUPLICATE
+
+
+======================================================================
+FAIL: test_edit_user_2 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unit_test.py", line 103, in test_edit_user_2
+    self.assertIsNot(UserController.edit_user(user_3), 'MISSING' or 'DUPLICATE' or 'FAILURE')
+AssertionError: unexpectedly identical: 'MISSING'
+
+----------------------------------------------------------------------
+Ran 6 tests in 9.408s
+
+FAILED (failures=2, errors=1)
