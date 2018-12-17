@@ -223,7 +223,6 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
                 self.ScrollAreaList[i]['title'].setText(event[1])
                 self.ScrollAreaList[i]['address'].setText(event[2])
                 self.ScrollAreaList[i]['date'].setText(event[3].strftime('%Y%m%d'))
-                print(event[4])
                 event_image = eval(event[4])
                 display_image = None
                 for image in event_image:
@@ -255,7 +254,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         sign_in_window.show()
 
     def scroll_clicked(self, i):
-        if self.ScrollAreaDate1.text() != 'Date':
+        if self.ScrollAreaList[i]['id'] != 0:
             populate_attend_window(self.ScrollAreaList[i]['id'])
             attend_event_display_window.show()
             self.hide()
