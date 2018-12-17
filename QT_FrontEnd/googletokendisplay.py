@@ -78,7 +78,7 @@ class Ui_GoogleTokenDisplay(object):
     def retranslateUi(self, GoogleTokenDisplay):
         _translate = QtCore.QCoreApplication.translate
         GoogleTokenDisplay.setWindowTitle(_translate("GoogleTokenDisplay", "Dialog"))
-        self.LoginButton.setText(_translate("GoogleTokenDisplay", "Login in"))
+        self.LoginButton.setText(_translate("GoogleTokenDisplay", "Login"))
         self.JoinMeLabel_2.setText(_translate("GoogleTokenDisplay", "@ Columbia University"))
         self.JoinMeLabel.setText(_translate("GoogleTokenDisplay", "JoinMe"))
         self.TokenInput.setPlaceholderText(_translate("GoogleTokenDisplay", "Please input your Google token!"))

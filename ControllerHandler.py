@@ -9,6 +9,7 @@ from Constants.Constants import UserFields
 def post_event(data):
     event = EventModel(0, data['title'], data['tags'], data['description'], data['image'], data['hosts'], [],
                        data['event_date'], data['state'], data['address'], data['register_period'])
+    
     EventController.print_event(event)
     result = EventController.add_event(event)
     if result == Errors.DUPLICATE.name:

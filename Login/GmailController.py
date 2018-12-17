@@ -68,8 +68,13 @@ class Gmail:
         return {'raw' : b64_string}
     
     def send_message(self, service, user_id, message):
-        message = (service.users().messages().send(userId=user_id, body=message).execute())
-        print('Message Id: %s' % message['id'])
+        sent = False
+        try:
+            message = (service.users().messages().send(userId=user_id, body=message).execute())
+            sent = True
+        finally:
+            if not sent:
+                message = 'FAILURE'
         return message
 
 

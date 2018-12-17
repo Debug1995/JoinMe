@@ -186,7 +186,7 @@ class Ui_EventDisplayDialog(object):
         self.UserName_13.setStyleSheet("border-image: \\*url();")
         self.UserName_13.setObjectName("UserName_13")
         
-
+        self.EventImageList = [self.EventIamge1, self.EventIamge2, self.EventIamge3]
 
         self.mapView = EventPushButton(EventDisplayDialog)
         self.mapView.setGeometry(QtCore.QRect(630, 402, 31, 31))
