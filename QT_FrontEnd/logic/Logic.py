@@ -216,8 +216,10 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.clear_list()
         current_list = self.event_list[self.current_page - 1]
         if len(current_list) == 0:
+            self.pageNumber.setText('0 / 0')
             self.ScrollAreaList[0]['title'].setText('No events match the filter. ')
         else:
+            self.pageNumber.setText(str(self.current_page) + ' / ' + str(self.total_page))
             for i, event in enumerate(self.event_list[self.current_page - 1]):
                 self.ScrollAreaList[i]['id'] = event[0]
                 self.ScrollAreaList[i]['title'].setText(event[1])
@@ -251,13 +253,26 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         google_credentials = None
         self.event_list = []
         self.hide()
+        self.clear_list()
+        self.clear_attend()
+        self.clear_host()
         sign_in_window.show()
 
     def scroll_clicked(self, i):
         if self.ScrollAreaList[i]['id'] != 0:
-            populate_attend_window(self.ScrollAreaList[i]['id'])
-            attend_event_display_window.show()
-            self.hide()
+            if str(current_user.uid) == str(get_event(self.ScrollAreaList[i]['id']).hosts):
+                update_event_display(self.ScrollAreaList[i]['id'])
+                host_event_display_window.restore_attendees()
+                host_event_display_window.update_attendees_image()
+                host_event_display_window.update_host_image()
+                host_event_display_window.show()
+                self.hide()
+            else:
+                populate_attend_window(self.ScrollAreaList[i]['id'])
+                attend_event_display_window.update_host_image()
+                attend_event_display_window.update_attendees_image()
+                attend_event_display_window.show()
+                self.hide()
 
     def search_button_clicked(self):
         tag = self.CatagoryComboBox.currentText()
@@ -299,13 +314,14 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
     def attend_event_clicked(self, i):
         if self.AttendEventList[i - 1].text() != '':
             populate_attend_window(self.AttendEventList[i - 1].text())
+            attend_event_display_window.update_host_image()
+            attend_event_display_window.update_attendees_image()
             attend_event_display_window.show()
             self.hide()
 
     def host_event_clicked(self, i):
         if self.HostEventList[i - 1].text() != '':
             update_event_display(self.HostEventList[i - 1].text())
-            host_event_display_window.restore_attendees()
             host_event_display_window.update_attendees_image()
             host_event_display_window.update_host_image()
             host_event_display_window.show()
@@ -352,7 +368,16 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.current_page = 1
         self.display_list()
 
+    def clear_attend(self):
+        for i in range(3):
+            self.AttendEventList[i].setText('')
+
+    def clear_host(self):
+        for i in range(3):
+            self.HostEventList[i].setText('')
+
     def refresh_attend(self):
+        self.clear_attend()
         global current_user
         current_user = get_user(current_user.uid)
         for i, event in enumerate(current_user.join_events):
@@ -361,6 +386,7 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             self.AttendEventList[i].setText(event)
 
     def refresh_host(self):
+        self.clear_host()
         global current_user
         current_user = get_user(current_user.uid)
         if len(current_user.host_events) > 0:
@@ -375,21 +401,61 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
     def __init__(self, parent=None):
         super(AttendEventDisplayWindow, self).__init__(parent)
         self.setupUi(self)
+        self.last_image = 0
+        self.image_list = []
         self.AttendEventButton.clicked.connect(self.attend_button_clicked)
         self.BackButton.clicked.connect(self.back_button_clicked)
-        self.eye1.clicked.connect(self.view_profile_clicked)
-        self.eye2.clicked.connect(self.view_profile_clicked)
-        self.eye3.clicked.connect(self.view_profile_clicked)
-        self.eye4.clicked.connect(self.view_profile_clicked)
-        self.eye5.clicked.connect(self.view_profile_clicked)
-        self.eye6.clicked.connect(self.view_profile_clicked)
-        self.eye7.clicked.connect(self.view_profile_clicked)
-        self.eye8.clicked.connect(self.view_profile_clicked)
-        self.eye9.clicked.connect(self.view_profile_clicked)
-        self.eye10.clicked.connect(self.view_profile_clicked)
-        self.eyeHost.clicked.connect(self.view_profile_clicked)
+        self.eye1.clicked.connect(lambda: self.view_profile_clicked(0))
+        self.eye2.clicked.connect(lambda: self.view_profile_clicked(1))
+        self.eye3.clicked.connect(lambda: self.view_profile_clicked(2))
+        self.eye4.clicked.connect(lambda: self.view_profile_clicked(3))
+        self.eye5.clicked.connect(lambda: self.view_profile_clicked(4))
+        self.eye6.clicked.connect(lambda: self.view_profile_clicked(5))
+        self.eye7.clicked.connect(lambda: self.view_profile_clicked(6))
+        self.eye8.clicked.connect(lambda: self.view_profile_clicked(7))
+        self.eye9.clicked.connect(lambda: self.view_profile_clicked(8))
+        self.eye10.clicked.connect(lambda: self.view_profile_clicked(9))
+        self.eyeHost.clicked.connect(lambda: self.view_profile_clicked(-1))
         self.mapView.clicked.connect(self.map_view_clicked)
         self.SendEmailButton.clicked.connect(self.sendemail_button_clicked)
+
+    def view_profile_clicked(self, i):
+        if i == -1:
+            profile_view_attend_window.show_user(current_event.hosts)
+        else:
+            profile_view_attend_window.show_user(current_event.attendees[i])
+        profile_view_attend_window.show()
+        self.hide()
+
+    def restore_attendees(self):
+        self.image_list = []
+        self.last_image = 0
+        for i in range(0, 10):
+            self.AttendeeList[i].setVisible(False)
+            self.eyeList[i].setVisible(False)
+
+    def update_attendees_image(self):
+        global current_event
+        current_event = get_event(current_event.eid)
+        self.restore_attendees()
+        self.image_list = get_image_list(current_event.attendees)
+        last_image = 0
+        for i, image in enumerate(self.image_list):
+            if i > 9:
+                last_image = 9
+                break
+            else:
+                pixmap = load_image(self.image_list[i])
+                self.AttendeeList[i].setVisible(True)
+                self.eyeList[i].setVisible(True)
+                self.AttendeeList[i].setPixmap(pixmap.scaled(self.AttendeeList[i].width(), self.AttendeeList[i].height()))
+                last_image = i
+        self.last_image = last_image
+
+    def update_host_image(self):
+        pixmap = load_image(get_user(current_event.hosts).image)
+        self.Hostimage.setVisible(True)
+        self.Hostimage.setPixmap(pixmap.scaled(self.Hostimage.width(), self.Hostimage.height()))
 
     def sendemail_button_clicked(self):
         sender = current_user.google_id
@@ -409,10 +475,6 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         lat = coordinate[0]
         lng = coordinate[1]
         get_map_link(lat, lng)
-
-    def view_profile_clicked(self):
-        profile_view_attend_window.show()
-        self.hide()
 
     @staticmethod
     def attend_button_clicked():
@@ -460,13 +522,6 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.SendEmailButton.clicked.connect(self.send_email_button_clicked)
 
     def update_host_image(self):
-        #pixmap = load_image(get_user(current_event.hosts).image)
-        #self.HostImage.setIcon(QIcon(pixmap))
-        #size = QtCore.QSize()
-        #size.setHeight(self.HostImage.height())
-        #size.setWidth(self.HostImage.width())
-        #self.HostImage.setIconSize(size)
-
         pixmap = load_image(get_user(current_event.hosts).image)
         self.HostImage.setVisible(True)
         self.HostImage.setPixmap(pixmap.scaled(self.HostImage.width(), self.HostImage.height()))
@@ -598,6 +653,10 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
             self.DeleteSignList[i].setVisible(False)
 
     def back_button_clicked(self):
+        update_event_display(current_event.eid)
+        host_event_display_window.restore_attendees()
+        host_event_display_window.update_attendees_image()
+        host_event_display_window.update_host_image()
         host_event_display_window.show()
         self.hide()
 
@@ -959,6 +1018,8 @@ class ProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
         self.BackButton.clicked.connect(self.back_button_clicked)
 
     def back_button_clicked(self):
+        attend_event_display_window.update_host_image()
+        attend_event_display_window.update_attendees_image()
         attend_event_display_window.show()
         self.hide()
 
@@ -969,10 +1030,34 @@ class ProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
         self.LastNameOutput.setText(last_name)
         self.GenderOutput.setText(user.gender)
         self.EmailAddressOutput.setText(user.email)
-        self.DescritionOutput.setText(user.description)
+        self.DescriptionOutput.setText(user.description)
         pixmap = load_image(user.image)
         self.UserImageOutput.setPixmap(pixmap.scaled(self.UserImageOutput.width(),
                                                      self.UserImageOutput.height()))
+        self.CityOutput.setText(user.location)
+        self.TagOutput.setText(user.tags)
+        self.update_attends(user)
+        self.update_hosts(user)
+
+    def update_attends(self, user: UserModel):
+        for event_title in self.AttendEventList:
+            event_title.setText('')
+        for i, event_id in enumerate(user.join_events):
+            event = get_event(event_id)
+            if i > 2:
+                break
+            else:
+                self.AttendEventList[i].setText(event.title)
+
+    def update_hosts(self, user: UserModel):
+        for event_title in self.HostEventList:
+            event_title.setText('')
+        for i, event_id in enumerate(user.host_events):
+            event = get_event(event_id)
+            if i > 2:
+                break
+            else:
+                self.HostEventList[i].setText(event.title)
 
 
 class HostProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
@@ -1001,10 +1086,10 @@ class HostProfileViewWindow(QMainWindow, Ui_UserProfileDisplay):
                                                      self.UserImageOutput.height()))
         self.CityOutput.setText(user.location)
         self.TagOutput.setText(user.tags)
-        self.update_attendees(user)
+        self.update_attends(user)
         self.update_hosts(user)
 
-    def update_attendees(self, user: UserModel):
+    def update_attends(self, user: UserModel):
         for event_title in self.AttendEventList:
             event_title.setText('')
         for i, event_id in enumerate(user.join_events):

@@ -239,8 +239,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee1.setFont(font)
-        self.Attendee1.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee1.setText("")
         self.Attendee1.setObjectName("Attendee1")
         self.Attendee2 = QtWidgets.QLabel(EventDisplayDialog)
@@ -248,8 +246,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee2.setFont(font)
-        self.Attendee2.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee2.setText("")
         self.Attendee2.setObjectName("Attendee2")
         self.Attendee3 = QtWidgets.QLabel(EventDisplayDialog)
@@ -257,8 +253,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee3.setFont(font)
-        self.Attendee3.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee3.setText("")
         self.Attendee3.setObjectName("Attendee3")
         self.Attendee5 = QtWidgets.QLabel(EventDisplayDialog)
@@ -266,8 +260,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee5.setFont(font)
-        self.Attendee5.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee5.setText("")
         self.Attendee5.setObjectName("Attendee5")
         self.Attendee10 = QtWidgets.QLabel(EventDisplayDialog)
@@ -275,8 +267,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee10.setFont(font)
-        self.Attendee10.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee10.setText("")
         self.Attendee10.setObjectName("Attendee10")
         self.Attendee4 = QtWidgets.QLabel(EventDisplayDialog)
@@ -284,8 +274,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee4.setFont(font)
-        self.Attendee4.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee4.setText("")
         self.Attendee4.setObjectName("Attendee4")
         self.Attendee9 = QtWidgets.QLabel(EventDisplayDialog)
@@ -293,8 +281,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee9.setFont(font)
-        self.Attendee9.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee9.setText("")
         self.Attendee9.setObjectName("Attendee9")
         self.Attendee7 = QtWidgets.QLabel(EventDisplayDialog)
@@ -302,8 +288,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee7.setFont(font)
-        self.Attendee7.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee7.setText("")
         self.Attendee7.setObjectName("Attendee7")
         self.Attendee8 = QtWidgets.QLabel(EventDisplayDialog)
@@ -311,8 +295,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee8.setFont(font)
-        self.Attendee8.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee8.setText("")
         self.Attendee8.setObjectName("Attendee8")
         self.Attendee6 = QtWidgets.QLabel(EventDisplayDialog)
@@ -320,12 +302,8 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Attendee6.setFont(font)
-        self.Attendee6.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Attendee6.setText("")
         self.Attendee6.setObjectName("Attendee6")
-
-        
 
         self.eye1 = EyePushButton(EventDisplayDialog)
         self.eye1.setGeometry(QtCore.QRect(41, 290, 21, 21))
@@ -446,8 +424,6 @@ class Ui_EventDisplayDialog(object):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.Hostimage.setFont(font)
-        self.Hostimage.setStyleSheet("border-image: url(./DefaultUser.png);\n"
-"")
         self.Hostimage.setText("")
         self.Hostimage.setObjectName("Hostimage")
 
