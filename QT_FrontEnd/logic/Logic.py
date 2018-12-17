@@ -1,8 +1,9 @@
 import sys
 import urllib.request
+import random
 from datetime import datetime, timedelta
 from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox, QFileDialog
-from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtGui import QPixmap, QIcon, QImage
 from PyQt5 import QtCore
 from QT_FrontEnd.maindialog import Ui_MainDialog
 from QT_FrontEnd.mainwindow import Ui_MainWindow
@@ -150,6 +151,9 @@ class TokenWindow(QMainWindow, Ui_GoogleTokenDisplay):
                 current_user = response_to_user(result[1])
                 update_lobby_user()
                 lobby_window.event_list = get_default_list(current_user.uid)
+                lobby_window.total_page = len(lobby_window.event_list)
+                lobby_window.current_page = 1
+                lobby_window.display_list()
                 lobby_window.refresh_host()
                 lobby_window.refresh_attend()
                 lobby_window.show()
@@ -179,7 +183,65 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.HostEventSeeMoreButton.clicked.connect(self.see_more_host_clicked)
         self.SearchButton.clicked.connect(self.search_button_clicked)
         self.LogOutButton.clicked.connect(self.log_out_button_clicked)
+        self.LastPage.clicked.connect(self.last_clicked)
+        self.NextPage.clicked.connect(self.next_clicked)
         self.event_list = []
+        self.current_page = 1
+        self.total_page = 1
+        self.ScrollAreaEvent1.clicked.connect(lambda: self.scroll_clicked(0))
+        self.ScrollAreaEvent2.clicked.connect(lambda: self.scroll_clicked(1))
+        self.ScrollAreaEvent3.clicked.connect(lambda: self.scroll_clicked(2))
+        self.ScrollAreaEvent4.clicked.connect(lambda: self.scroll_clicked(3))
+        self.ScrollAreaEvent5.clicked.connect(lambda: self.scroll_clicked(4))
+
+    def next_clicked(self):
+        if self.current_page < self.total_page:
+            self.current_page += 1
+            self.display_list()
+
+    def last_clicked(self):
+        if self.current_page > 1:
+            self.current_page -= 1
+            self.display_list()
+
+    def clear_list(self):
+        for item in self.ScrollAreaList:
+            item['title'].setText('')
+            item['date'].setText('')
+            item['address'].setText('')
+            item['image'].setVisible(False)
+            item['id'] = 0
+
+    def display_list(self):
+        self.clear_list()
+        current_list = self.event_list[self.current_page - 1]
+        if len(current_list) == 0:
+            self.ScrollAreaList[0]['title'].setText('No events match the filter. ')
+        else:
+            for i, event in enumerate(self.event_list[self.current_page - 1]):
+                self.ScrollAreaList[i]['id'] = event[0]
+                self.ScrollAreaList[i]['title'].setText(event[1])
+                self.ScrollAreaList[i]['address'].setText(event[2])
+                self.ScrollAreaList[i]['date'].setText(event[3].strftime('%Y%m%d'))
+                print(event[4])
+                event_image = eval(event[4])
+                display_image = None
+                for image in event_image:
+                    if image:
+                        display_image = image
+                        break
+                if not display_image:
+                    image_profile = QImage('./DefaultImage.png')
+                    self.ScrollAreaList[i]['image'].setPixmap(QPixmap.fromImage(image_profile).scaled(
+                        self.ScrollAreaList[i]['image'].width(),
+                        self.ScrollAreaList[i]['image'].height()))
+                    self.ScrollAreaList[i]['image'].setVisible(True)
+                else:
+                    pixmap = load_image(display_image)
+                    self.ScrollAreaList[i]['image'].setPixmap(pixmap.scaled(
+                        self.ScrollAreaList[i]['image'].width(),
+                        self.ScrollAreaList[i]['image'].height()))
+                    self.ScrollAreaList[i]['image'].setVisible(True)
 
     def log_out_button_clicked(self):
         global current_user
@@ -192,9 +254,9 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.hide()
         sign_in_window.show()
 
-    def scroll_clicked(self):
+    def scroll_clicked(self, i):
         if self.ScrollAreaDate1.text() != 'Date':
-            populate_attend_window(self.ScrollAreaDate1.text())
+            populate_attend_window(self.ScrollAreaList[i]['id'])
             attend_event_display_window.show()
             self.hide()
 
@@ -226,7 +288,10 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
             'time': time_margin,
             'keyword': keyword
         }
-        get_list(event_filter)
+        self.event_list = get_list(event_filter)
+        self.total_page = len(self.event_list)
+        self.current_page = 1
+        self.display_list()
 
     def post_event_clicked(self):
         post_event_window.show()
@@ -275,12 +340,18 @@ class LobbyWindow(QMainWindow, Ui_MainDialog):
         self.hide()
 
     def see_more_attend_clicked(self):
-        self.refresh_attend
-        get_attend_event_list()
+        self.refresh_attend()
+        self.event_list = get_attend_event_list()
+        self.total_page = len(self.event_list)
+        self.current_page = 1
+        self.display_list()
 
     def see_more_host_clicked(self):
         self.refresh_host()
-        get_host_event_list()
+        self.event_list = get_host_event_list()
+        self.total_page = len(self.event_list)
+        self.current_page = 1
+        self.display_list()
 
     def refresh_attend(self):
         global current_user
@@ -331,17 +402,13 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
         user = retrieve_user('userid', hostID)
         receiver.append(user.google_id)
         message = self.ToEmailInput.toPlainText()
-        print(sender, receiver, subject, message)
         send_email(sender, receiver, subject, message)
-            
 
     def map_view_clicked(self):
-        print(current_event.address+'1')
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
         coordinate = eval(get_coordinate(current_event.address))
         lat = coordinate[0]
         lng = coordinate[1]
-        print(lat, lng)
         get_map_link(lat, lng)
 
     def view_profile_clicked(self):
@@ -351,15 +418,16 @@ class AttendEventDisplayWindow(QMainWindow, Ui_EventDisplayDialog):
     @staticmethod
     def attend_button_clicked():
         result = attend(current_user.uid, current_event.eid)
-        if result[0] == 'DUPLICATE':
+        if result == 'DUPLICATE':
             show_dialog('You already attended this event. ')
-        if result[0] == 'OK':
+        if result == 'OK':
             show_dialog('Congrats, you are in! ')
-        if result[0] == 'FAILURE':
+        if result == 'FAILURE':
             show_dialog('Failed to add you to the event, try again later. ')
 
     def back_button_clicked(self):
         lobby_window.show()
+        lobby_window.refresh_attend()
         self.hide()
 
 
@@ -445,8 +513,6 @@ class HostEventDisplayWindow(QMainWindow, Ui_HostEventDisplayDialog):
         self.hide()
         
     def map_view_clicked(self):
-        print(current_event.address)
-
         self.mapView.setStyleSheet("border-image: url(./pin-2.png)")
         coordinate = eval(get_coordinate(current_event.address))
         lat = coordinate[0]
@@ -556,7 +622,6 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
         self.restore_attendees()
         self.image_list = get_image_list(current_event.attendees)
         last_image = 0
-        print(self.image_list)
         for i, image in enumerate(self.image_list):
             if i > 9:
                 last_image = 9
@@ -583,7 +648,9 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
         if file_name[0] != '':
             global current_user
             file_path = file_name[0]
-            file_title = str(current_event.eid) + '_event_' + str(number) + '.jpg'
+            now_time = datetime.now().strftime("%Y%m%d%H%M%S")
+            random_num = random.randint(0, 1000000)
+            file_title = str(now_time) + str(random_num) + '_event_' + str(number) + '.jpg'
             upload_result = upload_image(file_path, file_title)
             if upload_result:
                 image_list[number - 1] = file_title
@@ -603,7 +670,6 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
 
     def save_button_clicked(self):
         address = self.AddressInput.text()
-        print(address+'111')
         state = get_state(address)
         year = self.YearComboBox.currentText()
         month = self.MonthComboBox.currentText()
@@ -650,7 +716,6 @@ class HostEventEditWindow(QMainWindow, Ui_HostEventEdit):
                     'register_period': current_event.register_period,
                     'expire_date': current_event.expire_date
                 }
-                print(data['address']+'11111')
                 response = Connection.edit_event(data)
                 if response[0] == 'SUCCESS' or current_event == previous_event:
                     update_event_display(current_event.eid)
@@ -678,6 +743,7 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
 
     def back_button_clicked(self):
         lobby_window.show()
+        lobby_window.refresh_host()
         self.hide()
 
     def upload_image_button_clicked(self, number):
@@ -693,7 +759,9 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         if file_name[0] != '':
             global current_user
             file_path = file_name[0]
-            file_title = str(current_event.eid) + '_event_' + str(number) + '.jpg'
+            now_time = datetime.now().strftime("%Y%m%d%H%M%S")
+            random_num = random.randint(0, 1000000)
+            file_title = str(now_time) + str(random_num) + '_event_' + str(number) + '.jpg'
             upload_result = upload_image(file_path, file_title)
             if upload_result:
                 image_list[number - 1] = file_title
@@ -724,7 +792,6 @@ class PostEventWindow(QMainWindow, Ui_HostEventEdit):
         self.restore_attendees()
         self.image_list = get_image_list(current_event.attendees)
         last_image = 0
-        print(self.image_list)
         for i, image in enumerate(self.image_list):
             if i > 9:
                 last_image = 9
@@ -806,6 +873,7 @@ class ProfileEditWindow(QMainWindow, Ui_RegisterDialog):
     def back_button_clicked(self):
         lobby_window.show()
         update_lobby_user()
+        lobby_window.refresh_host()
         self.hide()
 
     def upload_image_button_clicked(self):
@@ -1198,7 +1266,7 @@ def get_default_list(uid):
     }
     default_list = get_list(event_filter)
 
-    return parse_list(default_list)
+    return default_list
 
 
 def get_list(event_filter):
@@ -1211,7 +1279,6 @@ def get_list(event_filter):
         result = result[1]
 
     result = parse_list(result)
-    print(result)
     return result
 
 
@@ -1271,7 +1338,6 @@ def get_attend_event_list():
         result.append(tuple)
 
     result = parse_list(result)
-    print(result)
     return result
 
 
@@ -1286,7 +1352,6 @@ def get_host_event_list():
         result.append(tuple)
 
     result = parse_list(result)
-    print(result)
     return result
 
 

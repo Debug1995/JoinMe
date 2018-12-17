@@ -209,7 +209,6 @@ def decode_string_event(event_info: str):
     event_info = event_info[1: -1]
     event_info = '[' + event_info + ']'
     field_list = eval(event_info)
-    print(field_list)
     eid = field_list[0]
     event_title = field_list[1]
     tags = field_list[2]
