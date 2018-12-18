@@ -3987,3 +3987,385 @@ AssertionError: unexpectedly identical: 'MISSING'
 Ran 6 tests in 9.408s
 
 FAILED (failures=2, errors=1)
+EEEEEE
+======================================================================
+ERROR: test_add_event (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 23, in test_add_event
+    event_id_1 = EventController.add_event(self.event_1)
+  File "/home/travis/build/Debug1995/JoinMe/Controller/EventController.py", line 9, in add_event
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_add_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 76, in test_add_user
+    UserController.delete_user('nickname_2', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_delete_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 82, in test_delete_user
+    UserController.add_user(self.user_2)
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 9, in add_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_edit_user_1 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 87, in test_edit_user_1
+    UserController.delete_user('nickname_3', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_edit_user_2 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 98, in test_edit_user_2
+    UserController.delete_user('nickname_3', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_retrieve_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 109, in test_retrieve_user
+    UserController.delete_user('nickname_1', 'email_1')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.075s
+
+FAILED (errors=6)
+EEEEEE
+======================================================================
+ERROR: test_add_event (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 23, in test_add_event
+    event_id_1 = EventController.add_event(self.event_1)
+  File "/home/travis/build/Debug1995/JoinMe/Controller/EventController.py", line 9, in add_event
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_add_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 76, in test_add_user
+    UserController.delete_user('nickname_2', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_delete_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 82, in test_delete_user
+    UserController.add_user(self.user_2)
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 9, in add_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_edit_user_1 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 87, in test_edit_user_1
+    UserController.delete_user('nickname_3', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_edit_user_2 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 98, in test_edit_user_2
+    UserController.delete_user('nickname_3', 'email_2')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+======================================================================
+ERROR: test_retrieve_user (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 485, in open_connection
+    socket.SOL_TCP)
+  File "/opt/python/3.6.3/lib/python3.6/socket.py", line 745, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -2] Name or service not known
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "unit_test.py", line 109, in test_retrieve_user
+    UserController.delete_user('nickname_1', 'email_1')
+  File "/home/travis/build/Debug1995/JoinMe/Controller/UserController.py", line 114, in delete_user
+    connector = SqlController().sql_connector
+  File "/home/travis/build/Debug1995/JoinMe/Controller/SqlController.py", line 30, in __init__
+    database=Constants.ConnectConstants.DATABASE,
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/__init__.py", line 179, in connect
+    return MySQLConnection(*args, **kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 94, in __init__
+    self.connect(**kwargs)
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/abstracts.py", line 722, in connect
+    self._open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/connection.py", line 207, in _open_connection
+    self._socket.open_connection()
+  File "/home/travis/virtualenv/python3.6.3/lib/python3.6/site-packages/mysql/connector/network.py", line 501, in open_connection
+    errno=2003, values=(self.get_address(), _strioerror(err)))
+mysql.connector.errors.InterfaceError: 2003: Can't connect to MySQL server on 'DB HOST:3306' (-2 Name or service not known)
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.017s
+
+FAILED (errors=6)
