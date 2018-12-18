@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-# mysql -h joinme.czodqmkcwniq.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+# mysql -h AWS_URL -P 3306 -u USER -p PASSWORD
 class ConnectConstants:
     USER = "DB USER"
     PASSWORD = "DB PASSWORD"
