@@ -83,7 +83,7 @@ class Gmail:
 # print(gmail.get_autho_uri())
 # # 2. copy autho_code back
 # token =
-# credentials = gmail.get_credentials('4/swDObWJO-mkb2K5I9fUMODqYEHgxWjCMSvx1VnKxnUC9XM5nyeBaFCw')
+# credentials = gmail.get_credentials(token)
 # service = gmail.build_service(credentials)
 # # 3. create a mail message object
 # sender = 'sender email'
