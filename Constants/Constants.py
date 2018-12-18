@@ -3,13 +3,13 @@ from enum import Enum
 
 # mysql -h joinme.czodqmkcwniq.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 class ConnectConstants:
-    USER = "admin"
-    PASSWORD = "joinme4156"
-    HOST = "joinme.czodqmkcwniq.us-east-1.rds.amazonaws.com"
-    DATABASE = "joinme_db"
-    AWS_KEY = 'AKIAJK5XABQ3I6BOHTYA'
-    AWS_SECRET = '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'
-    AWS_URL = 'joinmeprofileimage.s3-us-east-1.amazonaws.com'
+    USER = "DB USER"
+    PASSWORD = "DB PASSWORD"
+    HOST = "DB HOST"
+    DATABASE = "DB NAME"
+    AWS_KEY = 'AWS KEY'
+    AWS_SECRET = 'AWS SECRET'
+    AWS_URL = 'AWS URL'
 
 
 class UserFields(Enum):
